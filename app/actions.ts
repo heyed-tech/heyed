@@ -246,19 +246,25 @@ export async function submitContactForm(formData: FormData) {
 
 export async function submitEnterpriseContact(formData: FormData) {
   try {
-    // Extract form data
+    // Extract form data - use contact_submissions table with enterprise-specific reason
+    const company = formData.get("company") as string
+    const staffCount = formData.get("staffCount") as string
+    const enterpriseMessage = formData.get("message") as string
+    
+    // Combine enterprise-specific info into a single message
+    const combinedMessage = `Enterprise Inquiry from ${company} (${staffCount} staff)${enterpriseMessage ? `\n\nMessage: ${enterpriseMessage}` : ''}`
+    
     const data = {
       name: formData.get("name") as string,
       email: formData.get("email") as string,
       phone: (formData.get("phone") as string) || null,
-      company_name: formData.get("company") as string,
-      staff_count: Number.parseInt(formData.get("staffCount") as string),
-      message: (formData.get("message") as string) || null,
+      reason: "Enterprise Plan", // Fixed reason for enterprise contacts
+      message: combinedMessage,
       status: "new",
     }
 
     // Validate required fields
-    if (!data.name || !data.email || !data.company_name || !data.staff_count) {
+    if (!data.name || !data.email || !company || !staffCount) {
       throw new Error("Required fields are missing")
     }
 
@@ -266,11 +272,11 @@ export async function submitEnterpriseContact(formData: FormData) {
       ...data,
       email: "[REDACTED]",
       phone: "[REDACTED]",
-      message: data.message ? "[TRUNCATED]" : null,
+      message: "[TRUNCATED]",
     })
 
-    // Insert data into the enterprise_contact_submissions table
-    const { error } = await supabase.from("enterprise_contact_submissions").insert([data])
+    // Insert data into the contact_submissions table (same as regular contact form)
+    const { error } = await supabase.from("contact_submissions").insert([data])
 
     if (error) {
       console.error("Enterprise contact form submission error:", {
@@ -291,10 +297,12 @@ export async function submitEnterpriseContact(formData: FormData) {
         return { success: true }
       }
 
+      // Extract company and staff count from the combined message for display
+      const companyName = company
+      const staffCountNum = staffCount
+
       // Truncate message if too long and escape special characters
-      const truncatedMessage = data.message 
-        ? (data.message.length > 500 ? data.message.substring(0, 500) + "..." : data.message)
-        : "No message provided"
+      const truncatedMessage = combinedMessage.length > 500 ? combinedMessage.substring(0, 500) + "..." : combinedMessage
 
       // Escape special characters that might break JSON
       const safeMessage = truncatedMessage.replace(/"/g, '\\"').replace(/\n/g, "\\n").replace(/\r/g, "\\r")
@@ -326,11 +334,11 @@ export async function submitEnterpriseContact(formData: FormData) {
               },
               {
                 type: "mrkdwn",
-                text: `*Company:*\n${data.company_name}`,
+                text: `*Company:*\n${companyName}`,
               },
               {
                 type: "mrkdwn",
-                text: `*Staff Count:*\n${data.staff_count}`,
+                text: `*Staff Count:*\n${staffCountNum}`,
               },
             ],
           },
