@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useToast } from "@/components/ui/use-toast"
 import { cn } from "@/lib/utils"
+import { submitEnterpriseContact } from "@/app/actions"
 
 interface EnterpriseContactProps {
   staffCount: number
@@ -22,14 +23,18 @@ export function EnterpriseContact({ staffCount, className }: EnterpriseContactPr
   async function onSubmit(formData: FormData) {
     setIsPending(true)
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      toast({
-        title: "Thanks for your interest!",
-        description: "We'll be in touch with you shortly to discuss your requirements.",
-      })
-      formRef.current?.reset()
+      const result = await submitEnterpriseContact(formData)
+      
+      if (result.success) {
+        toast({
+          title: "Thanks for your interest!",
+          description: "We'll be in touch with you shortly to discuss your requirements.",
+        })
+        formRef.current?.reset()
+        setCount(staffCount) // Reset counter to initial value
+      } else {
+        throw new Error(result.error || "Failed to submit enterprise contact form")
+      }
     } catch (error) {
       toast({
         title: "Something went wrong",
