@@ -283,6 +283,97 @@ export async function submitEnterpriseContact(formData: FormData) {
     }
 
     console.log("Enterprise contact form submitted successfully")
+
+    // Send Slack notification
+    try {
+      if (!process.env.SLACK_WEBHOOK_URL) {
+        console.warn("SLACK_WEBHOOK_URL not configured, skipping Slack notification")
+        return { success: true }
+      }
+
+      // Truncate message if too long and escape special characters
+      const truncatedMessage = data.message 
+        ? (data.message.length > 500 ? data.message.substring(0, 500) + "..." : data.message)
+        : "No message provided"
+
+      // Escape special characters that might break JSON
+      const safeMessage = truncatedMessage.replace(/"/g, '\\"').replace(/\n/g, "\\n").replace(/\r/g, "\\r")
+
+      const slackMessage = {
+        text: "🏢 New Enterprise Contact Submission!",
+        blocks: [
+          {
+            type: "header",
+            text: {
+              type: "plain_text",
+              text: "🏢 New Enterprise Contact Submission!",
+            },
+          },
+          {
+            type: "section",
+            fields: [
+              {
+                type: "mrkdwn",
+                text: `*Name:*\n${data.name}`,
+              },
+              {
+                type: "mrkdwn",
+                text: `*Email:*\n${data.email}`,
+              },
+              {
+                type: "mrkdwn",
+                text: `*Phone:*\n${data.phone || "Not provided"}`,
+              },
+              {
+                type: "mrkdwn",
+                text: `*Company:*\n${data.company_name}`,
+              },
+              {
+                type: "mrkdwn",
+                text: `*Staff Count:*\n${data.staff_count}`,
+              },
+            ],
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: `*Message:*\n${safeMessage}`,
+            },
+          },
+          {
+            type: "context",
+            elements: [
+              {
+                type: "mrkdwn",
+                text: `Submitted at ${new Date().toLocaleString()}`,
+              },
+            ],
+          },
+        ],
+      }
+
+      const response = await fetch(
+        process.env.SLACK_WEBHOOK_URL!,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(slackMessage),
+        },
+      )
+
+      if (!response.ok) {
+        throw new Error(`Slack API error: ${response.status} ${response.statusText}`)
+      }
+
+      console.log("Enterprise contact Slack notification sent successfully")
+    } catch (slackError) {
+      console.error("Failed to send enterprise contact Slack notification:", slackError)
+      // Don't throw error here - we don't want Slack failures to break the contact form
+    }
+
     return { success: true }
   } catch (error) {
     console.error("Enterprise contact form submission failed:", error)
