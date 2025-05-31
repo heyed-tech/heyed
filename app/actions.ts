@@ -39,6 +39,11 @@ export async function registerInterest(formData: FormData) {
 
     // Send Slack notification
     try {
+      if (!process.env.SLACK_WEBHOOK_URL) {
+        console.warn("SLACK_WEBHOOK_URL not configured, skipping Slack notification")
+        return { success: true, data: result }
+      }
+
       const slackMessage = {
         text: "🎉 New Registration Interest!",
         blocks: [
@@ -82,7 +87,7 @@ export async function registerInterest(formData: FormData) {
         ],
       }
 
-      await fetch("https://hooks.slack.com/services/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", {
+      await fetch(process.env.SLACK_WEBHOOK_URL!, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -147,6 +152,11 @@ export async function submitContactForm(formData: FormData) {
 
     // Send Slack notification
     try {
+      if (!process.env.SLACK_WEBHOOK_URL) {
+        console.warn("SLACK_WEBHOOK_URL not configured, skipping Slack notification")
+        return { success: true }
+      }
+
       // Truncate message if too long and escape special characters
       const truncatedMessage = data.message.length > 500 ? data.message.substring(0, 500) + "..." : data.message
 
@@ -204,7 +214,7 @@ export async function submitContactForm(formData: FormData) {
       }
 
       const response = await fetch(
-        "https://hooks.slack.com/services/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",
+        process.env.SLACK_WEBHOOK_URL!,
         {
           method: "POST",
           headers: {
