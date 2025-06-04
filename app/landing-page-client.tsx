@@ -141,7 +141,9 @@ export default function LandingPageClient() {
               </Link>
             </nav>
             <div className="flex items-center gap-4">
-              {/* Login link removed/disabled until the app is ready */}
+              <Button variant="outline" className="border-teal-500 hover:bg-teal-50" asChild>
+                <Link href="http://app.heyed.co.uk/">Login</Link>
+              </Button>
               <RegisterInterestDialog trigger={<Button>Get Started</Button>} />
             </div>
           </div>
