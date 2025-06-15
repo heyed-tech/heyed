@@ -144,7 +144,9 @@ export default function LandingPageClient() {
               <Button variant="outline" className="border-teal-500 hover:bg-teal-50" asChild>
                 <Link href="http://app.heyed.co.uk/">Login</Link>
               </Button>
-              <RegisterInterestDialog trigger={<Button>Get Started</Button>} />
+              <Button asChild>
+                <Link href="https://app.heyed.co.uk/signup">Get Started</Link>
+              </Button>
             </div>
           </div>
         </Container>
@@ -227,7 +229,9 @@ export default function LandingPageClient() {
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 sm:flex-row">
-                  <RegisterInterestDialog trigger={<Button size="lg">Start Free Trial</Button>} />
+                  <Button size="lg" asChild>
+                    <Link href="https://app.heyed.co.uk/signup">Start Free Trial</Link>
+                  </Button>
                   <RegisterInterestDialog
                     trigger={
                       <Button variant="outline" size="lg" className="border-teal-500 hover:bg-teal-50">
@@ -586,7 +590,9 @@ export default function LandingPageClient() {
                 </p>
               </div>
               <div className="flex flex-col gap-2 sm:flex-row">
-                <RegisterInterestDialog trigger={<Button size="lg">Start Free Trial</Button>} />
+                <Button size="lg" asChild>
+                  <Link href="https://app.heyed.co.uk/signup">Start Free Trial</Link>
+                </Button>
                 <RegisterInterestDialog
                   trigger={
                     <Button variant="outline" size="lg" className="border-teal-500 hover:bg-teal-50">
