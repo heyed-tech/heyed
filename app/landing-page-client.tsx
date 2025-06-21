@@ -14,34 +14,30 @@ import { RegisterInterestDialog } from "@/components/register-interest-dialog"
 
 export default function LandingPageClient() {
   // Typewriter effect state
-  const [text, setText] = useState("Clear for ")
+  const [text, setText] = useState("")
   const [isDeleting, setIsDeleting] = useState(false)
   const [loopNum, setLoopNum] = useState(0)
   const [typingSpeed, setTypingSpeed] = useState(150)
 
   // Words to cycle through
-  const words = ["you.", "Ofsted."]
+  const words = ["nurseries.", "clubs."]
   const currentWordIndex = loopNum % words.length
-  const currentWord = words[currentWordIndex]
 
   // Reference to store timeout ID for cleanup
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
-    const baseText = "Clear for "
-
     // Handle typing and deleting logic
     const handleTyping = () => {
       const word = words[currentWordIndex]
-      const fullText = baseText + word
 
       if (!isDeleting) {
         // Typing forward
         setText((prev) => {
-          const nextText = fullText.substring(0, prev.length + 1)
+          const nextText = word.substring(0, prev.length + 1)
 
           // If we've completed typing the word
-          if (nextText === fullText) {
+          if (nextText === word) {
             // Pause at the end of typing before starting to delete
             setTypingSpeed(2000) // Longer pause when word is complete
             setIsDeleting(true)
@@ -54,11 +50,10 @@ export default function LandingPageClient() {
       } else {
         // Deleting
         setText((prev) => {
-          // Only delete the word part, not "Clear for "
           const nextText = prev.substring(0, prev.length - 1)
 
-          // If we've deleted back to "Clear for "
-          if (nextText === baseText) {
+          // If we've deleted everything
+          if (nextText === "") {
             setIsDeleting(false)
             setLoopNum(loopNum + 1)
             setTypingSpeed(500) // Pause before typing the next word
@@ -184,23 +179,15 @@ export default function LandingPageClient() {
                 className="flex flex-col justify-center space-y-4 sm:space-y-6 md:space-y-8 2xl:col-span-2"
               >
                 <div className="space-y-6">
-                  <h1 className="text-3xl sm:text-4xl md:text-4xl lg:text-5xl/none xl:text-6xl/none font-bold tracking-tighter">
+                  <h1 className="text-5xl sm:text-5xl md:text-5xl lg:text-5xl/none xl:text-6xl/none font-bold tracking-tighter">
                     {/* Desktop version with typewriter effect */}
                     <motion.span
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.5, delay: 0.2 }}
-                      className="hidden 2xl:inline"
-                    >
-                      Simplified
-                    </motion.span>
-                    <motion.span
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.5, delay: 0.4 }}
                       className="hidden 2xl:block"
                     >
-                      Compliance.
+                      The back-office solution for compliant
                     </motion.span>
 
                     <div className="hidden 2xl:block h-[1.25em] relative">
@@ -213,7 +200,7 @@ export default function LandingPageClient() {
                     {/* Mobile version with typewriter effect */}
                     <div className="2xl:hidden">
                       <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-                        Simplified compliance.
+                        The back-office solution for compliant
                       </motion.span>
                       <br />
                       <div className="h-[1.25em] mt-1 relative">
