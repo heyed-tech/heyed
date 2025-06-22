@@ -28,10 +28,10 @@ function ScreenshotScrollSection() {
   // Debug: Log initial and ongoing scroll progress
   useEffect(() => {
     console.log("Initial scroll progress:", scrollYProgress.get())
-    const unsubscribe = scrollYProgress.on("change", (value) => {
+    const unsubscribe = scrollYProgress.onChange((value) => {
       console.log("Scroll progress:", value)
     })
-    return unsubscribe
+    return () => unsubscribe()
   }, [scrollYProgress])
 
   // Image opacity transforms - with extended hold periods for 500vh scroll
