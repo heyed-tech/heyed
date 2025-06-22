@@ -18,7 +18,7 @@ function ScreenshotScrollSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "end start"]
+    offset: ["start start", "end end"]
   })
 
   useEffect(() => {
@@ -26,19 +26,19 @@ function ScreenshotScrollSection() {
   }, [])
 
   // Image opacity transforms - smooth transitions
-  const image1Opacity = useTransform(scrollYProgress, [0, 0.2, 0.3], [1, 1, 0])
-  const image1Scale = useTransform(scrollYProgress, [0, 0.2, 0.3], [1, 1, 0.98])
+  const image1Opacity = useTransform(scrollYProgress, [0, 0.15, 0.33], [1, 1, 0])
+  const image1Scale = useTransform(scrollYProgress, [0, 0.15, 0.33], [1, 1, 0.98])
   
-  const image2Opacity = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.6], [0, 1, 1, 0])
-  const image2Scale = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.6], [0.98, 1, 1, 0.98])
+  const image2Opacity = useTransform(scrollYProgress, [0.15, 0.33, 0.5, 0.66], [0, 1, 1, 0])
+  const image2Scale = useTransform(scrollYProgress, [0.15, 0.33, 0.5, 0.66], [0.98, 1, 1, 0.98])
   
-  const image3Opacity = useTransform(scrollYProgress, [0.5, 0.6, 0.8], [0, 1, 1])
-  const image3Scale = useTransform(scrollYProgress, [0.5, 0.6, 0.8], [0.98, 1, 1])
+  const image3Opacity = useTransform(scrollYProgress, [0.5, 0.66, 1], [0, 1, 1])
+  const image3Scale = useTransform(scrollYProgress, [0.5, 0.66, 1], [0.98, 1, 1])
 
   // Text opacity transforms matching image transitions
-  const text1Opacity = useTransform(scrollYProgress, [0, 0.2, 0.3], [1, 1, 0])
-  const text2Opacity = useTransform(scrollYProgress, [0.2, 0.3, 0.5, 0.6], [0, 1, 1, 0])
-  const text3Opacity = useTransform(scrollYProgress, [0.5, 0.6, 0.8], [0, 1, 1])
+  const text1Opacity = useTransform(scrollYProgress, [0, 0.15, 0.33], [1, 1, 0])
+  const text2Opacity = useTransform(scrollYProgress, [0.15, 0.33, 0.5, 0.66], [0, 1, 1, 0])
+  const text3Opacity = useTransform(scrollYProgress, [0.5, 0.66, 1], [0, 1, 1])
 
   if (!isClient) {
     return null
