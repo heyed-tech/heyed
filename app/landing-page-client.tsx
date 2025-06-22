@@ -26,19 +26,19 @@ function ScreenshotScrollSection() {
   }, [])
 
   // Image opacity transforms - smooth transitions
-  const image1Opacity = useTransform(scrollYProgress, [0, 0.1, 0.15], [1, 1, 0])
-  const image1Scale = useTransform(scrollYProgress, [0, 0.1, 0.15], [1, 1, 0.98])
+  const image1Opacity = useTransform(scrollYProgress, [0, 0.12, 0.18], [1, 1, 0])
+  const image1Scale = useTransform(scrollYProgress, [0, 0.12, 0.18], [1, 1, 0.98])
   
-  const image2Opacity = useTransform(scrollYProgress, [0.1, 0.15, 0.25, 0.3], [0, 1, 1, 0])
-  const image2Scale = useTransform(scrollYProgress, [0.1, 0.15, 0.25, 0.3], [0.98, 1, 1, 0.98])
+  const image2Opacity = useTransform(scrollYProgress, [0.12, 0.18, 0.28, 0.34], [0, 1, 1, 0])
+  const image2Scale = useTransform(scrollYProgress, [0.12, 0.18, 0.28, 0.34], [0.98, 1, 1, 0.98])
   
-  const image3Opacity = useTransform(scrollYProgress, [0.25, 0.3, 0.45], [0, 1, 1])
-  const image3Scale = useTransform(scrollYProgress, [0.25, 0.3, 0.45], [0.98, 1, 1])
+  const image3Opacity = useTransform(scrollYProgress, [0.28, 0.34, 0.44], [0, 1, 1])
+  const image3Scale = useTransform(scrollYProgress, [0.28, 0.34, 0.44], [0.98, 1, 1])
 
   // Text opacity transforms matching image transitions
-  const text1Opacity = useTransform(scrollYProgress, [0, 0.1, 0.15], [1, 1, 0])
-  const text2Opacity = useTransform(scrollYProgress, [0.1, 0.15, 0.25, 0.3], [0, 1, 1, 0])
-  const text3Opacity = useTransform(scrollYProgress, [0.25, 0.3, 0.45], [0, 1, 1])
+  const text1Opacity = useTransform(scrollYProgress, [0, 0.12, 0.18], [1, 1, 0])
+  const text2Opacity = useTransform(scrollYProgress, [0.12, 0.18, 0.28, 0.34], [0, 1, 1, 0])
+  const text3Opacity = useTransform(scrollYProgress, [0.28, 0.34, 0.44], [0, 1, 1])
 
   if (!isClient) {
     return null
