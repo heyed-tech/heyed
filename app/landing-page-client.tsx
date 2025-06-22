@@ -18,34 +18,43 @@ function ScreenshotScrollSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "end start"]
+    offset: ["start end", "end start"]
   })
 
   useEffect(() => {
     setIsClient(true)
   }, [])
 
-  // Image opacity transforms - with hold periods for longer visibility
-  const image1Opacity = useTransform(scrollYProgress, [0, 0, 0.15, 0.2], [1, 1, 1, 0])
-  const image1Scale = useTransform(scrollYProgress, [0, 0, 0.15, 0.2], [1, 1, 1, 0.98])
+  // Debug: Log initial and ongoing scroll progress
+  useEffect(() => {
+    console.log("Initial scroll progress:", scrollYProgress.get())
+    const unsubscribe = scrollYProgress.on("change", (value) => {
+      console.log("Scroll progress:", value)
+    })
+    return unsubscribe
+  }, [scrollYProgress])
+
+  // Image opacity transforms - with extended hold periods for 500vh scroll
+  const image1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.28, 0.33], [0, 1, 1, 0])
+  const image1Scale = useTransform(scrollYProgress, [0, 0.05, 0.28, 0.33], [0.98, 1, 1, 0.98])
   
-  const image2Opacity = useTransform(scrollYProgress, [0.15, 0.2, 0.35, 0.4], [0, 1, 1, 0])
-  const image2Scale = useTransform(scrollYProgress, [0.15, 0.2, 0.35, 0.4], [0.98, 1, 1, 0.98])
+  const image2Opacity = useTransform(scrollYProgress, [0.28, 0.33, 0.38, 0.43], [0, 1, 1, 0])
+  const image2Scale = useTransform(scrollYProgress, [0.28, 0.33, 0.38, 0.43], [0.98, 1, 1, 0.98])
   
-  const image3Opacity = useTransform(scrollYProgress, [0.35, 0.4, 0.5, 0.5], [0, 1, 1, 1])
-  const image3Scale = useTransform(scrollYProgress, [0.35, 0.4, 0.5, 0.5], [0.98, 1, 1, 1])
+  const image3Opacity = useTransform(scrollYProgress, [0.38, 0.43, 0.95, 0.95], [0, 1, 1, 1])
+  const image3Scale = useTransform(scrollYProgress, [0.38, 0.43, 0.95, 0.95], [0.98, 1, 1, 1])
 
   // Text opacity transforms matching image transitions
-  const text1Opacity = useTransform(scrollYProgress, [0, 0, 0.15, 0.2], [1, 1, 1, 0])
-  const text2Opacity = useTransform(scrollYProgress, [0.15, 0.2, 0.35, 0.4], [0, 1, 1, 0])
-  const text3Opacity = useTransform(scrollYProgress, [0.35, 0.4, 0.5, 0.5], [0, 1, 1, 1])
+  const text1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.28, 0.33], [0, 1, 1, 0])
+  const text2Opacity = useTransform(scrollYProgress, [0.28, 0.33, 0.38, 0.43], [0, 1, 1, 0])
+  const text3Opacity = useTransform(scrollYProgress, [0.38, 0.43, 0.95, 0.95], [0, 1, 1, 1])
 
   if (!isClient) {
     return null
   }
 
   return (
-    <section ref={sectionRef} className="relative h-[300vh] pt-2 pb-0 bg-gray-50">
+    <section ref={sectionRef} className="relative h-[500vh] pt-2 pb-0 bg-gray-50">
       <div className="sticky top-0 min-h-screen bg-gray-50 flex items-center overflow-hidden" style={{ paddingTop: '32px' }}>
         <Container>
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
