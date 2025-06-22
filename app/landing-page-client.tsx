@@ -18,27 +18,27 @@ function ScreenshotScrollSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "center start"]
+    offset: ["start start", "end start"]
   })
 
   useEffect(() => {
     setIsClient(true)
   }, [])
 
-  // Image opacity transforms - smooth transitions
-  const image1Opacity = useTransform(scrollYProgress, [0, 0.2, 0.25], [1, 1, 0])
-  const image1Scale = useTransform(scrollYProgress, [0, 0.2, 0.25], [1, 1, 0.98])
+  // Image opacity transforms - with hold periods for longer visibility
+  const image1Opacity = useTransform(scrollYProgress, [0, 0, 0.15, 0.2], [1, 1, 1, 0])
+  const image1Scale = useTransform(scrollYProgress, [0, 0, 0.15, 0.2], [1, 1, 1, 0.98])
   
-  const image2Opacity = useTransform(scrollYProgress, [0.2, 0.25, 0.35, 0.4], [0, 1, 1, 0])
-  const image2Scale = useTransform(scrollYProgress, [0.2, 0.25, 0.35, 0.4], [0.98, 1, 1, 0.98])
+  const image2Opacity = useTransform(scrollYProgress, [0.15, 0.2, 0.35, 0.4], [0, 1, 1, 0])
+  const image2Scale = useTransform(scrollYProgress, [0.15, 0.2, 0.35, 0.4], [0.98, 1, 1, 0.98])
   
-  const image3Opacity = useTransform(scrollYProgress, [0.35, 0.4, 0.5], [0, 1, 1])
-  const image3Scale = useTransform(scrollYProgress, [0.35, 0.4, 0.5], [0.98, 1, 1])
+  const image3Opacity = useTransform(scrollYProgress, [0.35, 0.4, 0.5, 0.5], [0, 1, 1, 1])
+  const image3Scale = useTransform(scrollYProgress, [0.35, 0.4, 0.5, 0.5], [0.98, 1, 1, 1])
 
   // Text opacity transforms matching image transitions
-  const text1Opacity = useTransform(scrollYProgress, [0, 0.2, 0.25], [1, 1, 0])
-  const text2Opacity = useTransform(scrollYProgress, [0.2, 0.25, 0.35, 0.4], [0, 1, 1, 0])
-  const text3Opacity = useTransform(scrollYProgress, [0.35, 0.4, 0.5], [0, 1, 1])
+  const text1Opacity = useTransform(scrollYProgress, [0, 0, 0.15, 0.2], [1, 1, 1, 0])
+  const text2Opacity = useTransform(scrollYProgress, [0.15, 0.2, 0.35, 0.4], [0, 1, 1, 0])
+  const text3Opacity = useTransform(scrollYProgress, [0.35, 0.4, 0.5, 0.5], [0, 1, 1, 1])
 
   if (!isClient) {
     return null
