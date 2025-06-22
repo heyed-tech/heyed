@@ -312,7 +312,7 @@ export default function LandingPageClient() {
       </header>
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-16 md:py-20 overflow-hidden">
+        <section className="relative py-12 md:py-20 overflow-hidden">
           {/* Background Image */}
           <div
             className="absolute inset-0 z-0 bg-gray-50"
@@ -343,7 +343,7 @@ export default function LandingPageClient() {
                 className="flex flex-col justify-center space-y-4 sm:space-y-6 md:space-y-8 2xl:col-span-2"
               >
                 <div className="space-y-6">
-                  <h1 className="text-5xl sm:text-5xl md:text-5xl lg:text-5xl/none xl:text-6xl/none font-bold tracking-tighter">
+                  <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-5xl/none xl:text-6xl/none font-bold tracking-tighter">
                     {/* Desktop version with typewriter effect */}
                     <motion.span
                       initial={{ opacity: 0 }}
