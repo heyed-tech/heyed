@@ -1,5 +1,5 @@
 "use client"
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { useState, useEffect, useRef } from "react"
 import HeroIllustration from "@/components/hero-illustration"
 import { Button } from "@/components/ui/button"
@@ -11,6 +11,152 @@ import PricingCalculator from "@/components/pricing-calculator"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Footer } from "@/components/footer"
 import { RegisterInterestDialog } from "@/components/register-interest-dialog"
+
+// Screenshot Scroll Section with hijacking effect
+function ScreenshotScrollSection() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"]
+  })
+
+  // Image opacity transforms - smooth transitions
+  const image1Opacity = useTransform(scrollYProgress, [0, 0.25, 0.35], [1, 1, 0])
+  const image1Scale = useTransform(scrollYProgress, [0, 0.25, 0.35], [1, 1, 0.98])
+  
+  const image2Opacity = useTransform(scrollYProgress, [0.25, 0.35, 0.5, 0.6], [0, 1, 1, 0])
+  const image2Scale = useTransform(scrollYProgress, [0.25, 0.35, 0.5, 0.6], [0.98, 1, 1, 0.98])
+  
+  const image3Opacity = useTransform(scrollYProgress, [0.5, 0.6, 1], [0, 1, 1])
+  const image3Scale = useTransform(scrollYProgress, [0.5, 0.6, 1], [0.98, 1, 1])
+
+  // Text opacity transforms matching image transitions
+  const text1Opacity = useTransform(scrollYProgress, [0, 0.25, 0.35], [1, 1, 0])
+  const text2Opacity = useTransform(scrollYProgress, [0.25, 0.35, 0.5, 0.6], [0, 1, 1, 0])
+  const text3Opacity = useTransform(scrollYProgress, [0.5, 0.6, 1], [0, 1, 1])
+
+  return (
+    <section ref={sectionRef} className="relative h-[300vh] pt-2 pb-0 bg-gray-50">
+      <div className="sticky top-0 min-h-screen bg-gray-50 flex items-center overflow-hidden" style={{ paddingTop: '32px' }}>
+        <Container>
+          <div className="flex flex-col items-center justify-center space-y-4 text-center">
+            <div className="space-y-4 max-w-[85rem] mx-auto">
+              <div className="inline-block rounded-card bg-teal-100 px-3 py-1 text-sm text-teal-700">Platform Overview</div>
+              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight xl:text-5xl/tight">
+                Venue Task Management
+              </h2>
+            </div>
+            
+            {/* Text section with transitions */}
+            <div className="relative h-16 w-full max-w-2xl mx-auto mt-4">
+              <motion.p
+                style={{
+                  opacity: text1Opacity,
+                  position: 'absolute',
+                  width: '100%',
+                  top: 0,
+                  left: 0
+                }}
+                className="text-center text-gray-500 md:text-lg xl:text-xl px-4"
+              >
+                Assign and track tasks across all venues from head office, with real-time compliance visibility in one dashboard.
+              </motion.p>
+              <motion.p
+                style={{
+                  opacity: text2Opacity,
+                  position: 'absolute',
+                  width: '100%',
+                  top: 0,
+                  left: 0
+                }}
+                className="text-center text-gray-500 md:text-lg xl:text-xl px-4"
+              >
+                Venue managers receive assigned tasks with deadlines, track progress in real-time, and get automated alerts for overdue items.
+              </motion.p>
+              <motion.p
+                style={{
+                  opacity: text3Opacity,
+                  position: 'absolute',
+                  width: '100%',
+                  top: 0,
+                  left: 0
+                }}
+                className="text-center text-gray-500 md:text-lg xl:text-xl px-4"
+              >
+                Monitor completion rates across all venues, identify at-risk locations, and track compliance trends with comprehensive analytics.
+              </motion.p>
+            </div>
+
+            {/* Images section - with proper height to prevent cutoff */}
+            <div className="relative w-full flex items-center justify-center mt-4 pb-20" style={{ minHeight: '550px' }}>
+              <div className="relative w-full max-w-5xl mx-auto">
+                {/* Image 1 - Staff Management */}
+                <motion.div
+                  style={{
+                    opacity: image1Opacity,
+                    scale: image1Scale,
+                    x: 0,
+                    y: 0
+                  }}
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <div className="relative w-full md:w-full lg:w-[75%] max-w-4xl">
+                    <div className="absolute -inset-4 bg-gradient-to-br from-teal-400/20 to-blue-400/20 blur-xl opacity-50"></div>
+                    <img 
+                      src="/images/Group 1.svg" 
+                      alt="HeyEd Staff Management" 
+                      className="relative w-full h-auto shadow-xl"
+                    />
+                  </div>
+                </motion.div>
+
+                {/* Image 2 - Compliance Dashboard */}
+                <motion.div
+                  style={{
+                    opacity: image2Opacity,
+                    scale: image2Scale,
+                    x: 0,
+                    y: 0
+                  }}
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <div className="relative w-full md:w-full lg:w-[75%] max-w-4xl">
+                    <div className="absolute -inset-4 bg-gradient-to-br from-teal-400/20 to-teal-500/20 blur-xl opacity-50"></div>
+                    <img 
+                      src="/images/Group 2.svg" 
+                      alt="HeyEd Compliance Dashboard" 
+                      className="relative w-full h-auto shadow-xl"
+                    />
+                  </div>
+                </motion.div>
+
+                {/* Image 3 - Document Management */}
+                <motion.div
+                  style={{
+                    opacity: image3Opacity,
+                    scale: image3Scale,
+                    x: 0,
+                    y: 0
+                  }}
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <div className="relative w-full md:w-full lg:w-[75%] max-w-4xl">
+                    <div className="absolute -inset-4 bg-gradient-to-br from-teal-300/20 to-blue-400/20 blur-xl opacity-50"></div>
+                    <img 
+                      src="/images/Group 3.svg" 
+                      alt="HeyEd Document Management" 
+                      className="relative w-full h-auto shadow-xl"
+                    />
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </div>
+    </section>
+  )
+}
 
 export default function LandingPageClient() {
   // Typewriter effect state
@@ -111,7 +257,7 @@ export default function LandingPageClient() {
     {
       icon: Clock,
       title: "Task Management",
-      description: "Organise work with visual Kanban boards and tasks.",
+      description: "Assign and track venue tasks across multiple locations easily.",
       iconClass: "bg-orange-100 text-orange-600",
     },
   ]
@@ -140,7 +286,7 @@ export default function LandingPageClient() {
                 <Link href="http://app.heyed.co.uk/">Login</Link>
               </Button>
               <Button asChild>
-                <Link href="https://app.heyed.co.uk/signup">Get Started</Link>
+                <Link href="https://app.heyed.co.uk/signup">Book Demo</Link>
               </Button>
             </div>
           </div>
@@ -148,7 +294,7 @@ export default function LandingPageClient() {
       </header>
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative pt-14 pb-6 sm:pt-14 sm:pb-8 md:py-12 lg:py-16 xl:py-20 overflow-hidden">
+        <section className="relative py-16 md:py-20 overflow-hidden">
           {/* Background Image */}
           <div
             className="absolute inset-0 z-0 bg-gray-50"
@@ -179,7 +325,7 @@ export default function LandingPageClient() {
                 className="flex flex-col justify-center space-y-4 sm:space-y-6 md:space-y-8 2xl:col-span-2"
               >
                 <div className="space-y-6">
-                  <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-5xl/none xl:text-6xl/none font-bold tracking-tighter">
+                  <h1 className="text-5xl sm:text-5xl md:text-5xl lg:text-5xl/none xl:text-6xl/none font-bold tracking-tighter">
                     {/* Desktop version with typewriter effect */}
                     <motion.span
                       initial={{ opacity: 0 }}
@@ -211,8 +357,8 @@ export default function LandingPageClient() {
                       </div>
                     </div>
                   </h1>
-                  <p className="max-w-[600px] text-gray-500 md:text-lg xl:text-xl">
-                    Built for nurseries, schools and activity clubs with Ofsted requirements in mind.
+                  <p className="max-w-[600px] xl:max-w-none xl:w-max text-gray-500 md:text-lg xl:text-xl">
+                    Purpose-built for nurseries, schools and clubs to meet<br className="hidden xl:block" /> Ofsted requirements and maintain inspection-ready compliance.
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 sm:flex-row">
@@ -252,7 +398,7 @@ export default function LandingPageClient() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-16 md:py-24 bg-gray-50 relative overflow-hidden">
+        <section id="features" className="pt-16 pb-[10px] md:pt-20 md:pb-[26px] bg-gray-50 relative overflow-hidden">
           {/* Background Decorative Elements */}
           <div className="absolute -left-40 top-40 w-80 h-80 rounded-full border border-teal-200/30 -z-10"></div>
           <div className="absolute -right-40 bottom-40 w-80 h-80 rounded-full border border-blue-200/30 -z-10"></div>
@@ -263,11 +409,10 @@ export default function LandingPageClient() {
               <div className="space-y-4 max-w-[85rem] mx-auto">
                 <div className="inline-block rounded-card bg-teal-100 px-3 py-1 text-sm text-teal-700">Features</div>
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight xl:text-5xl/tight">
-                  Everything you need to manage your staff compliance.
+                  Everything you need to manage your childcare business.
                 </h2>
                 <p className="mx-auto max-w-2xl text-gray-500 md:text-lg xl:text-xl">
-                  Our platform provides all the tools you need to manage your education staff efficiently, from
-                  onboarding to compliance tracking.
+                  Centralise staff records, automate compliance tracking, and streamline task management across all your venues.
                 </p>
               </div>
             </div>
@@ -296,8 +441,11 @@ export default function LandingPageClient() {
           </Container>
         </section>
 
+        {/* Screenshot Scroll Section with Hijacking */}
+        <ScreenshotScrollSection />
+
         {/* Video Section */}
-        <section className="py-16 md:py-24 bg-white relative overflow-hidden">
+        <section className="pt-10 pb-16 md:pt-14 md:pb-20 bg-white relative overflow-hidden">
           {/* Background Decorative Elements */}
           <div
             className="absolute top-20 right-10 w-64 h-64 rounded-full bg-teal-100/20 blur-3xl -z-10 animate-pulse"
@@ -311,12 +459,11 @@ export default function LandingPageClient() {
           <Container className="relative z-10">
             <div className="flex flex-col items-center justify-center space-y-8 text-center">
               <div className="space-y-4 max-w-[85rem] mx-auto">
-                <div className="inline-block rounded-card bg-teal-100 px-3 py-1 text-sm text-teal-700">Demo</div>
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight xl:text-5xl/tight">
-                  See HeyEd in Action
+                  Single Central Record
                 </h2>
                 <p className="mx-auto max-w-2xl text-gray-500 md:text-lg xl:text-xl">
-                  Watch how HeyEd simplifies staff compliance management and saves you time with our intuitive platform.
+                  Maintain complete single central records with automated compliance reminders and secure staff document uploads.
                 </p>
               </div>
             </div>
@@ -338,17 +485,12 @@ export default function LandingPageClient() {
                 </video>
               </div>
 
-              <div className="mt-6 text-center">
-                <p className="text-sm text-gray-500">
-                  Learn how to set up your staff records, track compliance, and stay Ofsted-ready in just a few minutes.
-                </p>
-              </div>
             </div>
           </Container>
         </section>
 
         {/* Pricing Calculator Section */}
-        <section id="pricing" className="py-16 md:py-24 bg-white relative overflow-hidden">
+        <section id="pricing" className="py-16 md:py-20 bg-white relative overflow-hidden">
           {/* Background Decorative Elements */}
           <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-gray-50 to-transparent"></div>
 
@@ -373,7 +515,7 @@ export default function LandingPageClient() {
         {/* Testimonials Section */}
         <section
           id="testimonials"
-          className="py-16 md:py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden"
+          className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden"
         >
           {/* Background Decorative Elements */}
           <div className="absolute -left-20 top-40 w-40 h-40 rounded-full bg-teal-50 blur-2xl -z-10"></div>
@@ -471,7 +613,7 @@ export default function LandingPageClient() {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-16 md:py-24 bg-white relative overflow-hidden">
+        <section className="py-16 md:py-20 bg-white relative overflow-hidden">
           {/* Background Decorative Elements */}
           <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-gray-50 to-transparent"></div>
 
@@ -545,7 +687,7 @@ export default function LandingPageClient() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 md:py-24 relative overflow-hidden">
+        <section className="py-16 md:py-20 relative overflow-hidden">
           {/* Background gradient */}
           <div
             className="absolute inset-0 z-0 bg-gray-50"
