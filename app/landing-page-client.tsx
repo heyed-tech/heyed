@@ -14,11 +14,16 @@ import { RegisterInterestDialog } from "@/components/register-interest-dialog"
 
 // Screenshot Scroll Section with hijacking effect
 function ScreenshotScrollSection() {
+  const [isClient, setIsClient] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"]
   })
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   // Image opacity transforms - smooth transitions
   const image1Opacity = useTransform(scrollYProgress, [0, 0.25, 0.35], [1, 1, 0])
@@ -34,6 +39,10 @@ function ScreenshotScrollSection() {
   const text1Opacity = useTransform(scrollYProgress, [0, 0.25, 0.35], [1, 1, 0])
   const text2Opacity = useTransform(scrollYProgress, [0.25, 0.35, 0.5, 0.6], [0, 1, 1, 0])
   const text3Opacity = useTransform(scrollYProgress, [0.5, 0.6, 1], [0, 1, 1])
+
+  if (!isClient) {
+    return null
+  }
 
   return (
     <section ref={sectionRef} className="relative h-[300vh] pt-2 pb-0 bg-gray-50">
