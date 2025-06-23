@@ -32,13 +32,13 @@ function ScreenshotScrollSection() {
   const image2Opacity = useTransform(scrollYProgress, [0.28, 0.33, 0.38, 0.43], [0, 1, 1, 0])
   const image2Scale = useTransform(scrollYProgress, [0.28, 0.33, 0.38, 0.43], [0.98, 1, 1, 0.98])
   
-  const image3Opacity = useTransform(scrollYProgress, [0.38, 0.43, 0.95, 0.95], [0, 1, 1, 1])
-  const image3Scale = useTransform(scrollYProgress, [0.38, 0.43, 0.95, 0.95], [0.98, 1, 1, 1])
+  const image3Opacity = useTransform(scrollYProgress, [0.38, 0.43, 0.9, 1], [0, 1, 1, 1])
+  const image3Scale = useTransform(scrollYProgress, [0.38, 0.43, 0.9, 1], [0.95, 1, 1, 1])
 
   // Text opacity transforms matching image transitions
   const text1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.28, 0.33], [0, 1, 1, 0])
   const text2Opacity = useTransform(scrollYProgress, [0.28, 0.33, 0.38, 0.43], [0, 1, 1, 0])
-  const text3Opacity = useTransform(scrollYProgress, [0.38, 0.43, 0.95, 0.95], [0, 1, 1, 1])
+  const text3Opacity = useTransform(scrollYProgress, [0.38, 0.43, 0.9, 1], [0, 1, 1, 1])
 
   if (!isClient) {
     return null
@@ -97,7 +97,7 @@ function ScreenshotScrollSection() {
             </div>
 
             {/* Images section - with proper height to prevent cutoff */}
-            <div className="relative w-full flex items-center justify-center mt-4 pb-20" style={{ minHeight: '550px' }}>
+            <div className="relative w-full flex items-center justify-center mt-4 pb-20" style={{ minHeight: '600px' }}>
               <div className="relative w-full max-w-5xl mx-auto">
                 {/* Image 1 - Staff Management */}
                 <motion.div
@@ -114,12 +114,13 @@ function ScreenshotScrollSection() {
                     <img 
                       src="/images/Group 17.svg" 
                       alt="HeyEd Staff Management" 
-                      className="relative max-w-[75%] mx-auto h-auto shadow-xl block md:hidden"
+                      className="relative max-w-[85%] mx-auto h-auto shadow-xl block md:hidden rounded-lg"
+                      loading="eager"
                     />
                     <img 
                       src="/images/Group 1.svg" 
                       alt="HeyEd Staff Management" 
-                      className="relative w-full h-auto shadow-xl hidden md:block"
+                      className="relative w-full h-auto shadow-xl hidden md:block rounded-lg"
                     />
                   </div>
                 </motion.div>
@@ -139,12 +140,13 @@ function ScreenshotScrollSection() {
                     <img 
                       src="/images/Group 19.svg" 
                       alt="HeyEd Compliance Dashboard" 
-                      className="relative max-w-[75%] mx-auto h-auto shadow-xl block md:hidden"
+                      className="relative max-w-[85%] mx-auto h-auto shadow-xl block md:hidden rounded-lg"
+                      loading="eager"
                     />
                     <img 
                       src="/images/Group 2.svg" 
                       alt="HeyEd Compliance Dashboard" 
-                      className="relative w-full h-auto shadow-xl hidden md:block"
+                      className="relative w-full h-auto shadow-xl hidden md:block rounded-lg"
                     />
                   </div>
                 </motion.div>
@@ -164,12 +166,13 @@ function ScreenshotScrollSection() {
                     <img 
                       src="/images/Group 18.svg" 
                       alt="HeyEd Document Management" 
-                      className="relative max-w-[75%] mx-auto h-auto shadow-xl block md:hidden"
+                      className="relative max-w-[85%] mx-auto h-auto shadow-xl block md:hidden rounded-lg"
+                      loading="eager"
                     />
                     <img 
                       src="/images/Group 3.svg" 
                       alt="HeyEd Document Management" 
-                      className="relative w-full h-auto shadow-xl hidden md:block"
+                      className="relative w-full h-auto shadow-xl hidden md:block rounded-lg"
                     />
                   </div>
                 </motion.div>
