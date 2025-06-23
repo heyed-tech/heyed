@@ -45,7 +45,7 @@ function ScreenshotScrollSection() {
   }
 
   return (
-    <section ref={sectionRef} className="relative h-[500vh] pt-2 pb-0 bg-gray-50">
+    <section ref={sectionRef} className="relative h-[500vh] pt-16 md:pt-20 pb-0 bg-gray-50">
       <div className="sticky top-0 min-h-screen bg-gray-50 flex items-center overflow-hidden" style={{ paddingTop: '32px' }}>
         <Container>
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -109,12 +109,17 @@ function ScreenshotScrollSection() {
                   }}
                   className="absolute inset-0 flex items-center justify-center"
                 >
-                  <div className="relative w-full md:w-full lg:w-[75%] max-w-4xl">
+                  <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
                     <div className="absolute -inset-4 bg-gradient-to-br from-teal-400/20 to-blue-400/20 blur-xl opacity-50"></div>
+                    <img 
+                      src="/images/Group 17.svg" 
+                      alt="HeyEd Staff Management" 
+                      className="relative max-w-[75%] mx-auto h-auto shadow-xl block md:hidden"
+                    />
                     <img 
                       src="/images/Group 1.svg" 
                       alt="HeyEd Staff Management" 
-                      className="relative w-full h-auto shadow-xl"
+                      className="relative w-full h-auto shadow-xl hidden md:block"
                     />
                   </div>
                 </motion.div>
@@ -129,12 +134,17 @@ function ScreenshotScrollSection() {
                   }}
                   className="absolute inset-0 flex items-center justify-center"
                 >
-                  <div className="relative w-full md:w-full lg:w-[75%] max-w-4xl">
+                  <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
                     <div className="absolute -inset-4 bg-gradient-to-br from-teal-400/20 to-teal-500/20 blur-xl opacity-50"></div>
+                    <img 
+                      src="/images/Group 19.svg" 
+                      alt="HeyEd Compliance Dashboard" 
+                      className="relative max-w-[75%] mx-auto h-auto shadow-xl block md:hidden"
+                    />
                     <img 
                       src="/images/Group 2.svg" 
                       alt="HeyEd Compliance Dashboard" 
-                      className="relative w-full h-auto shadow-xl"
+                      className="relative w-full h-auto shadow-xl hidden md:block"
                     />
                   </div>
                 </motion.div>
@@ -149,12 +159,17 @@ function ScreenshotScrollSection() {
                   }}
                   className="absolute inset-0 flex items-center justify-center"
                 >
-                  <div className="relative w-full md:w-full lg:w-[75%] max-w-4xl">
+                  <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
                     <div className="absolute -inset-4 bg-gradient-to-br from-teal-300/20 to-blue-400/20 blur-xl opacity-50"></div>
+                    <img 
+                      src="/images/Group 18.svg" 
+                      alt="HeyEd Document Management" 
+                      className="relative max-w-[75%] mx-auto h-auto shadow-xl block md:hidden"
+                    />
                     <img 
                       src="/images/Group 3.svg" 
                       alt="HeyEd Document Management" 
-                      className="relative w-full h-auto shadow-xl"
+                      className="relative w-full h-auto shadow-xl hidden md:block"
                     />
                   </div>
                 </motion.div>
@@ -407,7 +422,7 @@ export default function LandingPageClient() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="pt-16 pb-[10px] md:pt-20 md:pb-[26px] bg-gray-50 relative overflow-hidden">
+        <section id="features" className="pt-16 pb-16 md:pt-20 md:pb-20 bg-gray-50 relative overflow-hidden">
           {/* Background Decorative Elements */}
           <div className="absolute -left-40 top-40 w-80 h-80 rounded-full border border-teal-200/30 -z-10"></div>
           <div className="absolute -right-40 bottom-40 w-80 h-80 rounded-full border border-blue-200/30 -z-10"></div>
