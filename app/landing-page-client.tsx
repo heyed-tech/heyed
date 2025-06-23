@@ -406,11 +406,11 @@ export default function LandingPageClient() {
                     {/* Mobile version with typewriter effect */}
                     <div className="2xl:hidden">
                       <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-                        Automated staff records & task tracking for
+                        Automated staff<br className="hidden xl:block 2xl:hidden" /> records & task tracking for<br className="hidden xl:block 2xl:hidden" />
                       </motion.span>
-                      <span className="inline min-[400px]:hidden">{' '}</span>
-                      <br className="min-[400px]:hidden" />
-                      <span className="hidden min-[400px]:inline">{' '}</span>
+                      <span className="inline min-[400px]:hidden lg:hidden">{' '}</span>
+                      <br className="min-[400px]:hidden lg:hidden" />
+                      <span className="hidden min-[400px]:inline xl:hidden">{' '}</span>
                       <span className="text-teal-500">
                         {text}
                         <span className="animate-pulse">|</span>
