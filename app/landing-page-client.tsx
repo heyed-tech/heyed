@@ -200,7 +200,7 @@ function ScreenshotScrollSection() {
                     <img 
                       src="/images/mobile-document-management.png" 
                       alt="HeyEd Document Management" 
-                      className="relative max-w-[85%] mx-auto h-auto shadow-xl block md:hidden rounded-lg object-contain"
+                      className="relative max-w-[90%] mx-auto h-auto shadow-xl block md:hidden rounded-lg object-contain"
                     />
                     <img 
                       src="/images/Group 3.svg" 
@@ -478,24 +478,19 @@ export default function LandingPageClient() {
             </div>
             <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 mt-16 xl:max-w-6xl 2xl:max-w-7xl">
               {features.map((feature, i) => (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="group flex flex-col items-center space-y-2 rounded-card border bg-white p-6 shadow-sm transition-all duration-700 ease-out hover:shadow-lg hover:scale-[1.01] sm:hover:scale-100 sm:hover:-translate-y-1 sm:duration-500 sm:ease-in-out"
+                  className="group flex flex-col items-center space-y-2 rounded-card border bg-white p-6 shadow-sm transition-all duration-700 ease-out hover:shadow-lg hover:scale-[1.01] sm:hover:scale-100 sm:hover:-translate-y-1 sm:duration-500 sm:ease-in-out md:opacity-0 md:animate-fadeIn"
+                  style={{ animationDelay: `${i * 0.1}s` }}
                 >
-                  <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                    className={`rounded-full p-2 ${feature.iconClass}`}
+                  <div
+                    className={`rounded-full p-2 ${feature.iconClass} md:transition-transform md:hover:scale-110`}
                   >
                     <feature.icon className="h-6 w-6" />
-                  </motion.div>
+                  </div>
                   <h3 className="text-xl font-bold">{feature.title}</h3>
                   <p className="text-center text-gray-500">{feature.description}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
           </Container>
@@ -622,13 +617,10 @@ export default function LandingPageClient() {
                   rating: 5,
                 },
               ].map((testimonial, i) => (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="group relative flex flex-col justify-between space-y-4 rounded-card border bg-white p-6 shadow-sm hover:shadow-lg transition-all duration-300"
+                  className="group relative flex flex-col justify-between space-y-4 rounded-card border bg-white p-6 shadow-sm hover:shadow-lg transition-all duration-300 md:opacity-0 md:animate-fadeIn"
+                  style={{ animationDelay: `${i * 0.1}s` }}
                 >
                   <div className="absolute -right-3 -top-3 rounded-full bg-teal-100 p-2">
                     <svg
@@ -666,7 +658,7 @@ export default function LandingPageClient() {
                       <p className="text-sm text-gray-500">{testimonial.organization}</p>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </Container>
