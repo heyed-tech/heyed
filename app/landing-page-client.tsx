@@ -148,7 +148,7 @@ function ScreenshotScrollSection() {
                   <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
                     <div className="absolute -inset-4 bg-gradient-to-br from-teal-400/20 to-blue-400/20 blur-xl opacity-50"></div>
                     <img 
-                      src="/images/Group 17.png" 
+                      src="/images/mobile-staff-management.png" 
                       alt="HeyEd Staff Management" 
                       className="relative w-full h-auto shadow-xl block md:hidden rounded-lg object-contain"
                     />
@@ -173,7 +173,7 @@ function ScreenshotScrollSection() {
                   <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
                     <div className="absolute -inset-4 bg-gradient-to-br from-teal-400/20 to-teal-500/20 blur-xl opacity-50"></div>
                     <img 
-                      src="/images/Group 19.png" 
+                      src="/images/mobile-compliance-dashboard.png" 
                       alt="HeyEd Compliance Dashboard" 
                       className="relative w-full h-auto shadow-xl block md:hidden rounded-lg object-contain"
                     />
@@ -198,7 +198,7 @@ function ScreenshotScrollSection() {
                   <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
                     <div className="absolute -inset-4 bg-gradient-to-br from-teal-300/20 to-blue-400/20 blur-xl opacity-50"></div>
                     <img 
-                      src="/images/Group 18.png" 
+                      src="/images/mobile-document-management.png" 
                       alt="HeyEd Document Management" 
                       className="relative max-w-[85%] mx-auto h-auto shadow-xl block md:hidden rounded-lg object-contain"
                     />
