@@ -393,7 +393,7 @@ export default function LandingPageClient() {
                       transition={{ duration: 0.5, delay: 0.2 }}
                       className="hidden 2xl:block"
                     >
-                      The back-office engine for compliant
+                      Automated staff records & task tracking for
                     </motion.span>
 
                     <div className="hidden 2xl:block h-[1.25em] relative">
@@ -406,15 +406,15 @@ export default function LandingPageClient() {
                     {/* Mobile version with typewriter effect */}
                     <div className="2xl:hidden">
                       <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-                        The back-office engine for compliant
+                        Automated staff records & task tracking for
                       </motion.span>
-                      <br />
-                      <div className="h-[1.25em] mt-1 relative">
-                        <span className="text-teal-500">
-                          {text}
-                          <span className="animate-pulse">|</span>
-                        </span>
-                      </div>
+                      <span className="inline min-[400px]:hidden">{' '}</span>
+                      <br className="min-[400px]:hidden" />
+                      <span className="hidden min-[400px]:inline">{' '}</span>
+                      <span className="text-teal-500">
+                        {text}
+                        <span className="animate-pulse">|</span>
+                      </span>
                     </div>
                   </h1>
                   <p className="max-w-[600px] xl:max-w-none xl:w-max text-gray-500 md:text-lg xl:text-xl">
