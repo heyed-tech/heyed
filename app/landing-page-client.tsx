@@ -21,23 +21,59 @@ function ScreenshotScrollSection() {
     offset: ["start end", "end start"]
   })
 
+  const [isMobile, setIsMobile] = useState(false)
+
   useEffect(() => {
     setIsClient(true)
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
   // Image opacity transforms - with extended hold periods for 500vh scroll
-  const image1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.28, 0.33], [0, 1, 1, 0])
-  const image1Scale = useTransform(scrollYProgress, [0, 0.05, 0.28, 0.33], [0.98, 1, 1, 0.98])
+  // Mobile gets slightly more time on first image
+  const image1EndMobile = 0.30  // was 0.28
+  const image2StartMobile = 0.35  // was 0.33
   
-  const image2Opacity = useTransform(scrollYProgress, [0.28, 0.33, 0.38, 0.43], [0, 1, 1, 0])
-  const image2Scale = useTransform(scrollYProgress, [0.28, 0.33, 0.38, 0.43], [0.98, 1, 1, 0.98])
+  const image1Opacity = useTransform(
+    scrollYProgress, 
+    isMobile ? [0, 0.05, image1EndMobile, image2StartMobile] : [0, 0.05, 0.28, 0.33], 
+    [0, 1, 1, 0]
+  )
+  const image1Scale = useTransform(
+    scrollYProgress, 
+    isMobile ? [0, 0.05, image1EndMobile, image2StartMobile] : [0, 0.05, 0.28, 0.33], 
+    [0.98, 1, 1, 0.98]
+  )
+  
+  const image2Opacity = useTransform(
+    scrollYProgress, 
+    isMobile ? [image1EndMobile, image2StartMobile, 0.38, 0.43] : [0.28, 0.33, 0.38, 0.43], 
+    [0, 1, 1, 0]
+  )
+  const image2Scale = useTransform(
+    scrollYProgress, 
+    isMobile ? [image1EndMobile, image2StartMobile, 0.38, 0.43] : [0.28, 0.33, 0.38, 0.43], 
+    [0.98, 1, 1, 0.98]
+  )
   
   const image3Opacity = useTransform(scrollYProgress, [0.38, 0.43, 0.9, 1], [0, 1, 1, 1])
   const image3Scale = useTransform(scrollYProgress, [0.38, 0.43, 0.9, 1], [0.95, 1, 1, 1])
 
   // Text opacity transforms matching image transitions
-  const text1Opacity = useTransform(scrollYProgress, [0, 0.05, 0.28, 0.33], [0, 1, 1, 0])
-  const text2Opacity = useTransform(scrollYProgress, [0.28, 0.33, 0.38, 0.43], [0, 1, 1, 0])
+  const text1Opacity = useTransform(
+    scrollYProgress, 
+    isMobile ? [0, 0.05, image1EndMobile, image2StartMobile] : [0, 0.05, 0.28, 0.33], 
+    [0, 1, 1, 0]
+  )
+  const text2Opacity = useTransform(
+    scrollYProgress, 
+    isMobile ? [image1EndMobile, image2StartMobile, 0.38, 0.43] : [0.28, 0.33, 0.38, 0.43], 
+    [0, 1, 1, 0]
+  )
   const text3Opacity = useTransform(scrollYProgress, [0.38, 0.43, 0.9, 1], [0, 1, 1, 1])
 
   if (!isClient) {
@@ -97,7 +133,7 @@ function ScreenshotScrollSection() {
             </div>
 
             {/* Images section - with proper height to prevent cutoff */}
-            <div className="relative w-full flex items-center justify-center mt-4 pb-20" style={{ minHeight: '600px' }}>
+            <div className="relative w-full flex items-center justify-center mt-1 min-[400px]:mt-2 sm:mt-4 pb-12 sm:pb-20 min-h-[500px] min-[400px]:min-h-[550px] sm:min-h-[600px]">
               <div className="relative w-full max-w-5xl mx-auto">
                 {/* Image 1 - Staff Management */}
                 <motion.div
@@ -114,7 +150,7 @@ function ScreenshotScrollSection() {
                     <img 
                       src="/images/Group 17.png" 
                       alt="HeyEd Staff Management" 
-                      className="relative w-full h-auto shadow-xl block md:hidden rounded-lg"
+                      className="relative w-full h-auto shadow-xl block md:hidden rounded-lg object-contain"
                     />
                     <img 
                       src="/images/Group 1.svg" 
@@ -139,7 +175,7 @@ function ScreenshotScrollSection() {
                     <img 
                       src="/images/Group 19.png" 
                       alt="HeyEd Compliance Dashboard" 
-                      className="relative w-full h-auto shadow-xl block md:hidden rounded-lg"
+                      className="relative w-full h-auto shadow-xl block md:hidden rounded-lg object-contain"
                     />
                     <img 
                       src="/images/Group 2.svg" 
@@ -164,7 +200,7 @@ function ScreenshotScrollSection() {
                     <img 
                       src="/images/Group 18.png" 
                       alt="HeyEd Document Management" 
-                      className="relative max-w-[85%] mx-auto h-auto shadow-xl block md:hidden rounded-lg"
+                      className="relative max-w-[85%] mx-auto h-auto shadow-xl block md:hidden rounded-lg object-contain"
                     />
                     <img 
                       src="/images/Group 3.svg" 
@@ -357,7 +393,7 @@ export default function LandingPageClient() {
                       transition={{ duration: 0.5, delay: 0.2 }}
                       className="hidden 2xl:block"
                     >
-                      The back-office solution for compliant
+                      The back-office engine for compliant
                     </motion.span>
 
                     <div className="hidden 2xl:block h-[1.25em] relative">
@@ -370,7 +406,7 @@ export default function LandingPageClient() {
                     {/* Mobile version with typewriter effect */}
                     <div className="2xl:hidden">
                       <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-                        The back-office solution for compliant
+                        The back-office engine for compliant
                       </motion.span>
                       <br />
                       <div className="h-[1.25em] mt-1 relative">
