@@ -173,7 +173,7 @@ function ScreenshotScrollSection() {
                   <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
                     <div className="absolute -inset-4 bg-gradient-to-br from-teal-400/20 to-teal-500/20 blur-xl opacity-50"></div>
                     <img 
-                      src="/images/mobile-compliance-dashboard.png" 
+                      src="/images/mobile-compliance.png" 
                       alt="HeyEd Compliance Dashboard" 
                       className="relative w-full h-auto shadow-xl block md:hidden rounded-lg object-contain"
                     />
