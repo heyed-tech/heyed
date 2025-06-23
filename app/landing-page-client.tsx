@@ -112,10 +112,9 @@ function ScreenshotScrollSection() {
                   <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
                     <div className="absolute -inset-4 bg-gradient-to-br from-teal-400/20 to-blue-400/20 blur-xl opacity-50"></div>
                     <img 
-                      src="/images/Group 17.svg" 
+                      src="/images/Group 17.png" 
                       alt="HeyEd Staff Management" 
-                      className="relative max-w-[85%] mx-auto h-auto shadow-xl block md:hidden rounded-lg"
-                      loading="eager"
+                      className="relative w-full h-auto shadow-xl block md:hidden rounded-lg"
                     />
                     <img 
                       src="/images/Group 1.svg" 
@@ -138,10 +137,9 @@ function ScreenshotScrollSection() {
                   <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
                     <div className="absolute -inset-4 bg-gradient-to-br from-teal-400/20 to-teal-500/20 blur-xl opacity-50"></div>
                     <img 
-                      src="/images/Group 19.svg" 
+                      src="/images/Group 19.png" 
                       alt="HeyEd Compliance Dashboard" 
-                      className="relative max-w-[85%] mx-auto h-auto shadow-xl block md:hidden rounded-lg"
-                      loading="eager"
+                      className="relative w-full h-auto shadow-xl block md:hidden rounded-lg"
                     />
                     <img 
                       src="/images/Group 2.svg" 
@@ -164,10 +162,9 @@ function ScreenshotScrollSection() {
                   <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
                     <div className="absolute -inset-4 bg-gradient-to-br from-teal-300/20 to-blue-400/20 blur-xl opacity-50"></div>
                     <img 
-                      src="/images/Group 18.svg" 
+                      src="/images/Group 18.png" 
                       alt="HeyEd Document Management" 
                       className="relative max-w-[85%] mx-auto h-auto shadow-xl block md:hidden rounded-lg"
-                      loading="eager"
                     />
                     <img 
                       src="/images/Group 3.svg" 
