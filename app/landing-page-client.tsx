@@ -347,7 +347,7 @@ export default function LandingPageClient() {
             </nav>
             <div className="flex items-center gap-4">
               <Button variant="outline" className="border-teal-500 hover:bg-teal-50" asChild>
-                <Link href="http://app.heyed.co.uk/">Login</Link>
+                <Link href="https://app.heyed.co.uk/">Login</Link>
               </Button>
               <Button onClick={() => setIsCalendlyOpen(true)}>
                 Book Demo
