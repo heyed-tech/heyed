@@ -11,6 +11,7 @@ import PricingCalculator from "@/components/pricing-calculator"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Footer } from "@/components/footer"
 import { RegisterInterestDialog } from "@/components/register-interest-dialog"
+import { CalendlyModal } from "@/components/calendly-modal"
 
 // Screenshot Scroll Section with hijacking effect
 function ScreenshotScrollSection() {
@@ -224,6 +225,9 @@ export default function LandingPageClient() {
   const [isDeleting, setIsDeleting] = useState(false)
   const [loopNum, setLoopNum] = useState(0)
   const [typingSpeed, setTypingSpeed] = useState(150)
+  
+  // Calendly modal state
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false)
 
   // Words to cycle through
   const words = ["nurseries.", "clubs."]
@@ -345,8 +349,8 @@ export default function LandingPageClient() {
               <Button variant="outline" className="border-teal-500 hover:bg-teal-50" asChild>
                 <Link href="http://app.heyed.co.uk/">Login</Link>
               </Button>
-              <Button asChild>
-                <Link href="https://app.heyed.co.uk/signup">Book Demo</Link>
+              <Button onClick={() => setIsCalendlyOpen(true)}>
+                Book Demo
               </Button>
             </div>
           </div>
@@ -425,14 +429,14 @@ export default function LandingPageClient() {
                   <Button size="lg" asChild>
                     <Link href="https://app.heyed.co.uk/signup">Start Free Trial</Link>
                   </Button>
-                  <RegisterInterestDialog
-                    trigger={
-                      <Button variant="outline" size="lg" className="border-teal-500 hover:bg-teal-50">
-                        Book a Demo
-                      </Button>
-                    }
-                    defaultInterest="demo"
-                  />
+                  <Button 
+                    variant="outline" 
+                    size="lg" 
+                    className="border-teal-500 hover:bg-teal-50"
+                    onClick={() => setIsCalendlyOpen(true)}
+                  >
+                    Book a Demo
+                  </Button>
                 </div>
                 <div className="flex items-center gap-4 text-sm text-gray-500">
                   <div className="flex items-center gap-1">
@@ -774,14 +778,14 @@ export default function LandingPageClient() {
                 <Button size="lg" asChild>
                   <Link href="https://app.heyed.co.uk/signup">Start Free Trial</Link>
                 </Button>
-                <RegisterInterestDialog
-                  trigger={
-                    <Button variant="outline" size="lg" className="border-teal-500 hover:bg-teal-50">
-                      Book a Demo
-                    </Button>
-                  }
-                  defaultInterest="demo"
-                />
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  className="border-teal-500 hover:bg-teal-50"
+                  onClick={() => setIsCalendlyOpen(true)}
+                >
+                  Book a Demo
+                </Button>
               </div>
               <p className="text-sm text-gray-500">No credit card required. 30-day free trial.</p>
             </div>
@@ -789,6 +793,10 @@ export default function LandingPageClient() {
         </section>
       </main>
       <Footer />
+      <CalendlyModal 
+        isOpen={isCalendlyOpen} 
+        onClose={() => setIsCalendlyOpen(false)} 
+      />
     </div>
   )
 }
