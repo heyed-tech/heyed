@@ -391,3 +391,127 @@ export async function submitEnterpriseContact(formData: FormData) {
     }
   }
 }
+
+export async function registerPDFDownload(formData: FormData) {
+  try {
+    const data = {
+      email: formData.get("email") as string,
+      name: (formData.get("name") as string) || null,
+      company: (formData.get("company") as string) || null,
+      role: (formData.get("role") as string) || null,
+      pdf_name: "EYFS Safeguarding Changes 2025", // You can make this dynamic if you have multiple PDFs
+    }
+
+    // Validate required fields
+    if (!data.email) {
+      throw new Error("Email is required")
+    }
+
+    console.log("Recording PDF download:", {
+      ...data,
+      email: "[REDACTED]",
+    })
+
+    // Insert data into the pdf_downloads table
+    const { error } = await supabase.from("pdf_downloads").insert([data])
+
+    if (error) {
+      console.error("PDF download registration error:", {
+        code: error.code,
+        message: error.message,
+        details: error.details,
+        hint: error.hint,
+      })
+      throw error
+    }
+
+    console.log("PDF download registered successfully")
+
+    // Send Slack notification
+    try {
+      if (!process.env.SLACK_WEBHOOK_URL) {
+        console.warn("SLACK_WEBHOOK_URL not configured, skipping Slack notification")
+      } else {
+        const slackMessage = {
+          text: "📄 New PDF Download!",
+          blocks: [
+            {
+              type: "header",
+              text: {
+                type: "plain_text",
+                text: "📄 New PDF Download!",
+              },
+            },
+            {
+              type: "section",
+              fields: [
+                {
+                  type: "mrkdwn",
+                  text: `*Email:*\n${data.email}`,
+                },
+                {
+                  type: "mrkdwn",
+                  text: `*Name:*\n${data.name || "Not provided"}`,
+                },
+                {
+                  type: "mrkdwn",
+                  text: `*Company:*\n${data.company || "Not provided"}`,
+                },
+                {
+                  type: "mrkdwn",
+                  text: `*Role:*\n${data.role || "Not provided"}`,
+                },
+                {
+                  type: "mrkdwn",
+                  text: `*PDF:*\n${data.pdf_name}`,
+                },
+              ],
+            },
+            {
+              type: "context",
+              elements: [
+                {
+                  type: "mrkdwn",
+                  text: `Downloaded at ${new Date().toLocaleString()}`,
+                },
+              ],
+            },
+          ],
+        }
+
+        const response = await fetch(
+          process.env.SLACK_WEBHOOK_URL!,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(slackMessage),
+          },
+        )
+
+        if (!response.ok) {
+          throw new Error(`Slack API error: ${response.status} ${response.statusText}`)
+        }
+
+        console.log("PDF download Slack notification sent successfully")
+      }
+    } catch (slackError) {
+      console.error("Failed to send PDF download Slack notification:", slackError)
+      // Don't throw error here - we don't want Slack failures to break the download
+    }
+
+    // Return the PDF URL from your public-assets bucket
+    // Properly encode the filename for URL
+    const filename = encodeURIComponent("HeyEd. - EYFS Safeguarding Changes 2025.pdf")
+    const pdfUrl = `https://oxabxfydvltdhxekaqym.supabase.co/storage/v1/object/public/public-assets/${filename}`
+
+    return { success: true, pdfUrl }
+  } catch (error) {
+    console.error("PDF download registration failed:", error)
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to process download request. Please try again.",
+    }
+  }
+}
