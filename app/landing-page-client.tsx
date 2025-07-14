@@ -1,95 +1,94 @@
-"use client"
-import { motion } from "framer-motion"
-import { useState, useEffect, useRef } from "react"
-import dynamic from "next/dynamic"
-import HeroIllustration from "@/components/hero-illustration"
-import { Button } from "@/components/ui/button"
-import { Container } from "@/components/ui/container"
-import { CheckCircle2, Shield, Clock, Users, FileCheck, Star, Building } from "lucide-react"
-import { Logo } from "@/components/logo"
-import Link from "next/link"
-import PricingCalculator from "@/components/pricing-calculator"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Footer } from "@/components/footer"
-import { RegisterInterestDialog } from "@/components/register-interest-dialog"
-import { CalendlyModal } from "@/components/calendly-modal"
+"use client";
+import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import dynamic from "next/dynamic";
+import HeroIllustration from "@/components/hero-illustration";
+import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { Building, CheckCircle2, Clock, FileCheck, Shield, Star, Users } from "lucide-react";
+import { Logo } from "@/components/logo";
+import Link from "next/link";
+import PricingCalculator from "@/components/pricing-calculator";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Footer } from "@/components/footer";
+import { CalendlyModal } from "@/components/calendly-modal";
 
 // Dynamic import for client-only component
 const DynamicScreenshotScrollSection = dynamic(
   () => import('@/components/screenshot-scroll-section'),
   { 
     ssr: false,
-    loading: () => <div style={{ height: '500vh', backgroundColor: '#f9fafb' }} /> // Placeholder to maintain layout
-  }
-)
+    loading: () => <div style={{ height: '500vh', backgroundColor: '#f9fafb' }} />, // Placeholder to maintain layout
+  },
+);
 
 export default function LandingPageClient() {
   // Typewriter effect state
-  const [text, setText] = useState("")
-  const [isDeleting, setIsDeleting] = useState(false)
-  const [loopNum, setLoopNum] = useState(0)
-  const [typingSpeed, setTypingSpeed] = useState(150)
+  const [text, setText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(150);
   
   // Calendly modal state
-  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false)
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
   // Words to cycle through
-  const words = ["nurseries.", "clubs."]
-  const currentWordIndex = loopNum % words.length
+  const words = ["nurseries.", "clubs."];
+  const currentWordIndex = loopNum % words.length;
 
   // Reference to store timeout ID for cleanup
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // Handle typing and deleting logic
     const handleTyping = () => {
-      const word = words[currentWordIndex]
+      const word = words[currentWordIndex];
 
       if (!isDeleting) {
         // Typing forward
         setText((prev) => {
-          const nextText = word.substring(0, prev.length + 1)
+          const nextText = word.substring(0, prev.length + 1);
 
           // If we've completed typing the word
           if (nextText === word) {
             // Pause at the end of typing before starting to delete
-            setTypingSpeed(2000) // Longer pause when word is complete
-            setIsDeleting(true)
+            setTypingSpeed(2000); // Longer pause when word is complete
+            setIsDeleting(true);
           } else {
-            setTypingSpeed(150) // Normal typing speed
+            setTypingSpeed(150); // Normal typing speed
           }
 
-          return nextText
-        })
+          return nextText;
+        });
       } else {
         // Deleting
         setText((prev) => {
-          const nextText = prev.substring(0, prev.length - 1)
+          const nextText = prev.substring(0, prev.length - 1);
 
           // If we've deleted everything
           if (nextText === "") {
-            setIsDeleting(false)
-            setLoopNum(loopNum + 1)
-            setTypingSpeed(500) // Pause before typing the next word
+            setIsDeleting(false);
+            setLoopNum(loopNum + 1);
+            setTypingSpeed(500); // Pause before typing the next word
           } else {
-            setTypingSpeed(100) // Faster when deleting
+            setTypingSpeed(100); // Faster when deleting
           }
 
-          return nextText
-        })
+          return nextText;
+        });
       }
-    }
+    };
 
     // Set up the timeout for the next character
-    timeoutRef.current = setTimeout(handleTyping, typingSpeed)
+    timeoutRef.current = setTimeout(handleTyping, typingSpeed);
 
     // Cleanup function
     return () => {
       if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current)
+        clearTimeout(timeoutRef.current);
       }
-    }
-  }, [text, isDeleting, loopNum, currentWordIndex, words])
+    };
+  }, [text, isDeleting, loopNum, currentWordIndex, words]);
 
   const features = [
     {
@@ -128,7 +127,7 @@ export default function LandingPageClient() {
       description: "Assign and track venue tasks across multiple locations easily.",
       iconClass: "bg-orange-100 text-orange-600",
     },
-  ]
+  ];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -602,5 +601,5 @@ export default function LandingPageClient() {
         onClose={() => setIsCalendlyOpen(false)} 
       />
     </div>
-  )
+  );
 }

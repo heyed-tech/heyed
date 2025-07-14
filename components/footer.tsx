@@ -11,7 +11,7 @@ export function Footer() {
             <Link href="/" className="flex items-center">
               <Logo />
             </Link>
-            <nav className="flex gap-4 md:gap-6">
+            <nav className="flex flex-col sm:flex-row gap-2 sm:gap-4 md:gap-6 text-center">
               <Link href="/privacy" className="text-sm font-medium hover:underline underline-offset-4">
                 Privacy Policy
               </Link>
