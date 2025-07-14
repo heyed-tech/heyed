@@ -22,6 +22,9 @@ const DynamicScreenshotScrollSection = dynamic(
   },
 );
 
+// Typewriter words constant - defined outside component to prevent recreating on each render
+const TYPEWRITER_WORDS = ["nurseries.", "clubs."];
+
 export default function LandingPageClient() {
   // Typewriter effect state
   const [text, setText] = useState("");
@@ -32,9 +35,7 @@ export default function LandingPageClient() {
   // Calendly modal state
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
-  // Words to cycle through
-  const words = ["nurseries.", "clubs."];
-  const currentWordIndex = loopNum % words.length;
+  const currentWordIndex = loopNum % TYPEWRITER_WORDS.length;
 
   // Reference to store timeout ID for cleanup
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -42,7 +43,7 @@ export default function LandingPageClient() {
   useEffect(() => {
     // Handle typing and deleting logic
     const handleTyping = () => {
-      const word = words[currentWordIndex];
+      const word = TYPEWRITER_WORDS[currentWordIndex];
 
       if (!isDeleting) {
         // Typing forward
@@ -88,7 +89,7 @@ export default function LandingPageClient() {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [text, isDeleting, loopNum, currentWordIndex, words]);
+  }, [text, isDeleting, loopNum, currentWordIndex]);
 
   const features = [
     {
