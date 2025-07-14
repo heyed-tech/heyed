@@ -54,7 +54,7 @@ export default function PrivacyPolicy() {
             </Button>
             <header className="not-prose">
               <h1 className="text-4xl font-bold mb-4">Privacy Policy</h1>
-              <p className="text-gray-500 text-lg font-medium">Last Updated: March 2, 2025</p>
+              <p className="text-gray-500 text-lg font-medium">Last Updated: July 14, 2025</p>
             </header>
 
             <div className="space-y-12">
@@ -63,17 +63,23 @@ export default function PrivacyPolicy() {
                 <h2 className="text-2xl font-bold">1. Introduction</h2>
                 <div className="mt-4 space-y-4">
                   <p>
-                    This website is operated by Hey Tech Labs Ltd (registered number 15972086) which has its registered
-                    office address at 124-128 City Road, London, EC1V 2NX. This Privacy Policy sets out how Hey Tech
+                    This website is operated by Hey Tech Labs Ltd (trading as HeyEd) (registered number 15972086) which has its registered
+                    office address at 128 City Road, London, EC1V 2NX. This Privacy Policy sets out how Hey Tech
                     Labs Ltd uses and protects your personal data.
                   </p>
                   <p>
                     References in this Privacy Policy to "we", "us", "our" and "ourselves" are references to Hey Tech
                     Labs Ltd. We are a 'data controller' for the purposes of the Data Protection Act 2018 (DPA 2018) and
-                    a 'controller' for the purposes of the EU General Data Protection Regulation (GDPR) (i.e. we are
+                    UK General Data Protection Regulation (UK GDPR) (i.e. we are
                     responsible for and control the processing of your personal information). We also act as a 'data
-                    processor' for the purposes of DPA 2018 and a 'processor' for the purposes of the GDPR in the course
+                    processor' for the purposes of DPA 2018 and UK GDPR in the course
                     of our business operations.
+                  </p>
+                  <p>
+                    For more information about how we process data on behalf of our customers, please see our{" "}
+                    <Link href="/dpa" className="text-teal-500 hover:underline">
+                      Data Processing Agreement
+                    </Link>.
                   </p>
                 </div>
               </section>
@@ -204,9 +210,9 @@ export default function PrivacyPolicy() {
                     from your browser. However, some of our website features may not function as a result.
                   </p>
                   <p>
-                    For further information on our use of cookies please see our Website Cookie Policy here:{" "}
-                    <Link href="https://heyed.co.uk" className="text-teal-500 hover:underline">
-                      https://heyed.co.uk
+                    For further information on our use of cookies please see our Cookie Policy here:{" "}
+                    <Link href="/cookies" className="text-teal-500 hover:underline">
+                      our Cookies Policy
                     </Link>
                   </p>
                   <p>
@@ -256,7 +262,13 @@ export default function PrivacyPolicy() {
                   <div>
                     <h3 className="text-xl font-semibold">6.1 Specific Third Parties, Including:</h3>
                     <ul className="list-disc pl-6 mt-2 space-y-2">
-                      <li>Yoti Limited (company number 08998951)</li>
+                      <li>AWS (Amazon Web Services) - for secure cloud infrastructure and data storage</li>
+                      <li>Stripe - for payment processing</li>
+                      <li>Google Analytics - for website analytics (see our Cookies Policy)</li>
+                      <li>Hotjar - for user experience analytics (see our Cookies Policy)</li>
+                      <li>Resend - for transactional email delivery</li>
+                      <li>Google Workspace - for internal support operations</li>
+                      <li>Sentry - for error logging and monitoring (pseudonymous data only)</li>
                       <li>
                         Third parties to whom we may choose to sell, transfer or merge parts of our business or our
                         assets. Alternatively, we may seek to acquire other businesses or merge with them. If a change
@@ -344,8 +356,8 @@ export default function PrivacyPolicy() {
                     requirements.
                   </p>
                   <p>
-                    By law we have to keep basic information about you for six years after you cease being our customer
-                    for tax purposes. All other personal data is retained for six months.
+                    By law we have to keep basic financial and transactional information about you for six years after you cease being our customer
+                    for tax purposes. All other operational personal data (including staff records, documents, and compliance data) is retained for 90 days after subscription termination unless otherwise agreed.
                   </p>
                 </div>
               </section>
@@ -452,8 +464,8 @@ export default function PrivacyPolicy() {
                   <p>
                     Please contact us if you have any questions about this Privacy Policy or the information we hold
                     about you. If you wish to contact us, please send an email to{" "}
-                    <Link href="mailto:privacy@heyed.co.uk" className="text-teal-500 hover:underline">
-                      privacy@heyed.co.uk
+                    <Link href="mailto:legal@heyed.co.uk" className="text-teal-500 hover:underline">
+                      legal@heyed.co.uk
                     </Link>{" "}
                     or write to us at Hey Tech Labs Ltd, 128 City Road, London, EC1V 2NX or call us on +44 20 8044 9313.
                   </p>

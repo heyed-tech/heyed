@@ -1,6 +1,7 @@
 "use client"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion } from "framer-motion"
 import { useState, useEffect, useRef } from "react"
+import dynamic from "next/dynamic"
 import HeroIllustration from "@/components/hero-illustration"
 import { Button } from "@/components/ui/button"
 import { Container } from "@/components/ui/container"
@@ -13,211 +14,14 @@ import { Footer } from "@/components/footer"
 import { RegisterInterestDialog } from "@/components/register-interest-dialog"
 import { CalendlyModal } from "@/components/calendly-modal"
 
-// Screenshot Scroll Section with hijacking effect
-function ScreenshotScrollSection() {
-  const [isClient, setIsClient] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"]
-  })
-
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    setIsClient(true)
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  // Image opacity transforms - with extended hold periods for 500vh scroll
-  // Mobile gets slightly more time on first image
-  const image1EndMobile = 0.30  // was 0.28
-  const image2StartMobile = 0.35  // was 0.33
-  
-  const image1Opacity = useTransform(
-    scrollYProgress, 
-    isMobile ? [0, 0.05, image1EndMobile, image2StartMobile] : [0, 0.05, 0.28, 0.33], 
-    [0, 1, 1, 0]
-  )
-  const image1Scale = useTransform(
-    scrollYProgress, 
-    isMobile ? [0, 0.05, image1EndMobile, image2StartMobile] : [0, 0.05, 0.28, 0.33], 
-    [0.98, 1, 1, 0.98]
-  )
-  
-  const image2Opacity = useTransform(
-    scrollYProgress, 
-    isMobile ? [image1EndMobile, image2StartMobile, 0.38, 0.43] : [0.28, 0.33, 0.38, 0.43], 
-    [0, 1, 1, 0]
-  )
-  const image2Scale = useTransform(
-    scrollYProgress, 
-    isMobile ? [image1EndMobile, image2StartMobile, 0.38, 0.43] : [0.28, 0.33, 0.38, 0.43], 
-    [0.98, 1, 1, 0.98]
-  )
-  
-  const image3Opacity = useTransform(scrollYProgress, [0.38, 0.43, 0.9, 1], [0, 1, 1, 1])
-  const image3Scale = useTransform(scrollYProgress, [0.38, 0.43, 0.9, 1], [0.95, 1, 1, 1])
-
-  // Text opacity transforms matching image transitions
-  const text1Opacity = useTransform(
-    scrollYProgress, 
-    isMobile ? [0, 0.05, image1EndMobile, image2StartMobile] : [0, 0.05, 0.28, 0.33], 
-    [0, 1, 1, 0]
-  )
-  const text2Opacity = useTransform(
-    scrollYProgress, 
-    isMobile ? [image1EndMobile, image2StartMobile, 0.38, 0.43] : [0.28, 0.33, 0.38, 0.43], 
-    [0, 1, 1, 0]
-  )
-  const text3Opacity = useTransform(scrollYProgress, [0.38, 0.43, 0.9, 1], [0, 1, 1, 1])
-
-  if (!isClient) {
-    return null
+// Dynamic import for client-only component
+const DynamicScreenshotScrollSection = dynamic(
+  () => import('@/components/screenshot-scroll-section'),
+  { 
+    ssr: false,
+    loading: () => <div style={{ height: '500vh', backgroundColor: '#f9fafb' }} /> // Placeholder to maintain layout
   }
-
-  return (
-    <section ref={sectionRef} className="relative h-[500vh] pt-16 md:pt-20 pb-0 bg-gray-50">
-      <div className="sticky top-0 min-h-screen bg-gray-50 flex items-center overflow-hidden" style={{ paddingTop: '32px' }}>
-        <Container>
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-4 max-w-[85rem] mx-auto">
-              <div className="inline-block rounded-card bg-teal-100 px-3 py-1 text-sm text-teal-700">Platform Overview</div>
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight xl:text-5xl/tight">
-                Venue Task Management
-              </h2>
-            </div>
-            
-            {/* Text section with transitions */}
-            <div className="relative h-16 w-full max-w-2xl mx-auto mt-4">
-              <motion.p
-                style={{
-                  opacity: text1Opacity,
-                  position: 'absolute',
-                  width: '100%',
-                  top: 0,
-                  left: 0
-                }}
-                className="text-center text-gray-500 md:text-lg xl:text-xl px-4"
-              >
-                Assign and track tasks across all venues from head office, with real-time compliance visibility in one dashboard.
-              </motion.p>
-              <motion.p
-                style={{
-                  opacity: text2Opacity,
-                  position: 'absolute',
-                  width: '100%',
-                  top: 0,
-                  left: 0
-                }}
-                className="text-center text-gray-500 md:text-lg xl:text-xl px-4"
-              >
-                Venue managers receive assigned tasks with deadlines, track progress in real-time, and get automated alerts for overdue items.
-              </motion.p>
-              <motion.p
-                style={{
-                  opacity: text3Opacity,
-                  position: 'absolute',
-                  width: '100%',
-                  top: 0,
-                  left: 0
-                }}
-                className="text-center text-gray-500 md:text-lg xl:text-xl px-4"
-              >
-                Monitor completion rates across all venues, identify at-risk locations, and track compliance trends with comprehensive analytics.
-              </motion.p>
-            </div>
-
-            {/* Images section - with proper height to prevent cutoff */}
-            <div className="relative w-full flex items-center justify-center mt-1 min-[400px]:mt-2 sm:mt-4 pb-12 sm:pb-20 min-h-[500px] min-[400px]:min-h-[550px] sm:min-h-[600px]">
-              <div className="relative w-full max-w-5xl mx-auto">
-                {/* Image 1 - Staff Management */}
-                <motion.div
-                  style={{
-                    opacity: image1Opacity,
-                    scale: image1Scale,
-                    x: 0,
-                    y: 0
-                  }}
-                  className="absolute inset-0 flex items-center justify-center"
-                >
-                  <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
-                    <div className="absolute -inset-4 bg-gradient-to-br from-teal-400/20 to-blue-400/20 blur-xl opacity-50"></div>
-                    <img 
-                      src="/images/mobile-staff-management.png" 
-                      alt="HeyEd Staff Management" 
-                      className="relative w-full h-auto shadow-xl block md:hidden rounded-lg object-contain"
-                    />
-                    <img 
-                      src="/images/Group 1.svg" 
-                      alt="HeyEd Staff Management" 
-                      className="relative w-full h-auto shadow-xl hidden md:block rounded-lg"
-                    />
-                  </div>
-                </motion.div>
-
-                {/* Image 2 - Compliance Dashboard */}
-                <motion.div
-                  style={{
-                    opacity: image2Opacity,
-                    scale: image2Scale,
-                    x: 0,
-                    y: 0
-                  }}
-                  className="absolute inset-0 flex items-center justify-center"
-                >
-                  <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
-                    <div className="absolute -inset-4 bg-gradient-to-br from-teal-400/20 to-teal-500/20 blur-xl opacity-50"></div>
-                    <img 
-                      src="/images/mobile-compliance.png" 
-                      alt="HeyEd Compliance Dashboard" 
-                      className="relative w-full h-auto shadow-xl block md:hidden rounded-lg object-contain"
-                    />
-                    <img 
-                      src="/images/Group 2.svg" 
-                      alt="HeyEd Compliance Dashboard" 
-                      className="relative w-full h-auto shadow-xl hidden md:block rounded-lg"
-                    />
-                  </div>
-                </motion.div>
-
-                {/* Image 3 - Document Management */}
-                <motion.div
-                  style={{
-                    opacity: image3Opacity,
-                    scale: image3Scale,
-                    x: 0,
-                    y: 0
-                  }}
-                  className="absolute inset-0 flex items-center justify-center"
-                >
-                  <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
-                    <div className="absolute -inset-4 bg-gradient-to-br from-teal-300/20 to-blue-400/20 blur-xl opacity-50"></div>
-                    <img 
-                      src="/images/mobile-document-management.png" 
-                      alt="HeyEd Document Management" 
-                      className="relative max-w-[90%] mx-auto h-auto shadow-xl block md:hidden rounded-lg object-contain"
-                    />
-                    <img 
-                      src="/images/Group 3.svg" 
-                      alt="HeyEd Document Management" 
-                      className="relative w-full h-auto shadow-xl hidden md:block rounded-lg"
-                    />
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </div>
-    </section>
-  )
-}
+)
 
 export default function LandingPageClient() {
   // Typewriter effect state
@@ -501,7 +305,7 @@ export default function LandingPageClient() {
         </section>
 
         {/* Screenshot Scroll Section with Hijacking */}
-        <ScreenshotScrollSection />
+        <DynamicScreenshotScrollSection />
 
         {/* Video Section */}
         <section className="pt-10 pb-16 md:pt-14 md:pb-20 bg-white relative overflow-hidden">

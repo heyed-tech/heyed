@@ -15,6 +15,12 @@ export function Footer() {
               <Link href="/privacy" className="text-sm font-medium hover:underline underline-offset-4">
                 Privacy Policy
               </Link>
+              <Link href="/cookies" className="text-sm font-medium hover:underline underline-offset-4">
+                Cookies Policy
+              </Link>
+              <Link href="/dpa" className="text-sm font-medium hover:underline underline-offset-4">
+                DPA
+              </Link>
               <Link href="/terms" className="text-sm font-medium hover:underline underline-offset-4">
                 Terms of Service
               </Link>

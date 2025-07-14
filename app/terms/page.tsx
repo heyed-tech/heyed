@@ -87,7 +87,6 @@ export default function TermsOfService() {
                   </p>
                   <ul className="list-disc pl-6 mt-4 space-y-2">
                     <li>Staff Management Hub, including Digital Single Central Record</li>
-                    <li>Safeguarding Suite for incident management</li>
                     <li>Professional Development Platform</li>
                     <li>Automated compliance tools and alerts</li>
                     <li>Document verification systems</li>
