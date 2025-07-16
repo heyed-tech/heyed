@@ -338,7 +338,7 @@ export default function LandingPageClient() {
                 style={{ aspectRatio: "5813 / 3375" }}
               >
                 <video
-                  src="https://oxabxfydvltdhxekaqym.supabase.co/storage/v1/object/public/public-assets//heyed_demo.mp4"
+                  src="https://oxabxfydvltdhxekaqym.supabase.co/storage/v1/object/public/public-assets/Ad.mp4"
                   poster="/images/heyed-demo-poster.png"
                   controls
                   preload="metadata"
