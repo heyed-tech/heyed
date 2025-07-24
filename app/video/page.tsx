@@ -66,8 +66,6 @@ export default function VideoPage() {
                   controls
                   preload="metadata"
                   className="w-full h-full object-cover"
-                  autoPlay
-                  muted
                 >
                   Your browser does not support the video tag.
                 </video>
