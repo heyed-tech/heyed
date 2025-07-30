@@ -401,7 +401,7 @@ export default function LandingPageClient() {
                 {
                   quote:
                     "HeyEd. has made the central record one less thing to think about. We have peace of mind we're always Ofsted-ready.",
-                  author: "Lauren Cooper",
+                  author: "Lauren Nicole",
                   role: "Assistant Headteacher",
                   organization: "Monkfrith Primary",
                   rating: 5,
