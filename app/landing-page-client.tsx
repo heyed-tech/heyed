@@ -153,7 +153,7 @@ export default function LandingPageClient() {
               <Button variant="outline" className="border-teal-500 hover:bg-teal-50" asChild>
                 <Link href="https://app.heyed.co.uk/">Login</Link>
               </Button>
-              <Button onClick={() => setIsCalendlyOpen(true)}>
+              <Button>
                 Book Demo
               </Button>
             </div>
@@ -237,7 +237,6 @@ export default function LandingPageClient() {
                     variant="outline" 
                     size="lg" 
                     className="border-teal-500 hover:bg-teal-50"
-                    onClick={() => setIsCalendlyOpen(true)}
                   >
                     Book a Demo
                   </Button>
@@ -585,7 +584,6 @@ export default function LandingPageClient() {
                   variant="outline" 
                   size="lg" 
                   className="border-teal-500 hover:bg-teal-50"
-                  onClick={() => setIsCalendlyOpen(true)}
                 >
                   Book a Demo
                 </Button>
