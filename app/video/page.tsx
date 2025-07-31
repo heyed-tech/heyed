@@ -33,7 +33,7 @@ export default function VideoPage() {
               <Button variant="outline" className="border-teal-500 hover:bg-teal-50" asChild>
                 <Link href="https://app.heyed.co.uk/">Login</Link>
               </Button>
-              <Button>
+              <Button onClick={() => setIsCalendlyOpen(true)}>
                 Book Demo
               </Button>
             </div>
@@ -82,6 +82,7 @@ export default function VideoPage() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button 
                     size="lg"
+                    onClick={() => setIsCalendlyOpen(true)}
                   >
                     Schedule a Demo
                   </Button>
