@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Send, Loader2, Copy, Check, Trash2 } from 'lucide-react'
+import { Send, Loader2, Copy, Check, Trash2, Info, ChevronDown, ChevronUp } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -16,6 +16,39 @@ interface Message {
 }
 
 type SettingType = 'nursery' | 'club'
+
+function DisclaimerCollapsible() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <div className="rounded-card border border-gray-200 bg-gray-50">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className={`flex w-full items-center justify-between p-2 sm:p-3 text-left hover:bg-gray-100 transition-colors ${
+          isOpen ? 'rounded-t-card' : 'rounded-card'
+        }`}
+      >
+        <div className="flex items-center gap-1 sm:gap-2 text-xs text-gray-600">
+          <Info className="h-4 w-4 text-gray-400" />
+          <span>Important disclaimer about Ask<span className="text-teal-500">Ed</span> guidance</span>
+        </div>
+        {isOpen ? (
+          <ChevronUp className="h-4 w-4 text-gray-400" />
+        ) : (
+          <ChevronDown className="h-4 w-4 text-gray-400" />
+        )}
+      </button>
+      
+      {isOpen && (
+        <div className="border-t border-gray-200 p-2 sm:p-4">
+          <div className="text-xs text-gray-600">
+            <span className="font-bitter text-gray-700">Ask<span className="text-teal-500">Ed.</span></span> provides guidance based on official publications, including the EYFS framework, KCSiE, and Ofsted resources. While we aim for accuracy, responses should not be considered legal advice. For specific compliance decisions, please consult your Designated Safeguarding Lead or a qualified professional.
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
 
 export default function AskEdPage() {
   const [messages, setMessages] = useState<Message[]>([])
@@ -533,10 +566,8 @@ export default function AskEdPage() {
         </CardContent>
       </Card>
       
-        <div className="mt-4 rounded-card border border-gray-200 bg-gray-50 p-4">
-          <div className="text-xs text-gray-600">
-            <span className="font-bitter text-gray-700">Ask<span className="text-teal-500">Ed.</span></span> provides guidance based on official publications, including the EYFS framework, KCSiE, and Ofsted resources. While we aim for accuracy, responses should not be considered legal advice. For specific compliance decisions, please consult your Designated Safeguarding Lead or a qualified professional.
-          </div>
+        <div className="mt-4">
+          <DisclaimerCollapsible />
         </div>
       </div>
     </div>
