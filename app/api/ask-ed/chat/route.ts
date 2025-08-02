@@ -14,13 +14,6 @@ interface Message {
   timestamp: string
 }
 
-interface ConversationMessage {
-  messages: Array<{
-    role: 'user' | 'assistant'
-    content: string
-    timestamp: string
-  }>
-}
 
 export async function POST(req: NextRequest) {
   const correlationId = `req-${Date.now()}-${Math.random().toString(36).substring(7)}`
@@ -33,6 +26,17 @@ export async function POST(req: NextRequest) {
     }
 
     const requestData = await req.json()
+    
+    // Check if request data exists
+    if (!requestData || typeof requestData !== 'object') {
+      const error = createValidationError(
+        'Invalid request: Missing or invalid request body',
+        'INVALID_REQUEST_BODY',
+        { correlationId }
+      )
+      logError(error)
+      return createErrorResponse(error, correlationId)
+    }
     
     // Validate and sanitize input
     const validation = validateChatRequest(requestData)
@@ -238,10 +242,10 @@ async function saveConversation(sessionId: string, message: string, response: st
         session_id: sessionId,
         data: { 
           question: message,
-          confidence_score: confidence.score,
-          search_method: confidence.method,
-          result_count: confidence.resultCount,
-          best_similarity: confidence.bestSimilarity
+          confidence_score: confidence?.score ?? 0,
+          search_method: confidence?.method ?? 'none',
+          result_count: confidence?.resultCount ?? 0,
+          best_similarity: confidence?.bestSimilarity ?? 0
         }
       })
     

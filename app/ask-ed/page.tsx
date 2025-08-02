@@ -5,8 +5,7 @@ import { Send, Loader2, Copy, Check, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { AskEdLogo } from '@/components/ask-ed-logo'
 import { MarkdownRenderer } from '@/components/markdown-renderer'
 
@@ -23,7 +22,7 @@ export default function AskEdPage() {
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [sessionId] = useState(() => `session-${Date.now()}-${Math.random().toString(36).substring(7)}`)
-  const [copiedMessageIndex, setCopiedMessageIndex] = useState<number | null>(null)
+  const [copiedMessageTimestamp, setCopiedMessageTimestamp] = useState<number | null>(null)
   const [settingType, setSettingType] = useState<SettingType>('nursery')
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -57,11 +56,11 @@ export default function AskEdPage() {
     }
   }, [messages])
 
-  const copyMessage = async (content: string, messageIndex: number) => {
+  const copyMessage = async (content: string, messageTimestamp: number) => {
     try {
       await navigator.clipboard.writeText(content)
-      setCopiedMessageIndex(messageIndex)
-      setTimeout(() => setCopiedMessageIndex(null), 2000)
+      setCopiedMessageTimestamp(messageTimestamp)
+      setTimeout(() => setCopiedMessageTimestamp(null), 2000)
     } catch (err) {
       console.error('Failed to copy message:', err)
     }
@@ -421,9 +420,9 @@ export default function AskEdPage() {
               </div>
             ) : (
               <div className="space-y-4 min-h-0">
-                {messages.map((message, index) => (
+                {messages.map((message) => (
                   <div
-                    key={index}
+                    key={message.timestamp.getTime()}
                     className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} px-1 sm:px-2`}
                   >
                     <div
@@ -435,11 +434,11 @@ export default function AskEdPage() {
                     >
                       {message.role === 'assistant' && (
                         <button
-                          onClick={() => copyMessage(message.content, index)}
+                          onClick={() => copyMessage(message.content, message.timestamp.getTime())}
                           className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity bg-white hover:bg-gray-50 border border-gray-200 rounded-md p-1.5 shadow-sm"
                           title="Copy message"
                         >
-                          {copiedMessageIndex === index ? (
+                          {copiedMessageTimestamp === message.timestamp.getTime() ? (
                             <Check className="h-3 w-3 text-green-600" />
                           ) : (
                             <Copy className="h-3 w-3 text-gray-600" />

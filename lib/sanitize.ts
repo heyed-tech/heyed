@@ -27,40 +27,16 @@ export function escapeHtml(text: string): string {
 
 // Simple HTML sanitizer that removes dangerous content
 export function sanitizeHtml(html: string): string {
-  // First, escape any unintended HTML
-  let sanitized = html
+  // First, escape ALL HTML to prevent injection
+  let sanitized = escapeHtml(html)
   
-  // Remove any script tags and their content
-  sanitized = sanitized.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-  
-  // Remove any style tags and their content
-  sanitized = sanitized.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
-  
-  // Remove any iframe tags
-  sanitized = sanitized.replace(/<iframe\b[^>]*>.*?<\/iframe>/gi, '')
-  
-  // Remove any object/embed tags
-  sanitized = sanitized.replace(/<(object|embed|form|input|textarea|select|button)\b[^>]*>.*?<\/\1>/gi, '')
-  
-  // Remove event handlers (onclick, onload, etc.)
-  sanitized = sanitized.replace(/\s*on\w+\s*=\s*['"]*[^'"]*['"]*\s*/gi, '')
-  
-  // Remove javascript: links
-  sanitized = sanitized.replace(/javascript:/gi, '')
-  
-  // Remove data: URLs (can contain encoded scripts)
-  sanitized = sanitized.replace(/data:/gi, '')
-  
-  // Remove any remaining potentially dangerous attributes
-  sanitized = sanitized.replace(/\s*(href|src|action|formaction|background|cite|code|codebase|dynsrc|lowsrc)\s*=\s*['"]*[^'"]*['"]*\s*/gi, '')
-  
-  // Validate allowed tags - remove any tags not in our allowlist
-  sanitized = sanitized.replace(/<\/?([a-zA-Z][a-zA-Z0-9]*)\b[^>]*>/g, (match, tagName) => {
-    if (ALLOWED_TAGS.includes(tagName.toLowerCase())) {
-      // For allowed tags, remove any attributes (being extra cautious)
-      return match.replace(/\s+[a-zA-Z-]+\s*=\s*['"]*[^'"]*['"]*\s*/g, '')
-    }
-    return '' // Remove disallowed tags entirely
+  // Now selectively unescape only the specific allowed tags we want to preserve
+  // This ensures only safe, intended HTML tags can exist
+  ALLOWED_TAGS.forEach(tag => {
+    // Unescape opening tags (without attributes for security)
+    sanitized = sanitized.replace(new RegExp(`&lt;${tag}&gt;`, 'gi'), `<${tag}>`)
+    // Unescape closing tags
+    sanitized = sanitized.replace(new RegExp(`&lt;/${tag}&gt;`, 'gi'), `</${tag}>`)
   })
   
   return sanitized

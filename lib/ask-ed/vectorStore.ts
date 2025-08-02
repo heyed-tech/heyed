@@ -280,7 +280,7 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
   const result = { context, responseTemplate, confidence }
   
   // Cache successful results for longer
-  const cacheTTL = confidence.score > 0.7 ? 600000 : 300000 // 10 min for high confidence, 5 min for lower
+  const cacheTTL = (confidence?.score ?? 0) > 0.7 ? 600000 : 300000 // 10 min for high confidence, 5 min for lower
   searchCache.set(contextCacheKey, result, cacheTTL)
     
   return result
