@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "verify:deployment": "tsx scripts/verify-deployment.ts",
+    "setup:database": "tsx scripts/setup-database.ts",
+    "process:documents": "tsx scripts/process-documents.ts"
   },
   "dependencies": {
     "@emotion/is-prop-valid": "latest",

@@ -53,7 +53,43 @@ export async function POST(req: NextRequest) {
     const { message, sessionId, settingType } = validation.sanitized!
     const recentMessages = requestData.recentMessages || []
     
-    const { context, responseTemplate, confidence } = await getRelevantContext(message, settingType)
+    let context, responseTemplate, confidence
+    try {
+      const result = await getRelevantContext(message, settingType)
+      context = result.context
+      responseTemplate = result.responseTemplate
+      confidence = result.confidence
+    } catch (searchError: any) {
+      console.error('Vector search error:', searchError)
+      
+      // If vector search fails, provide a fallback response
+      if (searchError.message?.includes('OPENAI_API_KEY')) {
+        return new Response(
+          JSON.stringify({ 
+            error: 'Search service is not configured. Please contact support.',
+            code: 'SEARCH_NOT_CONFIGURED'
+          }),
+          { status: 500, headers: { 'Content-Type': 'application/json' } }
+        )
+      } else if (searchError.message?.includes('embedding')) {
+        return new Response(
+          JSON.stringify({ 
+            error: 'Unable to process your question. Please try rephrasing.',
+            code: 'EMBEDDING_ERROR'
+          }),
+          { status: 500, headers: { 'Content-Type': 'application/json' } }
+        )
+      }
+      
+      // Generic search error
+      return new Response(
+        JSON.stringify({ 
+          error: 'Search service temporarily unavailable. Please try again.',
+          code: 'SEARCH_ERROR'
+        }),
+        { status: 503, headers: { 'Content-Type': 'application/json' } }
+      )
+    }
     
     // Track failed searches for improvement
     if (!context) {
@@ -88,16 +124,50 @@ Provide a concise, practical answer. Focus on what the user needs to know or do.
       prompt += `\n\nStructure your response as follows:\n${responseTemplate}`
     }
     
-    const stream = await getOpenAI().chat.completions.create({
-      model: 'gpt-4-turbo-preview',
-      messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        { role: 'user', content: prompt }
-      ],
-      temperature: 0.3,
-      max_tokens: 350,
-      stream: true,
-    })
+    let stream
+    try {
+      stream = await getOpenAI().chat.completions.create({
+        model: 'gpt-4-turbo-preview',
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: prompt }
+        ],
+        temperature: 0.3,
+        max_tokens: 350,
+        stream: true,
+      })
+    } catch (openAIError: any) {
+      console.error('OpenAI API Error:', openAIError)
+      
+      // Provide user-friendly error messages
+      if (openAIError.code === 'invalid_api_key') {
+        return new Response(
+          JSON.stringify({ 
+            error: 'Service configuration error. Please contact support.',
+            code: 'INVALID_API_KEY'
+          }),
+          { status: 500, headers: { 'Content-Type': 'application/json' } }
+        )
+      } else if (openAIError.code === 'model_not_found') {
+        return new Response(
+          JSON.stringify({ 
+            error: 'AI model unavailable. Please try again later.',
+            code: 'MODEL_NOT_FOUND'
+          }),
+          { status: 503, headers: { 'Content-Type': 'application/json' } }
+        )
+      } else if (openAIError.status === 429) {
+        return new Response(
+          JSON.stringify({ 
+            error: 'Service is busy. Please try again in a moment.',
+            code: 'RATE_LIMITED'
+          }),
+          { status: 429, headers: { 'Content-Type': 'application/json' } }
+        )
+      }
+      
+      throw openAIError // Re-throw to be caught by outer catch
+    }
     
     const encoder = new TextEncoder()
     let fullResponse = ''
