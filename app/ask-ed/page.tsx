@@ -481,7 +481,7 @@ export default function AskEdPage() {
                 e.preventDefault()
                 sendMessage()
               }}
-              className="flex gap-3 items-end"
+              className="flex gap-3 items-end mb-3"
             >
               <Input
                 ref={inputRef}
@@ -504,9 +504,7 @@ export default function AskEdPage() {
                 )}
               </Button>
             </form>
-          </div>
-          
-          <div className="mt-3 px-3 sm:px-4 pb-3 sm:pb-4">
+            
             <DisclaimerCollapsible />
           </div>
         </CardContent>
