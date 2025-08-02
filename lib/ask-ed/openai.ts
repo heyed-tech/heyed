@@ -1,14 +1,10 @@
 import OpenAI from 'openai'
-import { validateEnvironment } from '@/lib/env-validation'
 
 // Lazy initialization to allow environment variables to be loaded first
 let openaiInstance: OpenAI | null = null
 
 export function getOpenAI() {
   if (!openaiInstance) {
-    // Validate environment on first use
-    validateEnvironment()
-    
     if (!process.env.OPENAI_API_KEY) {
       const errorMsg = 'OPENAI_API_KEY is not set. Please check your environment variables.'
       console.error('❌ ' + errorMsg)

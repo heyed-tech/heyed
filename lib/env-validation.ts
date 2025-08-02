@@ -43,7 +43,5 @@ export function validateEnvironment() {
   return true
 }
 
-// Call this on app startup
-if (typeof window === 'undefined') {
-  validateEnvironment()
-}
+// Don't auto-validate - let components call this when needed
+// This prevents build-time errors when env vars aren't available yet
