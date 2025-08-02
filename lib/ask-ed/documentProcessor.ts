@@ -26,8 +26,24 @@ export class DocumentProcessor {
   }
 
 async processPDF(filePath: string, documentName: string): Promise<DocumentChunk[]> {
-    const dataBuffer = await fs.readFile(filePath)
-    const pdfData = await pdf(dataBuffer)
+    let dataBuffer: Buffer
+    let pdfData: any
+    
+    try {
+      dataBuffer = await fs.readFile(filePath)
+    } catch (error) {
+      throw new Error(`Failed to read PDF file ${filePath}: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    }
+    
+    try {
+      pdfData = await pdf(dataBuffer)
+    } catch (error) {
+      throw new Error(`Failed to parse PDF ${documentName}: ${error instanceof Error ? error.message : 'Invalid PDF format'}`)
+    }
+    
+    if (!pdfData.text || pdfData.text.trim().length === 0) {
+      throw new Error(`PDF ${documentName} contains no extractable text`)
+    }
     
     const chunks: DocumentChunk[] = []
     const pages = pdfData.text.split('\f')
@@ -83,12 +99,30 @@ async processPDF(filePath: string, documentName: string): Promise<DocumentChunk[
 
   async processMultiplePDFs(pdfPaths: { path: string; name: string }[]): Promise<DocumentChunk[]> {
     const allChunks: DocumentChunk[] = []
+    const errors: string[] = []
     
     for (const { path, name } of pdfPaths) {
-      console.log(`Processing ${name}...`)
-      const chunks = await this.processPDF(path, name)
-      allChunks.push(...chunks)
-      console.log(`Processed ${chunks.length} chunks from ${name}`)
+      try {
+        console.log(`Processing ${name}...`)
+        const chunks = await this.processPDF(path, name)
+        allChunks.push(...chunks)
+        console.log(`✓ Processed ${chunks.length} chunks from ${name}`)
+      } catch (error) {
+        const errorMsg = `Failed to process ${name}: ${error instanceof Error ? error.message : 'Unknown error'}`
+        console.error(`✗ ${errorMsg}`)
+        errors.push(errorMsg)
+      }
+    }
+    
+    if (errors.length > 0) {
+      console.error(`\nProcessing completed with ${errors.length} error(s):`)
+      errors.forEach(error => console.error(`  - ${error}`))
+      
+      if (allChunks.length === 0) {
+        throw new Error('All PDF processing failed. No chunks generated.')
+      } else {
+        console.warn(`Continuing with ${allChunks.length} chunks from successful documents.`)
+      }
     }
     
     return allChunks

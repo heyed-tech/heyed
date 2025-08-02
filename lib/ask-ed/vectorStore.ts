@@ -29,25 +29,74 @@ export interface SearchConfidence {
 export async function addDocuments(chunks: DocumentChunk[]) {
   const supabase = getSupabase()
   
-  for (const chunk of chunks) {
-    const embedding = await getEmbeddings().embedQuery(chunk.content)
+  console.log(`Processing ${chunks.length} chunks for embedding...`)
+  
+  // Check for existing documents to avoid duplicates
+  const existingSources = new Set()
+  const { data: existing } = await supabase
+    .from('ask_ed_documents')
+    .select('source_document')
+    .in('source_document', [...new Set(chunks.map(c => c.metadata.source))])
+  
+  if (existing) {
+    existing.forEach(doc => existingSources.add(doc.source_document))
+  }
+  
+  // Filter out chunks from documents that already exist
+  const newChunks = chunks.filter(chunk => !existingSources.has(chunk.metadata.source))
+  
+  if (newChunks.length === 0) {
+    console.log('All documents already exist in the database. Skipping processing.')
+    return
+  }
+  
+  if (newChunks.length < chunks.length) {
+    console.log(`Skipping ${chunks.length - newChunks.length} chunks from existing documents`)
+  }
+  
+  console.log(`Processing ${newChunks.length} new chunks for embedding...`)
+  
+  // Generate embeddings in batches to avoid memory issues
+  const embeddings = []
+  const batchSize = 10
+  
+  for (let i = 0; i < newChunks.length; i += batchSize) {
+    const batch = newChunks.slice(i, i + batchSize)
+    console.log(`Generating embeddings for chunks ${i + 1}-${Math.min(i + batchSize, newChunks.length)}...`)
+    
+    const batchEmbeddings = await Promise.all(
+      batch.map(chunk => getEmbeddings().embedQuery(chunk.content))
+    )
+    embeddings.push(...batchEmbeddings)
+  }
+  
+  // Prepare batch insert data
+  const insertData = newChunks.map((chunk, index) => ({
+    content: chunk.content,
+    embedding: embeddings[index],
+    metadata: chunk.metadata,
+    source_document: chunk.metadata.source,
+    page_number: chunk.metadata.page,
+    section: chunk.metadata.section,
+  }))
+  
+  // Insert in batches to avoid database limits
+  const dbBatchSize = 50
+  for (let i = 0; i < insertData.length; i += dbBatchSize) {
+    const batch = insertData.slice(i, i + dbBatchSize)
+    console.log(`Inserting batch ${Math.floor(i / dbBatchSize) + 1}/${Math.ceil(insertData.length / dbBatchSize)}...`)
     
     const { error } = await supabase
       .from('ask_ed_documents')
-      .insert({
-        content: chunk.content,
-        embedding,
-        metadata: chunk.metadata,
-        source_document: chunk.metadata.source,
-        page_number: chunk.metadata.page,
-        section: chunk.metadata.section,
-      })
+      .insert(batch)
     
     if (error) {
-      console.error('Error inserting document:', error)
+      console.error('Error inserting document batch:', error)
       throw error
     }
   }
+  
+  console.log(`Successfully inserted ${newChunks.length} document chunks`)
 }
 
 export async function searchDocuments(
