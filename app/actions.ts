@@ -1,6 +1,6 @@
 "use server"
 
-import { supabase } from "@/lib/supabase"
+import { getSupabase } from "@/lib/supabase"
 
 export async function registerInterest(formData: FormData) {
   try {
@@ -23,6 +23,7 @@ export async function registerInterest(formData: FormData) {
       phone: "[REDACTED]",
     })
 
+    const supabase = getSupabase()
     const { error, data: result } = await supabase.from("registered_interest").insert([data])
 
     if (error) {

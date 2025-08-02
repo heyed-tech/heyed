@@ -40,5 +40,5 @@ export function getSupabase() {
   return supabaseInstance
 }
 
-// For backward compatibility
-export const supabase = getSupabase()
+// For backward compatibility - lazy initialization
+export const supabase = typeof window !== 'undefined' ? getSupabase() : null

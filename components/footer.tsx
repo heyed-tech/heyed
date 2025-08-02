@@ -12,6 +12,9 @@ export function Footer() {
               <Logo />
             </Link>
             <nav className="flex flex-col sm:flex-row gap-2 sm:gap-4 md:gap-6 text-center">
+              <Link href="/ask-ed" className="text-sm font-medium hover:underline underline-offset-4 text-blue-600 hover:text-blue-700">
+                Ask Ed (AI Assistant)
+              </Link>
               <Link href="/privacy" className="text-sm font-medium hover:underline underline-offset-4">
                 Privacy Policy
               </Link>
