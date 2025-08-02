@@ -164,53 +164,95 @@ Provide a concise, practical answer. Focus on what the user needs to know or do.
 async function trackFailedSearch(sessionId: string, query: string) {
   const supabase = getSupabase()
   
-  await supabase
-    .from('ask_ed_analytics')
-    .insert({
-      event_type: 'search_failed',
-      session_id: sessionId,
-      data: { 
-        query,
-        timestamp: new Date().toISOString()
-      }
-    })
+  try {
+    const { error } = await supabase
+      .from('ask_ed_analytics')
+      .insert({
+        event_type: 'search_failed',
+        session_id: sessionId,
+        data: { 
+          query,
+          timestamp: new Date().toISOString()
+        }
+      })
+    
+    if (error) {
+      console.error('Database error tracking failed search:', error)
+      // Don't throw - analytics failures shouldn't break the user experience
+    }
+  } catch (error) {
+    console.error('Failed to track search failure:', error)
+    // Analytics failures are non-critical, just log and continue
+  }
 }
 
 async function saveConversation(sessionId: string, message: string, response: string, confidence: any) {
   const supabase = getSupabase()
   
-  const { data: existing } = await supabase
-    .from('ask_ed_conversations')
-    .select('messages')
-    .eq('session_id', sessionId)
-    .single()
-  
-  const messages = existing?.messages || []
-  messages.push({ role: 'user', content: message, timestamp: new Date().toISOString() })
-  messages.push({ role: 'assistant', content: response, timestamp: new Date().toISOString() })
-  
-  if (existing) {
-    await supabase
+  try {
+    // Retrieve existing conversation with proper error handling
+    const { data: existing, error: selectError } = await supabase
       .from('ask_ed_conversations')
-      .update({ messages, updated_at: new Date().toISOString() })
+      .select('messages')
       .eq('session_id', sessionId)
-  } else {
-    await supabase
-      .from('ask_ed_conversations')
-      .insert({ session_id: sessionId, messages })
-  }
+      .single()
+    
+    // Handle specific "not found" error vs actual database errors
+    if (selectError && selectError.code !== 'PGRST116') {
+      // PGRST116 is "not found" which is expected for new conversations
+      console.error('Database error retrieving conversation:', selectError)
+      throw createDatabaseError(selectError, 'retrieving conversation')
+    }
   
-  await supabase
-    .from('ask_ed_analytics')
-    .insert({
-      event_type: 'question_answered',
-      session_id: sessionId,
-      data: { 
-        question: message,
-        confidence_score: confidence.score,
-        search_method: confidence.method,
-        result_count: confidence.resultCount,
-        best_similarity: confidence.bestSimilarity
+    const messages = existing?.messages || []
+    messages.push({ role: 'user', content: message, timestamp: new Date().toISOString() })
+    messages.push({ role: 'assistant', content: response, timestamp: new Date().toISOString() })
+    
+    // Update or insert conversation with error handling
+    if (existing) {
+      const { error: updateError } = await supabase
+        .from('ask_ed_conversations')
+        .update({ messages, updated_at: new Date().toISOString() })
+        .eq('session_id', sessionId)
+      
+      if (updateError) {
+        console.error('Database error updating conversation:', updateError)
+        throw createDatabaseError(updateError, 'updating conversation')
       }
-    })
+    } else {
+      const { error: insertError } = await supabase
+        .from('ask_ed_conversations')
+        .insert({ session_id: sessionId, messages })
+      
+      if (insertError) {
+        console.error('Database error creating conversation:', insertError)
+        throw createDatabaseError(insertError, 'creating conversation')
+      }
+    }
+    
+    // Insert analytics with error handling
+    const { error: analyticsError } = await supabase
+      .from('ask_ed_analytics')
+      .insert({
+        event_type: 'question_answered',
+        session_id: sessionId,
+        data: { 
+          question: message,
+          confidence_score: confidence.score,
+          search_method: confidence.method,
+          result_count: confidence.resultCount,
+          best_similarity: confidence.bestSimilarity
+        }
+      })
+    
+    if (analyticsError) {
+      // Analytics failures are less critical, log but don't throw
+      console.error('Database error saving analytics:', analyticsError)
+    }
+    
+  } catch (error) {
+    // Log the error but don't break the chat flow
+    console.error('Failed to save conversation:', error)
+    // In production, you might want to send this to an error tracking service
+  }
 }

@@ -227,11 +227,16 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
       const searchTerms = [query, processedQuery, ...variations.slice(0, 2)]
       
       for (const term of searchTerms) {
-        const { data } = await supabase
+        const { data, error } = await supabase
           .from('ask_ed_documents')
           .select('*')
           .ilike('content', `%${term}%`)
           .limit(5)
+        
+        if (error) {
+          console.error('Database error in fallback search:', error)
+          continue // Try next search term
+        }
         
         if (data && data.length > 0) {
           results = data.map((result: any) => ({
