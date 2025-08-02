@@ -64,14 +64,14 @@ export function preprocessQuery(query: string): string {
 export function detectQueryIntent(query: string): QueryIntent {
   const lowerQuery = query.toLowerCase()
   
+  // Process questions
+  if (lowerQuery.match(/(^how to|^how do|^what process|^what steps|procedure)/)) {
+    return { type: 'process', confidence: 0.9 }
+  }
+  
   // Definition questions
   if (lowerQuery.match(/^what is|^what are|^define|^explain/)) {
     return { type: 'definition', confidence: 0.9 }
-  }
-  
-  // Process questions
-  if (lowerQuery.match(/^how to|^how do|^what process|^what steps|^procedure/)) {
-    return { type: 'process', confidence: 0.9 }
   }
   
   // Requirement questions
@@ -91,7 +91,6 @@ export function detectQueryIntent(query: string): QueryIntent {
   
   return { type: 'general', confidence: 0.5 }
 }
-
 export function generateSearchVariations(query: string): string[] {
   const variations = [query]
   const lowerQuery = query.toLowerCase()

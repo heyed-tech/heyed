@@ -83,5 +83,11 @@ export function parseMarkdownSafely(text: string): string {
   }
   
   // Final sanitization pass to ensure nothing malicious got through
-  return sanitizeHtml(html).replace(/&#x2F;/g, '/')
+  return sanitizeHtml(html, {
+    allowedTags: ['h1', 'h2', 'h3', 'p', 'br', 'em', 'strong', 'ul', 'li'],
+    allowedAttributes: {}
+  })
+}
+}
+    .replace(/&lt;(\/?(?:ul|li|p|h[1-6]))&gt;/g, '<$1>')
 }

@@ -71,7 +71,8 @@ async function getStatistics() {
 
     const cacheMetrics = getCacheMetrics()
     const totalCacheRequests = cacheMetrics.embeddings.size + cacheMetrics.search.size + cacheMetrics.response.size
-    const cacheHitRate = totalCacheRequests > 0 ? Math.round((totalCacheRequests / (totalQuestions + totalCacheRequests)) * 100) : 0
+    const totalCacheHits = cacheMetrics.embeddings.hits + cacheMetrics.search.hits + cacheMetrics.response.hits
+    const cacheHitRate = totalCacheRequests > 0 ? Math.round((totalCacheHits / totalCacheRequests) * 100) : 0
 
     return {
       totalQuestions,
@@ -84,6 +85,7 @@ async function getStatistics() {
     console.error('Error fetching statistics:', error)
     return null
   }
+}
 }
 
 export async function GET(req: NextRequest) {

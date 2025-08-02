@@ -129,6 +129,7 @@ function getMemoryUsage() {
 export async function GET(req: NextRequest) {
   const url = new URL(req.url)
   const detailed = url.searchParams.get('detailed') === 'true'
+  const { version } = await import('../../../package.json')
   
   try {
     // Run all health checks in parallel
@@ -155,7 +156,7 @@ export async function GET(req: NextRequest) {
     const healthCheck: HealthCheck = {
       status: overallStatus,
       timestamp: new Date().toISOString(),
-      version: process.env.npm_package_version || '1.0.0',
+      version,
       uptime: Date.now() - startTime,
       services
     }
@@ -183,7 +184,7 @@ export async function GET(req: NextRequest) {
     const errorResponse: HealthCheck = {
       status: 'unhealthy',
       timestamp: new Date().toISOString(),
-      version: process.env.npm_package_version || '1.0.0',
+      version,
       uptime: Date.now() - startTime,
       services: {
         database: { status: 'unhealthy', error: 'Health check failed' },
@@ -200,4 +201,5 @@ export async function GET(req: NextRequest) {
       }
     })
   }
+}
 }
