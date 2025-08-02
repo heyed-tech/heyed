@@ -105,10 +105,15 @@ export function middleware(request: NextRequest) {
   ]
 
   // Allow legitimate bots but block obvious scrapers for API routes
+  const userAgentLower = userAgent.toLowerCase()
+  const isLegitimateBot = userAgentLower.includes('googlebot') || 
+                         userAgentLower.includes('bingbot') ||
+                         userAgentLower.includes('slurp') || // Yahoo
+                         userAgentLower.includes('duckduckbot') // DuckDuckGo
+  
   if (request.nextUrl.pathname.startsWith('/api/ask-ed/') && 
       suspiciousPatterns.some(pattern => pattern.test(userAgent)) &&
-      !userAgent.includes('Googlebot') && 
-      !userAgent.includes('bingbot')) {
+      !isLegitimateBot) {
     return new Response(JSON.stringify({ error: 'Access denied' }), {
       status: 403,
       headers: { 'Content-Type': 'application/json' }

@@ -88,7 +88,7 @@ export function parseMarkdownSafely(text: string): string {
   html = html.replace(/^- (.+)$/gm, '<li>$1</li>')
   
   // Wrap consecutive list items in <ul>
-  html = html.replace(/(<li>.*?<\/li>(?:\n<li>.*?<\/li>)*)/gs, '<ul>$1</ul>')
+  html = html.replace(/(<li>.*?<\/li>(?:\n<li>.*?<\/li>)*)/g, '<ul>$1</ul>')
   
   // Clean up extra newlines within lists
   html = html.replace(/(<ul>)\n+/g, '$1')

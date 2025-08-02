@@ -86,8 +86,8 @@ export default function AskEdPage() {
     setIsLoading(true)
 
     try {
-      // Get last 4 messages (2 pairs) for context, excluding the current user message
-      const recentMessages = messages.slice(-4)
+      // Get last 4 messages (2 pairs) for context, including the current user message
+      const recentMessages = [...messages, userMessage].slice(-4)
       
       const response = await fetch('/api/ask-ed/chat', {
         method: 'POST',

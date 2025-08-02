@@ -4,7 +4,7 @@ import { getRelevantContext } from '@/lib/ask-ed/vectorStore'
 import { getSupabase } from '@/lib/supabase'
 import { rateLimiter, createRateLimitResponse } from '@/lib/rateLimit'
 import { validateChatRequest } from '@/lib/validation'
-import { AskEdError, createValidationError, createOpenAIError, createDatabaseError, logError, createErrorResponse, withErrorHandling } from '@/lib/errors'
+import { AskEdError, createValidationError, createOpenAIError, createDatabaseError, logError, createErrorResponse } from '@/lib/errors'
 
 // Use Node.js runtime for compatibility with our dependencies
 
@@ -14,11 +14,12 @@ interface Message {
   timestamp: string
 }
 
-interface ChatRequest {
-  message: string
-  sessionId: string
-  recentMessages?: Message[]
-  settingType?: 'nursery' | 'club'
+interface ConversationMessage {
+  messages: Array<{
+    role: 'user' | 'assistant'
+    content: string
+    timestamp: string
+  }>
 }
 
 export async function POST(req: NextRequest) {
@@ -65,7 +66,7 @@ export async function POST(req: NextRequest) {
     let conversationContext = ''
     if (recentMessages.length > 0) {
       conversationContext = '\nRecent conversation:\n'
-      recentMessages.forEach(msg => {
+      recentMessages.forEach((msg: Message) => {
         conversationContext += `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}\n`
       })
       conversationContext += '\n'
@@ -138,8 +139,7 @@ Provide a concise, practical answer. Focus on what the user needs to know or do.
     
     // Handle OpenAI API errors specifically
     if (error && typeof error === 'object' && 'code' in error) {
-      const openAIError = createOpenAIError(error as Error)
-      openAIError.correlationId = correlationId
+      const openAIError = createOpenAIError(error as unknown as Error)
       logError(openAIError, { correlationId })
       return createErrorResponse(openAIError, correlationId)
     }
@@ -204,7 +204,7 @@ async function saveConversation(sessionId: string, message: string, response: st
       throw createDatabaseError(selectError, 'retrieving conversation')
     }
   
-    const messages = existing?.messages || []
+    const messages = (existing?.messages as Array<{role: string, content: string, timestamp: string}>) || []
     messages.push({ role: 'user', content: message, timestamp: new Date().toISOString() })
     messages.push({ role: 'assistant', content: response, timestamp: new Date().toISOString() })
     

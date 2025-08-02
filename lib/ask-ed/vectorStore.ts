@@ -1,7 +1,7 @@
 import { getSupabase } from '@/lib/supabase'
 import { getEmbeddings } from './openai'
-import { enhanceQuery, QueryIntent } from './queryProcessor'
-import { searchKnowledgeBase, KnowledgeBaseEntry } from './knowledgeBase'
+import { enhanceQuery } from './queryProcessor'
+import { searchKnowledgeBase } from './knowledgeBase'
 import { isTopicInScope, getOffTopicResponse } from './scopeDetector'
 import { cachedEmbedding, cachedSearch, generateEmbeddingKey, generateSearchKey, searchCache } from '@/lib/cache'
 
@@ -76,7 +76,7 @@ export async function searchDocuments(
       throw error
     }
     
-    return data.map((result: any) => ({
+    return (data as any[]).map((result: any) => ({
       content: result.content,
       metadata: {
         source: result.source_document,
@@ -119,7 +119,7 @@ export async function keywordSearch(
   }))
 }
 
-function calculateConfidence(results: SearchResult[], method: SearchConfidence['method']): SearchConfidence {
+function calculateConfidence(results: SearchResult[], method: 'semantic' | 'keyword' | 'fuzzy' | 'none'): SearchConfidence {
   if (results.length === 0) {
     return { score: 0, method: 'none', resultCount: 0, bestSimilarity: 0 }
   }
@@ -159,14 +159,14 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
   }
 
   let results: SearchResult[] = []
-  let searchMethod: SearchConfidence['method'] = 'none'
+  let searchMethod: 'semantic' | 'keyword' | 'fuzzy' | 'none' = 'none'
   
   // First, check if the query is within scope
   if (!isTopicInScope(query)) {
     const result = {
       context: `[Off-topic Response]\n${getOffTopicResponse()}`,
       responseTemplate: undefined,
-      confidence: { score: 1.0, method: 'semantic', resultCount: 1, bestSimilarity: 1.0 }
+      confidence: { score: 1.0, method: 'semantic' as const, resultCount: 1, bestSimilarity: 1.0 }
     }
     
     // Cache off-topic responses for a shorter time
@@ -190,7 +190,7 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
   }
   
   // Enhance the query with preprocessing
-  const { processedQuery, intent, variations, responseTemplate } = enhanceQuery(query)
+  const { processedQuery, variations, responseTemplate } = enhanceQuery(query)
   
   // Try semantic search with processed query first
   results = await searchDocuments(processedQuery, 5, 0.3)

@@ -137,6 +137,7 @@ export async function submitContactForm(formData: FormData) {
     })
 
     // Insert data into the contact_submissions table
+    const supabase = getSupabase()
     const { error } = await supabase.from("contact_submissions").insert([data])
 
     if (error) {
@@ -277,6 +278,7 @@ export async function submitEnterpriseContact(formData: FormData) {
     })
 
     // Insert data into the contact_submissions table (same as regular contact form)
+    const supabase = getSupabase()
     const { error } = await supabase.from("contact_submissions").insert([data])
 
     if (error) {
@@ -414,6 +416,7 @@ export async function registerPDFDownload(formData: FormData) {
     })
 
     // Insert data into the pdf_downloads table
+    const supabase = getSupabase()
     const { error } = await supabase.from("pdf_downloads").insert([data])
 
     if (error) {

@@ -115,7 +115,6 @@ export const sharedMetadata: Metadata = {
   verification: {
     google: "your-google-verification-code",
   },
-  structuredData: structuredData,
 }
 
 export const metadata = sharedMetadata
