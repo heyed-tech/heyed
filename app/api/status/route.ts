@@ -45,7 +45,7 @@ async function getStatistics() {
 
     const totalQuestions = analytics.filter(a => a.event_type === 'question_answered').length
     const failedSearches = analytics.filter(a => a.event_type === 'search_failed').length
-    const successfulResponses = totalQuestions - failedSearches
+    const successfulResponses = totalQuestions
 
     // Analyze question types (this is basic, could be more sophisticated)
     const questionTypes: Record<string, number> = {}

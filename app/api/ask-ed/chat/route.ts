@@ -226,7 +226,7 @@ async function saveConversation(sessionId: string, message: string, response: st
     } else {
       const { error: insertError } = await supabase
         .from('ask_ed_conversations')
-        .insert({ session_id: sessionId, messages })
+        .insert({ session_id: sessionId, messages, updated_at: new Date().toISOString() })
       
       if (insertError) {
         console.error('Database error creating conversation:', insertError)

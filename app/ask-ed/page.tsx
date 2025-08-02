@@ -419,6 +419,10 @@ export default function AskEdPage() {
                 <p className="mt-6 text-xs text-gray-500">Click a question above or type your own below!</p>
               </div>
             ) : (
+"use client";
+
+export default function ChatMessages({ messages, copiedMessageTimestamp, copyMessage, isLoading }) {
+  return (
               <div className="space-y-4 min-h-0">
                 {messages.map((message) => (
                   <div
@@ -466,6 +470,13 @@ export default function AskEdPage() {
                   </div>
                 )}
               </div>
+  );
+}
+                  </div>
+                )}
+              </div>
+              );
+}
             )}
           </ScrollArea>
           

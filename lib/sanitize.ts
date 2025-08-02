@@ -44,45 +44,24 @@ export function sanitizeHtml(html: string): string {
 
 // Safe markdown parser that sanitizes output
 export function parseMarkdownSafely(text: string): string {
-  // Escape the input text first to prevent any HTML injection
   let html = escapeHtml(text)
   
-  // Now convert markdown to HTML (working with escaped text)
-  
-  // Convert **bold** to <strong>
   html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-  
-  // Convert *italic* to <em>
   html = html.replace(/\*(.*?)\*/g, '<em>$1</em>')
-  
-  // Convert headings (### to h3, ## to h2, # to h1)
   html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>')
   html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>')
   html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>')
-  
-  // Convert bullet points (- text) to list items
   html = html.replace(/^- (.+)$/gm, '<li>$1</li>')
-  
-  // Wrap consecutive list items in <ul>
   html = html.replace(/(<li>.*?<\/li>(?:\n<li>.*?<\/li>)*)/g, '<ul>$1</ul>')
-  
-  // Clean up extra newlines within lists
   html = html.replace(/(<ul>)\n+/g, '$1')
   html = html.replace(/\n+(<\/ul>)/g, '$1')
   html = html.replace(/(<\/li>)\n+(<li>)/g, '$1$2')
-  
-  // Convert double line breaks to paragraph breaks
   html = html.replace(/\n\n/g, '</p><p>')
-  
-  // Convert single line breaks to <br> tags (but not within lists or headings)
   html = html.replace(/(?<!<\/li>)\n(?!<li>|<\/ul>|<ul>|<h[1-6]>)/g, '<br>')
-  
-  // Wrap in paragraph tags if content doesn't start with a block element
   if (!html.match(/^<(ul|h[1-6]|p)/)) {
     html = `<p>${html}</p>`
   }
-  
-  // Final sanitization pass to ensure nothing malicious got through
+  html = html.replace(/&lt;&#x2F;/g, '&lt;/')
   return sanitizeHtml(html)
 }
 

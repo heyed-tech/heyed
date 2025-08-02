@@ -123,6 +123,9 @@ export interface ChatRequestValidation {
 }
 
 export function validateChatRequest(data: any): ChatRequestValidation {
+  if (data == null) {
+    data = {};
+  }
   const errors: string[] = []
   const sanitized: any = {}
 

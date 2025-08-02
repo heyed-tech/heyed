@@ -63,14 +63,13 @@ const OFF_TOPIC_PATTERNS = [
 export function isTopicInScope(query: string): boolean {
   const normalizedQuery = query.toLowerCase()
   
-  // Check for obvious off-topic patterns first
   for (const pattern of OFF_TOPIC_PATTERNS) {
-    if (pattern.test(normalizedQuery)) {
+    const wordBoundaryPattern = new RegExp(`\\b(?:${pattern.source})\\b`, pattern.flags)
+    if (wordBoundaryPattern.test(normalizedQuery)) {
       return false
     }
   }
   
-  // If it contains compliance keywords, it's likely in scope
   const hasComplianceKeywords = COMPLIANCE_KEYWORDS.some(keyword => 
     normalizedQuery.includes(keyword.toLowerCase())
   )
@@ -79,20 +78,17 @@ export function isTopicInScope(query: string): boolean {
     return true
   }
   
-  // Check for question words that might indicate compliance queries
   const questionWords = ['what', 'how', 'when', 'where', 'why', 'who', 'can', 'should', 'must', 'do', 'does']
   const hasQuestionWord = questionWords.some(word => 
     normalizedQuery.startsWith(word + ' ') || normalizedQuery.includes(' ' + word + ' ')
   )
   
-  // If it's a question without obvious off-topic content, give benefit of doubt
-  // (might be a compliance question using different terminology)
   if (hasQuestionWord && normalizedQuery.length > 10) {
     return true
   }
   
-  // Short queries or obvious non-compliance topics
   return false
+}
 }
 
 export function getOffTopicResponse(): string {
