@@ -291,7 +291,7 @@ export default function AskEdPage() {
         
         <div className="container mx-auto px-2 py-1 sm:px-4 sm:py-4 max-w-4xl h-[100dvh] flex flex-col relative z-10">
       <Card className="flex-1 flex flex-col max-h-full overflow-hidden rounded-card border-0 shadow-xl">
-        <CardHeader className="bg-white border-b border-gray-100 rounded-t-card px-4 py-3 sm:px-6 sm:py-4">
+        <CardHeader className="bg-white border-b border-gray-100 rounded-t-card px-4 py-4 sm:px-6 sm:py-4">
           <div className="flex items-center justify-between w-full">
             <AskEdLogo />
             
@@ -504,9 +504,6 @@ export default function AskEdPage() {
                 )}
               </Button>
             </form>
-            <p className="text-xs text-muted-foreground mt-3 text-center">
-              Press Enter to send • Maximum 1,000 characters
-            </p>
           </div>
           
           <div className="mt-3 px-3 sm:px-4 pb-3 sm:pb-4">
