@@ -65,8 +65,8 @@ async function checkDatabase(): Promise<ServiceStatus> {
 }
 
 async function checkOpenAI(): Promise<ServiceStatus> {
+  const start = Date.now()
   try {
-    const start = Date.now()
     const openai = getOpenAI()
     
     // Simple API call to check OpenAI connectivity
@@ -88,8 +88,10 @@ async function checkOpenAI(): Promise<ServiceStatus> {
       responseTime
     }
   } catch (error) {
+    const responseTime = Date.now() - start
     return {
       status: 'unhealthy',
+      responseTime,
       error: error instanceof Error ? error.message : 'Unknown OpenAI error'
     }
   }
