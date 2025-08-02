@@ -110,11 +110,7 @@ export async function keywordSearch(
   
   return data.map((result: any) => ({
     content: result.content,
-    metadata: {
-      source: result.source_document,
-      page: result.page_number,
-      section: result.section,
-    },
+    metadata: result.metadata,
     similarity: 1.0, // Keyword matches get high similarity
   }))
 }
