@@ -25,10 +25,14 @@ function validateEnvironmentVariable(name: string, value: string | undefined): s
 
 function validateEnvironment(): EnvironmentConfig {
   try {
+    // Use NEXT_PUBLIC_ versions as fallback
+    const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    
     const config: EnvironmentConfig = {
       OPENAI_API_KEY: validateEnvironmentVariable('OPENAI_API_KEY', process.env.OPENAI_API_KEY),
-      SUPABASE_URL: validateEnvironmentVariable('SUPABASE_URL', process.env.SUPABASE_URL),
-      SUPABASE_ANON_KEY: validateEnvironmentVariable('SUPABASE_ANON_KEY', process.env.SUPABASE_ANON_KEY),
+      SUPABASE_URL: validateEnvironmentVariable('SUPABASE_URL', supabaseUrl),
+      SUPABASE_ANON_KEY: validateEnvironmentVariable('SUPABASE_ANON_KEY', supabaseAnonKey),
       NODE_ENV: ['development', 'production', 'test'].includes(process.env.NODE_ENV || '') ? (process.env.NODE_ENV as 'development' | 'production' | 'test') : 'development'
     }
 
@@ -51,20 +55,29 @@ function validateEnvironment(): EnvironmentConfig {
   }
 }
 
-// Validate environment on module load
-let environmentConfig: EnvironmentConfig
+// Lazy load environment config - don't validate at build time
+let _environmentConfig: EnvironmentConfig | null = null
 
-try {
-  environmentConfig = validateEnvironment()
-  console.log('✅ Environment validation successful')
-} catch (error) {
-  console.error('❌ Environment validation failed:', error)
-  // In development, we might want to continue, but in production we should fail
-  if (process.env.NODE_ENV === 'production') {
-    process.exit(1)
+export function getEnvironmentConfig(): EnvironmentConfig {
+  if (!_environmentConfig) {
+    try {
+      _environmentConfig = validateEnvironment()
+      console.log('✅ Environment validation successful')
+    } catch (error) {
+      console.error('❌ Environment validation failed:', error)
+      throw error
+    }
   }
-  throw error
+  return _environmentConfig
 }
 
-export { environmentConfig, EnvironmentError }
+export { EnvironmentError }
+
+// For backward compatibility - creates a proxy that lazily loads config
+export const environmentConfig = new Proxy({} as EnvironmentConfig, {
+  get(_target, prop) {
+    return getEnvironmentConfig()[prop as keyof EnvironmentConfig]
+  }
+})
+
 export default environmentConfig

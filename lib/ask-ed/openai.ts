@@ -5,6 +5,20 @@ let openaiInstance: OpenAI | null = null
 
 export function getOpenAI() {
   if (!openaiInstance) {
+    // During build, return a dummy instance
+    if (process.env.NODE_ENV === 'production' && !process.env.OPENAI_API_KEY && typeof window === 'undefined') {
+      // This is likely during build time - return a placeholder
+      return {
+        chat: {
+          completions: {
+            create: async () => {
+              throw new Error('OpenAI not available during build')
+            }
+          }
+        }
+      } as any
+    }
+    
     if (!process.env.OPENAI_API_KEY) {
       const errorMsg = 'OPENAI_API_KEY is not set. Please check your environment variables.'
       console.error('❌ ' + errorMsg)
@@ -40,16 +54,21 @@ export function getEmbeddings() {
         model: 'text-embedding-3-small',
         input: texts,
       })
-      return response.data.map(item => item.embedding)
+      return response.data.map((item: any) => item.embedding)
     }
   }
 }
 
-// For backward compatibility
-export const openai = { get chat() { return getOpenAI().chat } }
+// For backward compatibility - these are getters so they don't run at module load time
+export const openai = { 
+  get chat() { 
+    return getOpenAI().chat 
+  } 
+}
+
 export const embeddings = { 
-  get embedQuery() { return getEmbeddings().embedQuery.bind(getEmbeddings()) },
-  get embedDocuments() { return getEmbeddings().embedDocuments.bind(getEmbeddings()) }
+  embedQuery: (text: string) => getEmbeddings().embedQuery(text),
+  embedDocuments: (texts: string[]) => getEmbeddings().embedDocuments(texts)
 }
 
 export const SYSTEM_PROMPT = `You are Ask Ed, a helpful AI assistant for UK nursery and club compliance.
