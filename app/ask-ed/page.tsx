@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react'
 import { Send, Loader2, Copy, Check, Trash2, Info, ChevronDown, ChevronUp } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { AskEdLogo } from '@/components/ask-ed-logo'
 import { MarkdownRenderer } from '@/components/markdown-renderer'
@@ -30,7 +29,7 @@ function DisclaimerCollapsible() {
       >
         <div className="flex items-center gap-1 sm:gap-2 text-xs text-gray-600">
           <Info className="h-4 w-4 text-gray-400" />
-          <span>Important disclaimer about Ask<span className="text-teal-500">Ed</span> guidance</span>
+          <span>Guidance Disclaimer</span>
         </div>
         {isOpen ? (
           <ChevronUp className="h-4 w-4 text-gray-400" />
@@ -42,7 +41,7 @@ function DisclaimerCollapsible() {
       {isOpen && (
         <div className="border-t border-gray-200 p-2 sm:p-4">
           <div className="text-xs text-gray-600">
-            <span className="font-bitter text-gray-700">Ask<span className="text-teal-500">Ed.</span></span> provides guidance based on official publications, including the EYFS framework, KCSiE, and Ofsted resources. While we aim for accuracy, responses should not be considered legal advice. For specific compliance decisions, please consult your Designated Safeguarding Lead or a qualified professional.
+            <span className="font-bitter text-gray-700">Ask<span className="text-[#14B8A6]">Ed.</span></span> provides guidance based on official publications, including the EYFS framework, KCSiE, and Ofsted resources. While we aim for accuracy, responses should not be considered legal advice. For specific compliance decisions, please consult your Designated Safeguarding Lead or a qualified professional.
           </div>
         </div>
       )}
@@ -57,7 +56,7 @@ export default function AskEdPage() {
   const [sessionId] = useState(() => `session-${Date.now()}-${Math.random().toString(36).substring(7)}`)
   const [copiedMessageTimestamp, setCopiedMessageTimestamp] = useState<number | null>(null)
   const [settingType, setSettingType] = useState<SettingType>('nursery')
-  const scrollAreaRef = useRef<HTMLDivElement>(null)
+  const messageAreaRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
   // Load messages from localStorage on component mount
@@ -84,8 +83,8 @@ export default function AskEdPage() {
   }, [messages])
 
   useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight
+    if (messageAreaRef.current) {
+      messageAreaRef.current.scrollTop = messageAreaRef.current.scrollHeight
     }
   }, [messages])
 
@@ -291,7 +290,7 @@ export default function AskEdPage() {
         />
         
         <div className="container mx-auto px-2 py-2 sm:px-4 sm:py-4 max-w-4xl min-h-screen flex flex-col relative z-10">
-      <Card className="flex-1 max-h-[calc(100vh-4rem)] sm:max-h-[calc(100vh-8rem)] flex flex-col overflow-hidden rounded-card border-0 shadow-xl">
+      <Card className="flex-1 flex flex-col rounded-card border-0 shadow-xl">
         <CardHeader className="bg-white border-b border-gray-100 rounded-t-card px-4 py-3 sm:px-6 sm:py-4">
           <div className="flex items-center justify-between w-full">
             <AskEdLogo />
@@ -363,8 +362,8 @@ export default function AskEdPage() {
           </div>
         </CardHeader>
         
-        <CardContent className="flex-1 p-0 flex flex-col overflow-hidden">
-          <ScrollArea className="flex-1 p-3 sm:p-4 overflow-y-auto" ref={scrollAreaRef}>
+        <CardContent className="flex-1 p-0 flex flex-col">
+          <div className="flex-1 p-3 sm:p-4 overflow-y-auto" ref={messageAreaRef}>
             {messages.length === 0 ? (
               <div className="text-center py-12">
                 <div className="mb-6">
@@ -375,106 +374,52 @@ export default function AskEdPage() {
                   <p className="text-gray-600 mb-6">Your AI compliance assistant for instant guidance</p>
                 </div>
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-3xl mx-auto">
-                  {settingType === 'nursery' ? (
-                    <>
-                      <div className="bg-teal-50 rounded-card p-3 sm:p-4 border border-teal-100">
-                        <h4 className="font-medium text-gray-900 mb-3">🏫 Staff & Ratios</h4>
-                        <div className="space-y-2">
-                          <button
-                            onClick={() => setInput("What are the staff ratios for nurseries?")}
-                            className="w-full text-left text-xs bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 transition-colors"
-                          >
-                            Staff ratios for different age groups
-                          </button>
-                          <button
-                            onClick={() => setInput("What qualifications do nursery staff need?")}
-                            className="w-full text-left text-xs bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 transition-colors"
-                          >
-                            Required staff qualifications
-                          </button>
-                        </div>
-                      </div>
-                      <div className="bg-teal-50 rounded-card p-3 sm:p-4 border border-teal-100">
-                        <h4 className="font-medium text-gray-900 mb-3">📚 EYFS & Learning</h4>
-                        <div className="space-y-2">
-                          <button
-                            onClick={() => setInput("What are the EYFS learning goals for 3-year-olds?")}
-                            className="w-full text-left text-xs bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 transition-colors"
-                          >
-                            EYFS learning goals by age
-                          </button>
-                          <button
-                            onClick={() => setInput("What are the EYFS assessment requirements?")}
-                            className="w-full text-left text-xs bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 transition-colors"
-                          >
-                            Assessment and observation
-                          </button>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="bg-teal-50 rounded-card p-3 sm:p-4 border border-teal-100">
-                        <h4 className="font-medium text-gray-900 mb-3">🎯 Club Operations</h4>
-                        <div className="space-y-2">
-                          <button
-                            onClick={() => setInput("What are the requirements for holiday clubs?")}
-                            className="w-full text-left text-xs bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 transition-colors"
-                          >
-                            Holiday club requirements
-                          </button>
-                          <button
-                            onClick={() => setInput("What ratios do I need for after-school care?")}
-                            className="w-full text-left text-xs bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 transition-colors"
-                          >
-                            After-school care ratios
-                          </button>
-                        </div>
-                      </div>
-                      <div className="bg-teal-50 rounded-card p-3 sm:p-4 border border-teal-100">
-                        <h4 className="font-medium text-gray-900 mb-3">🏃‍♂️ Activities & Safety</h4>
-                        <div className="space-y-2">
-                          <button
-                            onClick={() => setInput("What activities are suitable for different age groups in clubs?")}
-                            className="w-full text-left text-xs bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 transition-colors"
-                          >
-                            Age-appropriate activities
-                          </button>
-                          <button
-                            onClick={() => setInput("What are the health and safety requirements for clubs?")}
-                            className="w-full text-left text-xs bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 transition-colors"
-                          >
-                            Health and safety guidelines
-                          </button>
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </div>
-                
-                <div className="mt-6 max-w-2xl mx-auto">
-                  <h4 className="font-medium text-gray-900 mb-3 text-center">⚡ Quick Compliance Checks</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    <button
-                      onClick={() => setInput("What are the KCSiE safeguarding requirements?")}
-                      className="text-xs bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 transition-colors"
-                    >
-                      KCSiE Safeguarding
-                    </button>
-                    <button
-                      onClick={() => setInput("How do I prepare for an Ofsted inspection?")}
-                      className="text-xs bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 transition-colors"
-                    >
-                      Ofsted Preparation
-                    </button>
-                    <button
-                      onClick={() => setInput("What qualifications do my staff need?")}
-                      className="text-xs bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 transition-colors"
-                    >
-                      Staff Qualifications
-                    </button>
+                <div className="max-w-2xl mx-auto space-y-3">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+                    {settingType === 'nursery' ? (
+                      <>
+                        <button
+                          onClick={() => setInput("What are the staff ratios for nurseries?")}
+                          className="flex-1 text-left text-sm bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-lg px-4 py-3 transition-colors"
+                        >
+                          <div className="font-medium text-gray-900">🏫 Staff Ratios</div>
+                          <div className="text-xs text-gray-600 mt-1">Required ratios for different age groups</div>
+                        </button>
+                        <button
+                          onClick={() => setInput("What are the EYFS learning goals for 3-year-olds?")}
+                          className="flex-1 text-left text-sm bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-lg px-4 py-3 transition-colors"
+                        >
+                          <div className="font-medium text-gray-900">📚 EYFS Goals</div>
+                          <div className="text-xs text-gray-600 mt-1">Learning objectives by age</div>
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          onClick={() => setInput("What are the requirements for holiday clubs?")}
+                          className="flex-1 text-left text-sm bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-lg px-4 py-3 transition-colors"
+                        >
+                          <div className="font-medium text-gray-900">🎯 Club Requirements</div>
+                          <div className="text-xs text-gray-600 mt-1">Holiday and after-school club rules</div>
+                        </button>
+                        <button
+                          onClick={() => setInput("What ratios do I need for after-school care?")}
+                          className="flex-1 text-left text-sm bg-teal-50 hover:bg-teal-100 border border-teal-200 rounded-lg px-4 py-3 transition-colors"
+                        >
+                          <div className="font-medium text-gray-900">👥 Club Ratios</div>
+                          <div className="text-xs text-gray-600 mt-1">Staff-to-child ratios for clubs</div>
+                        </button>
+                      </>
+                    )}
                   </div>
+                  
+                  <button
+                    onClick={() => setInput("What are the KCSiE safeguarding requirements?")}
+                    className="w-full text-left text-sm bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-lg px-4 py-3 transition-colors"
+                  >
+                    <div className="font-medium text-gray-900">⚡ KCSiE Safeguarding</div>
+                    <div className="text-xs text-gray-600 mt-1">Essential safeguarding requirements and procedures</div>
+                  </button>
                 </div>
                 
                 <p className="mt-6 text-xs text-gray-500">Click a question above or type your own below!</p>
@@ -528,9 +473,9 @@ export default function AskEdPage() {
                 )}
               </div>
             )}
-          </ScrollArea>
+          </div>
           
-          <div className="p-4 sm:p-4 border-t border-teal-100 flex-shrink-0 bg-gray-50">
+          <div className="p-4 sm:p-4 border-t border-teal-100 flex-shrink-0 bg-gray-50 rounded-b-card">
             <form
               onSubmit={(e) => {
                 e.preventDefault()
