@@ -289,7 +289,7 @@ export default function AskEdPage() {
           style={{ animationDuration: "20s" }}
         />
         
-        <div className="container mx-auto px-2 py-1 sm:px-4 sm:py-4 max-w-4xl h-screen flex flex-col relative z-10">
+        <div className="container mx-auto px-2 py-1 sm:px-4 sm:py-4 max-w-4xl h-[100dvh] flex flex-col relative z-10">
       <Card className="flex-1 flex flex-col max-h-full overflow-hidden rounded-card border-0 shadow-xl">
         <CardHeader className="bg-white border-b border-gray-100 rounded-t-card px-4 py-3 sm:px-6 sm:py-4">
           <div className="flex items-center justify-between w-full">
@@ -475,7 +475,7 @@ export default function AskEdPage() {
             )}
           </div>
           
-          <div className="p-4 sm:p-4 border-t border-teal-100 flex-shrink-0 bg-gray-50 rounded-b-card">
+          <div className="p-4 sm:p-4 pb-[max(1rem,env(safe-area-inset-bottom))] border-t border-teal-100 flex-shrink-0 bg-gray-50 rounded-b-card">
             <form
               onSubmit={(e) => {
                 e.preventDefault()
