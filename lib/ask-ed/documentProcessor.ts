@@ -25,12 +25,12 @@ export class DocumentProcessor {
     })
   }
 
-  async processPDF(filePath: string, documentName: string): Promise<DocumentChunk[]> {
+async processPDF(filePath: string, documentName: string): Promise<DocumentChunk[]> {
     const dataBuffer = await fs.readFile(filePath)
     const pdfData = await pdf(dataBuffer)
     
     const chunks: DocumentChunk[] = []
-    const pages = pdfData.text.split('\n\n')
+    const pages = pdfData.text.split('\f')
     
     for (let pageNum = 0; pageNum < pages.length; pageNum++) {
       const pageText = pages[pageNum]
