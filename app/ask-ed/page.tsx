@@ -448,9 +448,9 @@ export default function AskEdPage() {
               </div>
             ) : (
               <div className="space-y-4 min-h-0">
-                {messages.map((message) => (
+                {messages.map((message, index) => (
                   <div
-                    key={message.timestamp.getTime()}
+                    key={`${index}-${message.timestamp.getTime()}`}
                     className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} px-1 sm:px-2`}
                   >
                     <div

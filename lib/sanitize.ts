@@ -36,8 +36,8 @@ export function sanitizeHtml(html: string): string {
   // Remove style tags and their content
   sanitized = sanitized.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
   
-  // Remove dangerous tags
-  sanitized = sanitized.replace(/<(iframe|object|embed|form|input|textarea|select|button)\b[^>]*>.*?<\/\1>/gi, '')
+  // Remove dangerous tags (with multiline support)
+  sanitized = sanitized.replace(/<(iframe|object|embed|form|input|textarea|select|button)\b[^>]*>.*?<\/\1>/gis, '')
   
   // Remove event handlers
   sanitized = sanitized.replace(/\s*on\w+\s*=\s*['"]*[^'"]*['"]*\s*/gi, '')
@@ -108,11 +108,11 @@ export function parseMarkdownSafely(text: string): string {
 export function isContentSafe(content: string): boolean {
   // Check for potentially dangerous patterns
   const dangerousPatterns = [
-    /<script/i,
-    /<iframe/i,
-    /<object/i,
-    /<embed/i,
-    /<form/i,
+    /<script\b/i,
+    /<iframe\b/i,
+    /<object\b/i,
+    /<embed\b/i,
+    /<form\b/i,
     /javascript:/i,
     /data:/i,
     /on\w+\s*=/i // Event handlers

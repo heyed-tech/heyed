@@ -69,8 +69,6 @@ async function getStatistics() {
       .sort((a, b) => b.count - a.count)
       .slice(0, 5)
 
-    const cacheMetrics = getCacheMetrics()
-    const totalCacheEntries = cacheMetrics.embeddings.size + cacheMetrics.search.size + cacheMetrics.response.size
     // Cache hit rate calculation would require hit tracking - setting to 0 for now
     const cacheHitRate = 0
 

@@ -52,9 +52,11 @@ export function preprocessQuery(query: string): string {
     processedQuery = processedQuery.replace(regex, `${acronym} ${expansion}`)
   })
   
-  // Normalize terms
+  // Normalize terms with proper word boundaries
   Object.entries(TERM_NORMALIZATIONS).forEach(([term, normalized]) => {
-    const regex = new RegExp(`\\b${term}\\b`, 'gi')
+    // Escape special regex characters in the term
+    const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+    const regex = new RegExp(`\\b${escapedTerm}\\b`, 'gi')
     processedQuery = processedQuery.replace(regex, normalized)
   })
   

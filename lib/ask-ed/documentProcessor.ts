@@ -15,8 +15,6 @@ class SimpleTextSplitter {
   }
 
   async splitText(text: string): Promise<string[]> {
-    const chunks: string[] = []
-    
     // Try each separator in order
     for (const separator of this.separators) {
       if (separator && text.includes(separator)) {
@@ -38,7 +36,8 @@ class SimpleTextSplitter {
     const chunks: string[] = []
     let currentChunk = ''
     
-    for (const split of splits) {
+    for (let i = 0; i < splits.length; i++) {
+      const split = splits[i]
       const pieceWithSeparator = split + (separator === '' ? '' : separator)
       
       if (currentChunk.length + pieceWithSeparator.length <= this.chunkSize) {
@@ -46,8 +45,17 @@ class SimpleTextSplitter {
       } else {
         if (currentChunk) {
           chunks.push(currentChunk.trim())
+          
+          // Add overlap from the end of the previous chunk
+          if (this.chunkOverlap > 0 && currentChunk.length > this.chunkOverlap) {
+            const overlapText = currentChunk.slice(-this.chunkOverlap)
+            currentChunk = overlapText + pieceWithSeparator
+          } else {
+            currentChunk = pieceWithSeparator
+          }
+        } else {
+          currentChunk = pieceWithSeparator
         }
-        currentChunk = pieceWithSeparator
       }
     }
     

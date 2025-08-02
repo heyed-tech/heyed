@@ -78,7 +78,7 @@ export function isTopicInScope(query: string): boolean {
     return true
   }
   
-  const questionWords = ['what', 'how', 'when', 'where', 'why', 'who', 'can', 'should', 'must', 'do', 'does']
+  const questionWords = ['what', 'how', 'when', 'where', 'why', 'who', 'can', 'should', 'must']
   const hasQuestionWord = questionWords.some(word => 
     normalizedQuery.startsWith(word + ' ') || normalizedQuery.includes(' ' + word + ' ')
   )
