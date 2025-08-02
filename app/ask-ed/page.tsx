@@ -289,8 +289,8 @@ export default function AskEdPage() {
           style={{ animationDuration: "20s" }}
         />
         
-        <div className="container mx-auto px-2 py-2 sm:px-4 sm:py-4 max-w-4xl min-h-screen flex flex-col relative z-10">
-      <Card className="flex-1 flex flex-col rounded-card border-0 shadow-xl">
+        <div className="container mx-auto px-2 py-1 sm:px-4 sm:py-4 max-w-4xl h-screen flex flex-col relative z-10">
+      <Card className="flex-1 flex flex-col max-h-full overflow-hidden rounded-card border-0 shadow-xl">
         <CardHeader className="bg-white border-b border-gray-100 rounded-t-card px-4 py-3 sm:px-6 sm:py-4">
           <div className="flex items-center justify-between w-full">
             <AskEdLogo />
@@ -362,7 +362,7 @@ export default function AskEdPage() {
           </div>
         </CardHeader>
         
-        <CardContent className="flex-1 p-0 flex flex-col">
+        <CardContent className="flex-1 p-0 flex flex-col min-h-0">
           <div className="flex-1 p-3 sm:p-4 overflow-y-auto" ref={messageAreaRef}>
             {messages.length === 0 ? (
               <div className="text-center py-12">
