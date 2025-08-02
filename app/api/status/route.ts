@@ -106,7 +106,6 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    // Include statistics if requested
     if (includeStats) {
       statusInfo.statistics = await getStatistics() || undefined
     }
@@ -115,7 +114,7 @@ export async function GET(req: NextRequest) {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=30' // Cache for 30 seconds
+        'Cache-Control': 'public, max-age=30'
       }
     })
     
