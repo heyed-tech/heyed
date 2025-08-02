@@ -508,12 +508,12 @@ export default function AskEdPage() {
               Press Enter to send • Maximum 1,000 characters
             </p>
           </div>
+          
+          <div className="mt-3 px-3 sm:px-4 pb-3 sm:pb-4">
+            <DisclaimerCollapsible />
+          </div>
         </CardContent>
       </Card>
-      
-        <div className="mt-4">
-          <DisclaimerCollapsible />
-        </div>
       </div>
     </div>
     </>
