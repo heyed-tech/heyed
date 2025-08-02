@@ -4,6 +4,14 @@ import { promises as fs } from 'fs';
 
 // Load environment variables first
 dotenv.config({ path: path.join(__dirname, '../.env.local') });
+dotenv.config({ path: path.join(__dirname, '../.env') }); // Fallback to .env
+
+// Verify required environment variables are loaded
+if (!process.env.OPENAI_API_KEY) {
+  console.error('❌ OPENAI_API_KEY not found in environment variables');
+  console.error('Please check your .env.local or .env file');
+  process.exit(1);
+}
 
 import { DocumentProcessor } from '../lib/ask-ed/documentProcessor';
 import { addDocuments } from '../lib/ask-ed/vectorStore';

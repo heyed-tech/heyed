@@ -33,10 +33,15 @@ export async function addDocuments(chunks: DocumentChunk[]) {
   
   // Check for existing documents to avoid duplicates
   const existingSources = new Set()
-  const { data: existing } = await supabase
+  const { data: existing, error: existingError } = await supabase
     .from('ask_ed_documents')
     .select('source_document')
     .in('source_document', [...new Set(chunks.map(c => c.metadata.source))])
+  
+  if (existingError) {
+    console.error('Database error checking for existing documents:', existingError)
+    throw new Error(`Failed to check for existing documents: ${existingError.message}`)
+  }
   
   if (existing) {
     existing.forEach(doc => existingSources.add(doc.source_document))
@@ -57,7 +62,7 @@ export async function addDocuments(chunks: DocumentChunk[]) {
   console.log(`Processing ${newChunks.length} new chunks for embedding...`)
   
   // Generate embeddings in batches to avoid memory issues
-  const embeddings = []
+  const embeddings: number[][] = []
   const batchSize = 10
   
   for (let i = 0; i < newChunks.length; i += batchSize) {
