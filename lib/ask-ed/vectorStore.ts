@@ -36,7 +36,7 @@ export async function addDocuments(chunks: DocumentChunk[]) {
   const { data: existing, error: existingError } = await supabase
     .from('ask_ed_documents')
     .select('source_document')
-    .in('source_document', [...new Set(chunks.map(c => c.metadata.source))])
+    .in('source_document', Array.from(new Set(chunks.map(c => c.metadata.source))))
   
   if (existingError) {
     console.error('Database error checking for existing documents:', existingError)
@@ -130,6 +130,10 @@ export async function searchDocuments(
       throw error
     }
     
+    if (!data) {
+      return []
+    }
+    
     return (data as any[]).map((result: any) => ({
       content: result.content,
       metadata: {
@@ -160,6 +164,10 @@ export async function keywordSearch(
   
   if (error) {
     throw error
+  }
+  
+  if (!data) {
+    return []
   }
   
   return data.map((result: any) => ({

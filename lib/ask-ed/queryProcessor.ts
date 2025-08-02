@@ -106,7 +106,7 @@ export function generateSearchVariations(query: string): string[] {
     }
   })
   
-  return [...new Set(variations)] // Remove duplicates
+  return Array.from(new Set(variations)) // Remove duplicates
 }
 
 const ANSWER_TEMPLATES: Record<string, string> = {

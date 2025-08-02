@@ -27,16 +27,33 @@ export function escapeHtml(text: string): string {
 
 // Simple HTML sanitizer that removes dangerous content
 export function sanitizeHtml(html: string): string {
-  // First, escape ALL HTML to prevent injection
-  let sanitized = escapeHtml(html)
+  // Remove dangerous elements and attributes
+  let sanitized = html
   
-  // Now selectively unescape only the specific allowed tags we want to preserve
-  // This ensures only safe, intended HTML tags can exist
-  ALLOWED_TAGS.forEach(tag => {
-    // Unescape opening tags (without attributes for security)
-    sanitized = sanitized.replace(new RegExp(`&lt;${tag}&gt;`, 'gi'), `<${tag}>`)
-    // Unescape closing tags
-    sanitized = sanitized.replace(new RegExp(`&lt;/${tag}&gt;`, 'gi'), `</${tag}>`)
+  // Remove script tags and their content
+  sanitized = sanitized.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+  
+  // Remove style tags and their content
+  sanitized = sanitized.replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
+  
+  // Remove dangerous tags
+  sanitized = sanitized.replace(/<(iframe|object|embed|form|input|textarea|select|button)\b[^>]*>.*?<\/\1>/gi, '')
+  
+  // Remove event handlers
+  sanitized = sanitized.replace(/\s*on\w+\s*=\s*['"]*[^'"]*['"]*\s*/gi, '')
+  
+  // Remove javascript: and data: URLs
+  sanitized = sanitized.replace(/javascript:/gi, '')
+  sanitized = sanitized.replace(/data:/gi, '')
+  
+  // Remove any tags that aren't in our allowlist
+  sanitized = sanitized.replace(/<\/?([a-zA-Z][a-zA-Z0-9]*)\b[^>]*>/g, (match, tagName) => {
+    if (ALLOWED_TAGS.includes(tagName.toLowerCase())) {
+      // For allowed tags, remove any attributes for security
+      const isClosing = match.startsWith('</')
+      return isClosing ? `</${tagName.toLowerCase()}>` : `<${tagName.toLowerCase()}>`
+    }
+    return '' // Remove disallowed tags
   })
   
   return sanitized
@@ -44,11 +61,13 @@ export function sanitizeHtml(html: string): string {
 
 // Safe markdown parser that sanitizes output
 export function parseMarkdownSafely(text: string): string {
-  // Escape the input text first to prevent any HTML injection
-  let html = escapeHtml(text)
+  let html = text
   
-  // Now convert markdown to HTML (working with escaped text)
+  // First, handle any existing HTML by sanitizing it properly
+  // Only escape content outside of allowed tags
+  html = sanitizeHtml(html)
   
+  // Convert markdown syntax to HTML
   // Convert **bold** to <strong>
   html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
   
@@ -82,12 +101,22 @@ export function parseMarkdownSafely(text: string): string {
     html = `<p>${html}</p>`
   }
   
-  // Final sanitization pass to ensure nothing malicious got through
-  return sanitizeHtml(html, {
-    allowedTags: ['h1', 'h2', 'h3', 'p', 'br', 'em', 'strong', 'ul', 'li'],
-    allowedAttributes: {}
-  })
+  return html
 }
-}
-    .replace(/&lt;(\/?(?:ul|li|p|h[1-6]))&gt;/g, '<$1>')
+
+// Validate that a string contains only safe content
+export function isContentSafe(content: string): boolean {
+  // Check for potentially dangerous patterns
+  const dangerousPatterns = [
+    /<script/i,
+    /<iframe/i,
+    /<object/i,
+    /<embed/i,
+    /<form/i,
+    /javascript:/i,
+    /data:/i,
+    /on\w+\s*=/i // Event handlers
+  ]
+  
+  return !dangerousPatterns.some(pattern => pattern.test(content))
 }

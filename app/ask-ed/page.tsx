@@ -263,41 +263,69 @@ export default function AskEdPage() {
           <div className="flex items-center justify-between w-full">
             <AskEdLogo />
             
-            <div className="flex items-center gap-2">
-              <div className="flex rounded-lg border border-gray-200 bg-white overflow-hidden">
-                <button
-                  onClick={() => setSettingType('nursery')}
-                  className={`px-3 py-1 text-xs font-medium transition-colors ${
-                    settingType === 'nursery'
-                      ? 'bg-teal-500 text-white'
-                      : 'text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
-                  Nursery
-                </button>
-                <button
-                  onClick={() => setSettingType('club')}
-                  className={`px-3 py-1 text-xs font-medium transition-colors ${
-                    settingType === 'club'
-                      ? 'bg-teal-500 text-white'
-                      : 'text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
-                  Club
-                </button>
+            {/* Show setting toggle next to logo when no messages */}
+            {messages.length === 0 && (
+              <div className="flex items-center gap-2">
+                <div className="flex rounded-lg border border-gray-200 bg-white overflow-hidden">
+                  <button
+                    onClick={() => setSettingType('nursery')}
+                    className={`px-3 py-1 text-xs font-medium transition-colors ${
+                      settingType === 'nursery'
+                        ? 'bg-teal-500 text-white'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Nursery
+                  </button>
+                  <button
+                    onClick={() => setSettingType('club')}
+                    className={`px-3 py-1 text-xs font-medium transition-colors ${
+                      settingType === 'club'
+                        ? 'bg-teal-500 text-white'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Club
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
 
+            {/* Show setting toggle and trash button on right when messages exist */}
             {messages.length > 0 && (
-              <Button
-                onClick={clearConversation}
-                variant="ghost"
-                size="sm"
-                className="text-gray-500 hover:text-gray-700"
-                title="Clear conversation"
-              >
-                <Trash2 className="h-4 w-4" />
-              </Button>
+              <div className="flex items-center gap-2">
+                <div className="flex rounded-lg border border-gray-200 bg-white overflow-hidden">
+                  <button
+                    onClick={() => setSettingType('nursery')}
+                    className={`px-3 py-1 text-xs font-medium transition-colors ${
+                      settingType === 'nursery'
+                        ? 'bg-teal-500 text-white'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Nursery
+                  </button>
+                  <button
+                    onClick={() => setSettingType('club')}
+                    className={`px-3 py-1 text-xs font-medium transition-colors ${
+                      settingType === 'club'
+                        ? 'bg-teal-500 text-white'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Club
+                  </button>
+                </div>
+                <Button
+                  onClick={clearConversation}
+                  variant="ghost"
+                  size="sm"
+                  className="text-gray-500 hover:text-gray-700"
+                  title="Clear conversation"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
             )}
           </div>
         </CardHeader>
@@ -419,10 +447,6 @@ export default function AskEdPage() {
                 <p className="mt-6 text-xs text-gray-500">Click a question above or type your own below!</p>
               </div>
             ) : (
-"use client";
-
-export default function ChatMessages({ messages, copiedMessageTimestamp, copyMessage, isLoading }) {
-  return (
               <div className="space-y-4 min-h-0">
                 {messages.map((message) => (
                   <div
@@ -470,13 +494,6 @@ export default function ChatMessages({ messages, copiedMessageTimestamp, copyMes
                   </div>
                 )}
               </div>
-  );
-}
-                  </div>
-                )}
-              </div>
-              );
-}
             )}
           </ScrollArea>
           

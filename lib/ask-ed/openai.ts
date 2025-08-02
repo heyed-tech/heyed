@@ -1,10 +1,7 @@
 import OpenAI from 'openai'
-import { ChatOpenAI, OpenAIEmbeddings } from '@langchain/openai'
 
 // Lazy initialization to allow environment variables to be loaded first
 let openaiInstance: OpenAI | null = null
-let chatModelInstance: ChatOpenAI | null = null
-let embeddingsInstance: OpenAIEmbeddings | null = null
 
 export function getOpenAI() {
   if (!openaiInstance) {
@@ -18,37 +15,30 @@ export function getOpenAI() {
   return openaiInstance
 }
 
-export function getChatModel() {
-  if (!chatModelInstance) {
-    if (!process.env.OPENAI_API_KEY) {
-      throw new Error('OPENAI_API_KEY is not set in environment variables')
-    }
-    chatModelInstance = new ChatOpenAI({
-      modelName: 'gpt-4-turbo-preview',
-      temperature: 0.7,
-      streaming: true,
-      openAIApiKey: process.env.OPENAI_API_KEY,
-    })
-  }
-  return chatModelInstance
-}
-
 export function getEmbeddings() {
-  if (!embeddingsInstance) {
-    if (!process.env.OPENAI_API_KEY) {
-      throw new Error('OPENAI_API_KEY is not set in environment variables')
+  return {
+    async embedQuery(text: string): Promise<number[]> {
+      const openai = getOpenAI()
+      const response = await openai.embeddings.create({
+        model: 'text-embedding-3-small',
+        input: text,
+      })
+      return response.data[0].embedding
+    },
+    
+    async embedDocuments(texts: string[]): Promise<number[][]> {
+      const openai = getOpenAI()
+      const response = await openai.embeddings.create({
+        model: 'text-embedding-3-small',
+        input: texts,
+      })
+      return response.data.map(item => item.embedding)
     }
-    embeddingsInstance = new OpenAIEmbeddings({
-      modelName: 'text-embedding-3-small',
-      openAIApiKey: process.env.OPENAI_API_KEY,
-    })
   }
-  return embeddingsInstance
 }
 
 // For backward compatibility
 export const openai = { get chat() { return getOpenAI().chat } }
-export const chatModel = { get invoke() { return getChatModel().invoke.bind(getChatModel()) } }
 export const embeddings = { 
   get embedQuery() { return getEmbeddings().embedQuery.bind(getEmbeddings()) },
   get embedDocuments() { return getEmbeddings().embedDocuments.bind(getEmbeddings()) }

@@ -1,13 +1,82 @@
-import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
 import pdf from 'pdf-parse'
 import { promises as fs } from 'fs'
 import { DocumentChunk } from './vectorStore'
 
+// Simple text splitter to replace langchain's RecursiveCharacterTextSplitter
+class SimpleTextSplitter {
+  private chunkSize: number
+  private chunkOverlap: number
+  private separators: string[]
+
+  constructor(options: { chunkSize: number; chunkOverlap: number; separators: string[] }) {
+    this.chunkSize = options.chunkSize
+    this.chunkOverlap = options.chunkOverlap
+    this.separators = options.separators
+  }
+
+  async splitText(text: string): Promise<string[]> {
+    const chunks: string[] = []
+    
+    // Try each separator in order
+    for (const separator of this.separators) {
+      if (separator && text.includes(separator)) {
+        const splits = text.split(separator)
+        const processedChunks = this.processChunks(splits, separator)
+        
+        // If we got good chunks, return them
+        if (processedChunks.every(chunk => chunk.length <= this.chunkSize)) {
+          return processedChunks
+        }
+      }
+    }
+    
+    // Fallback to simple character chunking
+    return this.characterSplit(text)
+  }
+
+  private processChunks(splits: string[], separator: string): string[] {
+    const chunks: string[] = []
+    let currentChunk = ''
+    
+    for (const split of splits) {
+      const pieceWithSeparator = split + (separator === '' ? '' : separator)
+      
+      if (currentChunk.length + pieceWithSeparator.length <= this.chunkSize) {
+        currentChunk += pieceWithSeparator
+      } else {
+        if (currentChunk) {
+          chunks.push(currentChunk.trim())
+        }
+        currentChunk = pieceWithSeparator
+      }
+    }
+    
+    if (currentChunk) {
+      chunks.push(currentChunk.trim())
+    }
+    
+    return chunks.filter(chunk => chunk.length > 0)
+  }
+
+  private characterSplit(text: string): string[] {
+    const chunks: string[] = []
+    
+    for (let i = 0; i < text.length; i += this.chunkSize - this.chunkOverlap) {
+      const chunk = text.slice(i, i + this.chunkSize)
+      if (chunk.trim()) {
+        chunks.push(chunk.trim())
+      }
+    }
+    
+    return chunks
+  }
+}
+
 export class DocumentProcessor {
-  private splitter: RecursiveCharacterTextSplitter
+  private splitter: SimpleTextSplitter
 
   constructor() {
-    this.splitter = new RecursiveCharacterTextSplitter({
+    this.splitter = new SimpleTextSplitter({
       chunkSize: 1200,
       chunkOverlap: 300,
       separators: [
