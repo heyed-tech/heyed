@@ -80,7 +80,7 @@ export async function searchDocuments(
       return []
     }
     
-    return data.map((result: any) => ({
+    return (data as any[]).map((result: any) => ({
       content: result.content,
       metadata: {
         source: result.source_document,
@@ -170,7 +170,7 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
     const result = {
       context: `[Off-topic Response]\n${getOffTopicResponse()}`,
       responseTemplate: undefined,
-      confidence: { score: 1.0, method: 'semantic', resultCount: 1, bestSimilarity: 1.0 }
+      confidence: { score: 1.0, method: 'semantic' as const, resultCount: 1, bestSimilarity: 1.0 }
     }
     
     // Cache off-topic responses for a shorter time

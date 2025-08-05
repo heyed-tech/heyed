@@ -50,9 +50,9 @@ async function getStatistics() {
     // Analyze question types (this is basic, could be more sophisticated)
     const questionTypes: Record<string, number> = {}
     analytics
-      .filter(a => a.event_type === 'question_answered' && a.data?.question)
+      .filter(a => a.event_type === 'question_answered' && a.data && (a.data as any).question)
       .forEach(a => {
-        const question = a.data.question.toLowerCase()
+        const question = (a.data as any).question.toLowerCase()
         let type = 'general'
         
         if (question.includes('ratio') || question.includes('staff')) type = 'staffing'

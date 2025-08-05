@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
     let conversationContext = ''
     if (recentMessages.length > 0) {
       conversationContext = '\nRecent conversation:\n'
-      recentMessages.forEach(msg => {
+      recentMessages.forEach((msg: any) => {
         conversationContext += `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}\n`
       })
       conversationContext += '\n'
@@ -138,8 +138,7 @@ Provide a concise, practical answer. Focus on what the user needs to know or do.
     
     // Handle OpenAI API errors specifically
     if (error && typeof error === 'object' && 'code' in error) {
-      const openAIError = createOpenAIError(error as Error)
-      openAIError.correlationId = correlationId
+      const openAIError = createOpenAIError(error as unknown as Error)
       logError(openAIError, { correlationId })
       return createErrorResponse(openAIError, correlationId)
     }
@@ -185,7 +184,7 @@ async function saveConversation(sessionId: string, message: string, response: st
     .eq('session_id', sessionId)
     .single()
   
-  const messages = existing?.messages || []
+  const messages: any[] = Array.isArray(existing?.messages) ? existing.messages : []
   messages.push({ role: 'user', content: message, timestamp: new Date().toISOString() })
   messages.push({ role: 'assistant', content: response, timestamp: new Date().toISOString() })
   

@@ -1,4 +1,5 @@
 import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter'
+// @ts-ignore
 import pdf from 'pdf-parse'
 import { promises as fs } from 'fs'
 import { DocumentChunk } from './vectorStore'
@@ -68,8 +69,8 @@ export class DocumentProcessor {
         return trimmedLine
       }
       
-      // Match title case headings
-      if (trimmedLine.match(/^[A-Z][a-z]+(\s[A-Z][a-z]+){1,6}:?$/) && trimmedLine.length < 60) {
+      // Match title case headings (single word or multiple words)
+      if (trimmedLine.match(/^[A-Z][a-z]+(\s[A-Z][a-z]+){0,6}:?$/) && trimmedLine.length < 60) {
         return trimmedLine
       }
       
