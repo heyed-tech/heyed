@@ -3,15 +3,16 @@ import { getSupabase } from '@/lib/supabase'
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { sessionId: string } }
+  { params }: { params: Promise<{ sessionId: string }> }
 ) {
   try {
     const supabase = getSupabase()
+    const { sessionId } = await params
     
     const { data, error } = await supabase
       .from('ask_ed_conversations')
       .select('messages')
-      .eq('session_id', params.sessionId)
+      .eq('session_id', sessionId)
       .single()
     
     if (error) {

@@ -5,7 +5,7 @@ import { Send, Loader2, Copy, Check, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { AskEdLogo } from '@/components/ask-ed-logo'
 import { MarkdownRenderer } from '@/components/markdown-renderer'
@@ -49,8 +49,9 @@ export default function AskEdPage() {
         console.error('Error loading from database:', error)
       }
       
-      // Fallback to localStorage
-      const savedMessages = localStorage.getItem('ask-ed-messages')
+      // Fallback to localStorage with session-specific key
+      const sessionKey = `ask-ed-messages-${sessionId}`
+      const savedMessages = localStorage.getItem(sessionKey)
       if (savedMessages) {
         try {
           const parsedMessages = JSON.parse(savedMessages).map((msg: any) => ({
@@ -70,9 +71,12 @@ export default function AskEdPage() {
   // Save messages to localStorage whenever messages change
   useEffect(() => {
     if (messages.length > 0) {
+      const sessionKey = `ask-ed-messages-${sessionId}`
+      localStorage.setItem(sessionKey, JSON.stringify(messages))
+      // Keep the old key for backwards compatibility temporarily
       localStorage.setItem('ask-ed-messages', JSON.stringify(messages))
     }
-  }, [messages])
+  }, [messages, sessionId])
 
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -92,7 +96,9 @@ export default function AskEdPage() {
 
   const clearConversation = () => {
     setMessages([])
-    localStorage.removeItem('ask-ed-messages')
+    const sessionKey = `ask-ed-messages-${sessionId}`
+    localStorage.removeItem(sessionKey)
+    localStorage.removeItem('ask-ed-messages') // Remove old key too
   }
 
   const sendMessage = async () => {

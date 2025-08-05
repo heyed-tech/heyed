@@ -76,6 +76,10 @@ export async function searchDocuments(
       throw error
     }
     
+    if (!data) {
+      return []
+    }
+    
     return data.map((result: any) => ({
       content: result.content,
       metadata: {

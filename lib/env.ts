@@ -25,10 +25,14 @@ function validateEnvironmentVariable(name: string, value: string | undefined): s
 
 function validateEnvironment(): EnvironmentConfig {
   try {
+    // Use fallback logic for Supabase variables (server/client compatibility)
+    const supabaseUrl = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    
     const config: EnvironmentConfig = {
       OPENAI_API_KEY: validateEnvironmentVariable('OPENAI_API_KEY', process.env.OPENAI_API_KEY),
-      SUPABASE_URL: validateEnvironmentVariable('SUPABASE_URL', process.env.SUPABASE_URL),
-      SUPABASE_ANON_KEY: validateEnvironmentVariable('SUPABASE_ANON_KEY', process.env.SUPABASE_ANON_KEY),
+      SUPABASE_URL: validateEnvironmentVariable('SUPABASE_URL', supabaseUrl),
+      SUPABASE_ANON_KEY: validateEnvironmentVariable('SUPABASE_ANON_KEY', supabaseKey),
       NODE_ENV: (process.env.NODE_ENV as 'development' | 'production' | 'test') || 'development'
     }
 

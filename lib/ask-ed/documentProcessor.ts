@@ -58,8 +58,8 @@ export class DocumentProcessor {
     for (const line of lines) {
       const trimmedLine = line.trim()
       
-      // Match numbered sections (e.g., "1.", "2.1", "Annex A")
-      if (trimmedLine.match(/^(\d+\.|\d+\.\d+|Annex\s[A-Z]|Schedule\s\d+|Part\s\d+)/i)) {
+      // Match numbered sections - fixed regex to handle "1. Section" format
+      if (trimmedLine.match(/^(\d+\.\s+|\d+\.\d+\s+|Annex\s[A-Z]|Schedule\s\d+|Part\s\d+)/i)) {
         return trimmedLine.substring(0, 80)
       }
       
