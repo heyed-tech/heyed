@@ -1,0 +1,91 @@
+Ofsted transforms its inspection approach
+
+The most transformative regulatory change for 2025 comes from Ofsted's new inspection framework, following extensive consultation from February 3 to April 28, 2025. Implementation begins in November 2025, replacing the traditional four-point grading system with a nuanced five-point scale: Exemplary, Strong, Secure, Attention needed, and Causing concern. This shift moves away from single-word judgements toward detailed "report cards" that evaluate settings across eight distinct areas including a new dedicated focus on inclusion.
+
+The framework introduces several groundbreaking elements for early years providers. Safeguarding becomes a standalone category with binary "Met" or "Not Met" assessments, while curriculum receives its own evaluation area separate from teaching. A completely new inclusion category specifically addresses SEND provision, reflecting the government's enhanced focus on vulnerable children. The inspection process itself becomes more collaborative, featuring a two-part notification system that allows settings to provide context and input into inspection focus areas.
+
+Official source: GOV.UK consultation "Improving the way Ofsted inspects education" (February 3, 2025)
+Implementation: November 2025 following September 2025 consultation response publication
+
+Data protection sees major legislative overhaul
+
+The Data (Use and Access) Act 2025 received Royal Assent on June 19, 2025, marking the most significant data protection reform since GDPR implementation. For childcare providers, the Act mandates establishment of formal data protection complaints procedures and reinforces children's protections in digital environments. While the Act amends rather than replaces UK GDPR and the Data Protection Act 2018, it introduces new provisions including "recognised legitimate interests" as a lawful basis for processing.
+
+Implementation follows a phased approach with most provisions taking effect between August and December 2025, while some elements extend to June 2026. The Information Commissioner's Office has placed all existing guidance under review, with new sector-specific guidance to be published throughout 2025-2026. Schools and childcare settings must prioritize reviewing their data protection policies to ensure compliance with the enhanced requirements for children's data.
+
+Official source: Information Commissioner's Office announcement (June 19, 2025)
+Compliance deadline: Phased implementation August 2025 - June 2026
+
+EYFS receives significant statutory framework updates
+
+The Early Years Foundation Stage undergoes major changes for 2025, representing the most significant updates to the framework in recent years. These changes affect all early years providers from September 1, 2025.
+
+Publication of a New Statutory Framework (Effective 1 September 2025)
+
+The Department for Education has published revised EYFS statutory frameworks for both childminders and group/school-based providers. These updated documents come into force on 1 September 2025, replacing the versions that have been in place since January 2024. Until then, providers continue to follow the current frameworks.
+
+Strengthened Safeguarding and Welfare Requirements
+
+From September 2025, the EYFS safeguarding requirements will be significantly bolstered to ensure children's safety and wellbeing:
+• Safer recruitment measures: settings must obtain and verify references and explicitly include in their safeguarding policies steps to ensure only suitable individuals are recruited.
+• Absence follow-up and emergency contacts: providers must follow up on unexplained absences and maintain additional emergency contact details.
+• Safer eating protocols: new requirements to ensure children are supervised safely while eating.
+• Safeguarding training annex: an annex sets out criteria for safeguarding training delivery and how practitioners are supported in applying it.
+• Paediatric First Aid for trainees: early years students and trainees must hold paediatric first aid training before counting in staff-to-child ratios at the level below their qualification.
+• Whistleblowing support: policies must now include clearer procedures to support staff raising concerns.
+
+"Giving Every Child the Best Start in Life" – New Early Years Strategy
+
+On 7 July 2025, the government published a cross-departmental strategy entitled "Giving Every Child the Best Start in Life", committing £1.5 billion to early years reforms:
+• Funding review: consultation on revising how early years funding (including the national funding formulae) is calculated and distributed, aiming for implementation by summer 2026.
+• SEND and EYPP expansion: increased targeted funding for children with special educational needs (SEND) and to extend Early Years Pupil Premium in areas of greatest need.
+• Inspection cycle: Ofsted to move from a six-year to a four-year inspection cycle for providers, with all new settings inspected within 18 months of opening (from April 2026).
+• Workforce development: co-design of a professional register for early years practitioners, more high-quality training routes, and tax-free retention payments (£4,500) to attract and retain 3,000 additional early years teachers in the 20 most disadvantaged communities.
+• Improved transitions: funding for partnerships between schools and early years settings to support children's move into primary education.
+
+Official source: Department for Education "Giving Every Child the Best Start in Life" strategy (July 7, 2025)
+Implementation: Phased from September 2025
+
+Childcare entitlements expand dramatically
+
+September 2025 marks a watershed moment for working families as the 30-hour free childcare entitlement extends to all eligible children from 9 months to school age. This doubles the current 15-hour provision for the youngest children, representing the largest expansion of funded childcare in recent history. Parents must apply by August 31, 2025, to access the expanded provision from September, with existing 15-hour codes automatically upgrading for eligible families.
+
+The expansion comes alongside new regulatory instruments including The Childcare (Fees) (Amendment) Regulations 2025 (effective June 9, 2025) and The Childcare (Miscellaneous Amendments) (England) Regulations 2025, which update EYFS requirements and assessment procedures. Working parent eligibility requires minimum earnings of £195 per week (equivalent to 16 hours at National Minimum Wage) with a maximum of £100,000 annual income per parent.
+
+Official source: GOV.UK Childcare Choices and UK Parliament legislation.gov.uk
+Implementation: September 2025 for 30-hour expansion
+
+National wraparound programme reaches critical milestone
+
+The National Wraparound Childcare Programme enters its crucial implementation phase with all new or expanded places required to be operational by September 2025. The £289 million programme aims to provide 8am-6pm childcare for all primary school-aged children who need it by 2026. The final funding application window closes July 11, 2025, with all projects required to commence by Autumn term 2025 at the latest.
+
+Quality standards emphasize child-centered provision that responds to family needs, including specific requirements for SEND accessibility. Providers must offer reliable daily provision rather than occasional clubs and allow payment through government benefits including Tax-Free Childcare and Universal Credit. Local authorities carry responsibility for ensuring sufficient places and distributing programme funding to providers.
+
+Official source: Department for Education National Wraparound Childcare Programme guidance
+Critical deadline: September 2025 for all new places to be available
+
+Safeguarding guidance receives technical updates only
+
+Keeping Children Safe in Education 2025 was published July 7, 2025, containing only technical changes rather than substantive policy updates. The Department for Education explicitly states these are minor adjustments, with the main updates being links to revised guidance on relationships, sex, and health education, and gender questioning children. The final version comes into force September 1, 2025, maintaining current safeguarding practices with minimal disruption.
+
+Working Together to Safeguard Children remains at its 2023 version with no 2025 updates published or planned. The DfE indicates future substantive changes will reflect progress of the Children's Wellbeing and Schools Bill and findings from the National Audit on Group-based Child Sexual Exploitation and Abuse.
+
+Official source: DfE Keeping Children Safe in Education publication (July 7, 2025)
+Implementation: September 1, 2025
+
+Prevent duty and health & safety maintain stability
+
+The Prevent duty guidance remains current from its 2023 update, with no new requirements for 2025. Childcare settings continue following established procedures for risk assessment, staff training, and reporting concerns through the "notice, check, share" framework. Training requirements specify Prevent awareness for all staff with enhanced training for Designated Safeguarding Leads, with refresh recommended every two years.
+
+Health and safety regulations show no major changes for 2025, though the HSE continues consultations on chemicals legislative reform (closing August 18, 2025). The discontinuation of the COSHH e-tool on January 31, 2025, represents the only operational change, with COSHH Essentials direct advice sheets remaining available for chemical risk assessments.
+
+Official sources: Home Office Prevent duty guidance (2023) and Health & Safety Executive
+Status: Current guidance remains in effect
+
+Implementation timeline and priorities
+
+The regulatory changes for 2025 follow a structured implementation timeline that allows providers to prepare systematically. Data protection compliance under the new Act requires immediate attention with phased deadlines from August 2025. The September 2025 milestone brings four simultaneous changes: EYFS framework updates, KCSiE 2025 implementation, 30-hour entitlement expansion, and wraparound programme operational deadline. Ofsted's new framework follows in November 2025 after consultation response publication in September.
+
+Childcare providers should prioritize reviewing their policies for the new EYFS requirements, establishing data protection complaints procedures, and preparing for DUAA compliance. Settings awaiting Ofsted inspection should familiarize themselves with the eight new evaluation areas, particularly the standalone inclusion category. Those expanding provision must ensure readiness for increased demand from the 30-hour entitlement extension while meeting wraparound programme quality standards.
+
+Early years providers must pay particular attention to the substantial EYFS changes coming into effect September 1, 2025, including strengthened safeguarding requirements, new workforce development initiatives, and the significant investment through the "Giving Every Child the Best Start in Life" strategy. Providers should continue following current versions of other frameworks while monitoring for future updates.
