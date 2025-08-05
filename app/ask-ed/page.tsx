@@ -28,21 +28,44 @@ export default function AskEdPage() {
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // Load messages from localStorage on component mount
+  // Load messages from database or localStorage on component mount
   useEffect(() => {
-    const savedMessages = localStorage.getItem('ask-ed-messages')
-    if (savedMessages) {
+    async function loadConversation() {
       try {
-        const parsedMessages = JSON.parse(savedMessages).map((msg: any) => ({
-          ...msg,
-          timestamp: new Date(msg.timestamp)
-        }))
-        setMessages(parsedMessages)
+        // Try to load from database first
+        const response = await fetch(`/api/ask-ed/history/${sessionId}`)
+        if (response.ok) {
+          const data = await response.json()
+          if (data.messages && data.messages.length > 0) {
+            const parsedMessages = data.messages.map((msg: any) => ({
+              ...msg,
+              timestamp: new Date(msg.timestamp)
+            }))
+            setMessages(parsedMessages)
+            return
+          }
+        }
       } catch (error) {
-        console.error('Failed to load saved messages:', error)
+        console.error('Error loading from database:', error)
+      }
+      
+      // Fallback to localStorage
+      const savedMessages = localStorage.getItem('ask-ed-messages')
+      if (savedMessages) {
+        try {
+          const parsedMessages = JSON.parse(savedMessages).map((msg: any) => ({
+            ...msg,
+            timestamp: new Date(msg.timestamp)
+          }))
+          setMessages(parsedMessages)
+        } catch (error) {
+          console.error('Failed to load saved messages:', error)
+        }
       }
     }
-  }, [])
+    
+    loadConversation()
+  }, [sessionId])
 
   // Save messages to localStorage whenever messages change
   useEffect(() => {
@@ -86,8 +109,13 @@ export default function AskEdPage() {
     setIsLoading(true)
 
     try {
-      // Get last 4 messages (2 pairs) for context, excluding the current user message
-      const recentMessages = messages.slice(-4)
+      // Get last 8 messages (4 pairs) for better context
+      // Include all messages except the one we just added
+      const recentMessages = messages.slice(-8).map(msg => ({
+        role: msg.role,
+        content: msg.content,
+        timestamp: msg.timestamp
+      }))
       
       const response = await fetch('/api/ask-ed/chat', {
         method: 'POST',

@@ -53,7 +53,7 @@ export async function addDocuments(chunks: DocumentChunk[]) {
 export async function searchDocuments(
   query: string,
   matchCount: number = 5,
-  matchThreshold: number = 0.3
+  matchThreshold: number = 0.6
 ): Promise<SearchResult[]> {
   const searchKey = `${generateSearchKey(query)}_${matchCount}_${matchThreshold}`
   
@@ -193,13 +193,13 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
   const { processedQuery, intent, variations, responseTemplate } = enhanceQuery(query)
   
   // Try semantic search with processed query first
-  results = await searchDocuments(processedQuery, 5, 0.3)
+  results = await searchDocuments(processedQuery, 5, 0.6)
   if (results.length > 0) searchMethod = 'semantic'
   
   // If no results, try variations
   if (results.length === 0) {
     for (const variation of variations.slice(0, 3)) { // Try top 3 variations
-      results = await searchDocuments(variation, 5, 0.3)
+      results = await searchDocuments(variation, 5, 0.6)
       if (results.length > 0) {
         searchMethod = 'semantic'
         break
@@ -209,7 +209,7 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
   
   // If no results, try with lower threshold
   if (results.length === 0) {
-    results = await searchDocuments(processedQuery, 5, 0.2)
+    results = await searchDocuments(processedQuery, 5, 0.4)
     if (results.length > 0) searchMethod = 'semantic'
   }
   

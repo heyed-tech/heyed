@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
     }
 
     let prompt = `Context from official documents:
-${context.substring(0, 1800)}${conversationContext}
+${context}${conversationContext}
 
 Current question: ${message}
 
