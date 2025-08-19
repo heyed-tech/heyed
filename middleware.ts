@@ -21,12 +21,13 @@ const SECURITY_HEADERS = {
   // Prevent MIME type sniffing
   'Content-Security-Policy': [
     "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://code.tidio.co https://widget-v4.tidiochat.com",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://code.tidio.co http://code.tidio.co https://widget-v4.tidiochat.com http://widget-v4.tidiochat.com",
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data: https:",
-    "connect-src 'self' https://api.openai.com https://*.supabase.co wss://*.supabase.co",
-    "frame-src 'none'",
+    "media-src 'self' https://*.supabase.co",
+    "connect-src 'self' https://api.openai.com https://*.supabase.co wss://*.supabase.co https://*.tidio.co http://*.tidio.co wss://*.tidio.co ws://*.tidio.co https://*.tidiochat.com http://*.tidiochat.com wss://*.tidiochat.com ws://*.tidiochat.com",
+    "frame-src 'self' https://*.tidio.co http://*.tidio.co https://*.tidiochat.com http://*.tidiochat.com",
     "object-src 'none'",
     "base-uri 'self'"
   ].join('; '),

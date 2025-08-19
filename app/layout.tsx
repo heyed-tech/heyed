@@ -26,16 +26,12 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Primary SVG favicon */}
-        <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-
-        {/* Fallback favicon.ico */}
-        <link rel="alternate icon" href="./favicon.ico" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
         {/* Apple Touch Icon */}
         <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 
         <link rel="canonical" href="https://heyed.co.uk" />
-        <Script src="//code.tidio.co/cntps5meqr7es5quouclr4edgpmvykia.js" strategy="afterInteractive" />
       </head>
       <body className={`${bitter.variable} ${inter.variable} font-sans`}>
         <script
@@ -64,6 +60,7 @@ export default function RootLayout({
         />
         <ErrorBoundary>{children}</ErrorBoundary>
         <Toaster />
+        <Script src="//code.tidio.co/cntps5meqr7es5quouclr4edgpmvykia.js" strategy="afterInteractive" />
       </body>
     </html>
   )
