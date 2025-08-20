@@ -196,14 +196,24 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
   // Enhance the query with preprocessing
   const { processedQuery, intent, variations, responseTemplate } = enhanceQuery(query)
   
+  // For EYFS-related queries, start with lower threshold to get more detailed content
+  const isEyfsQuery = query.toLowerCase().includes('eyfs') || 
+                     query.toLowerCase().includes('early years') ||
+                     query.toLowerCase().includes('updates') ||
+                     query.toLowerCase().includes('changes') ||
+                     query.toLowerCase().includes('safeguarding') ||
+                     query.toLowerCase().includes('requirements')
+  
+  const initialThreshold = isEyfsQuery ? 0.5 : 0.6
+  
   // Try semantic search with processed query first
-  results = await searchDocuments(processedQuery, 5, 0.6)
+  results = await searchDocuments(processedQuery, 5, initialThreshold)
   if (results.length > 0) searchMethod = 'semantic'
   
   // If no results, try variations
   if (results.length === 0) {
     for (const variation of variations.slice(0, 3)) { // Try top 3 variations
-      results = await searchDocuments(variation, 5, 0.6)
+      results = await searchDocuments(variation, 5, initialThreshold)
       if (results.length > 0) {
         searchMethod = 'semantic'
         break
@@ -211,7 +221,7 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
     }
   }
   
-  // If no results, try with lower threshold
+  // If no results, try with even lower threshold
   if (results.length === 0) {
     results = await searchDocuments(processedQuery, 5, 0.4)
     if (results.length > 0) searchMethod = 'semantic'
@@ -262,11 +272,29 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
     return result
   }
   
-  // Sort by similarity and take top results
-  results.sort((a, b) => b.similarity - a.similarity)
+  // For EYFS queries, prioritize Updates 2025 content and include more results
+  const prioritizeUpdates = isEyfsQuery && results.some(r => r.metadata.source.includes('Updates 2025'))
+  
+  if (prioritizeUpdates) {
+    // Separate Updates 2025 from other results
+    const updatesResults = results.filter(r => r.metadata.source.includes('Updates 2025'))
+    const otherResults = results.filter(r => !r.metadata.source.includes('Updates 2025'))
+    
+    // Sort each group by similarity
+    updatesResults.sort((a, b) => b.similarity - a.similarity)
+    otherResults.sort((a, b) => b.similarity - a.similarity)
+    
+    // Combine with Updates first, take more total results
+    results = [...updatesResults.slice(0, 4), ...otherResults.slice(0, 2)]
+  } else {
+    // Standard sorting for non-EYFS queries
+    results.sort((a, b) => b.similarity - a.similarity)
+  }
+  
+  const contextResultCount = prioritizeUpdates ? 6 : 5
   
   const context = results
-    .slice(0, 5)
+    .slice(0, contextResultCount)
     .map((result) => {
       const source = `[${result.metadata.source}${
         result.metadata.page ? `, p.${result.metadata.page}` : ''

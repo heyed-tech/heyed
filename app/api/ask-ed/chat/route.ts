@@ -76,7 +76,9 @@ ${context}${conversationContext}
 
 Current question: ${message}
 
-Provide a concise, practical answer based on the official documentation above. Focus on what the user needs to know or do. If this is a follow-up question, use the conversation context to provide a relevant response.`
+Provide a concise, practical answer based on the official documentation above. Focus on what the user needs to know or do. If this is a follow-up question, use the conversation context to provide a relevant response.
+
+IMPORTANT: Use UK English spelling and grammar throughout (e.g., "organised" not "organized", "centre" not "center", "colour" not "color", "realise" not "realize").`
     } else {
       // No document context - use AI knowledge with appropriate disclaimers
       let responseSource = ''
@@ -89,7 +91,7 @@ Provide a concise, practical answer based on the official documentation above. F
         responseSource = 'I couldn\'t find specific information in the official legislation documents for this question. '
       }
       
-      prompt = `You are AskEd., an AI compliance assistant specializing in UK nurseries and clubs. You help with KCSiE, EYFS, and Ofsted compliance questions.
+      prompt = `You are AskEd., an AI compliance assistant specialising in UK nurseries and clubs. You help with KCSiE, EYFS, and Ofsted compliance questions.
 
 ${conversationContext}
 Current question: ${message}
@@ -104,7 +106,9 @@ Please provide a helpful response using your knowledge of:
 - Insurance and liability considerations
 - General best practices for nurseries and clubs
 
-IMPORTANT: Start your response with the disclaimer: "${responseSource}Based on general compliance knowledge:" and end with "For definitive guidance, please consult the official legislation documents or contact your local authority/Ofsted directly."
+IMPORTANT: 
+1. Start your response with the disclaimer: "${responseSource}Based on general compliance knowledge:" and end with "For definitive guidance, please consult the official legislation documents or contact your local authority/Ofsted directly."
+2. Use UK English spelling and grammar throughout (e.g., "organised" not "organized", "centre" not "center", "colour" not "color", "realise" not "realize", "specialising" not "specializing").
 
 Provide practical, helpful guidance while making it clear this is general knowledge rather than from specific official documents.`
     }

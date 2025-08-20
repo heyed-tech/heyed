@@ -224,8 +224,8 @@ export default function TermsOfService() {
                     <h3 className="text-xl font-semibold">6.3 Content Responsibilities</h3>
                     <p className="mt-2">
                       You retain ownership of all data and content you submit to the Service. You grant us a limited
-                      license to use such content solely for the purpose of providing and improving the Service. You
-                      represent and warrant that you have all necessary rights to grant this license.
+                      licence to use such content solely for the purpose of providing and improving the Service. You
+                      represent and warrant that you have all necessary rights to grant this licence.
                     </p>
                   </div>
                 </div>
@@ -248,7 +248,7 @@ export default function TermsOfService() {
                     <h3 className="text-xl font-semibold">7.2 Feedback</h3>
                     <p className="mt-2">
                       If you provide us with feedback or suggestions regarding the Service, you grant us an unlimited,
-                      irrevocable, perpetual, sublicensable, transferable, royalty-free license to use such feedback for
+                      irrevocable, perpetual, sublicensable, transferable, royalty-free licence to use such feedback for
                       any purpose without compensation to you.
                     </p>
                   </div>
