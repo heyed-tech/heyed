@@ -33,7 +33,7 @@ export function Footer() {
             </nav>
           </div>
           <div className="flex flex-col items-center justify-center gap-4 text-center">
-            <p className="text-sm text-gray-500">© {new Date().getFullYear()} HeyEd.. All rights reserved.</p>
+            <p className="text-sm text-gray-500">© {new Date().getFullYear()} HeyEd. All rights reserved.</p>
             <div className="flex items-center justify-center gap-4">
               <Link
                 href="https://www.facebook.com/profile.php?id=61568198237207"
