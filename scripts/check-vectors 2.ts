@@ -173,10 +173,10 @@ async function checkVectors() {
     if (indexError) {
       console.log('⚠️  Could not check indexes (this is normal for some Supabase tiers)')
     } else if (indexes) {
-      const indexNames = indexes.map(i => i.indexname)
+      const indexNames = indexes.map((i: any) => i.indexname as string)
       console.log('   Indexes found:', indexNames.join(', '))
       
-      const hasVectorIndex = indexNames.some(name => 
+      const hasVectorIndex = indexNames.some((name: string) => 
         name.includes('embedding') || name.includes('vector')
       )
       

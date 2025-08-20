@@ -32,7 +32,7 @@ async function detailedContentAnalysis() {
       console.log(`Page: ${doc.page_number}`)
       console.log(`Section: ${doc.section}`)
       console.log(`Metadata:`, JSON.stringify(doc.metadata, null, 2))
-      console.log(`Content preview: ${doc.content.substring(0, 300)}...`)
+      console.log(`Content preview: ${(doc.content as string).substring(0, 300)}...`)
       console.log('---')
     })
     
@@ -174,7 +174,7 @@ function extractQuestionPatterns(docs: any[]): string[] {
   const patterns: string[] = []
   
   docs.forEach(doc => {
-    const content = doc.content.toLowerCase()
+    const content = (doc.content as string).toLowerCase()
     
     // Look for question-like phrases or requirements
     if (content.includes('must') || content.includes('should') || content.includes('require')) {
@@ -194,7 +194,7 @@ function extractComplianceTopics(docs: any[]): string[] {
   const topics: string[] = []
   
   docs.forEach(doc => {
-    const content = doc.content.toLowerCase()
+    const content = (doc.content as string).toLowerCase()
     const section = doc.section || ''
     
     // Extract key compliance terms from content and sections

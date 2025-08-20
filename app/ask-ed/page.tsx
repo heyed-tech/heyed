@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useState, useRef, useEffect } from 'react'
 import { Send, Loader2, Copy, Check, Trash2, ArrowLeft } from 'lucide-react'
@@ -314,11 +314,8 @@ export default function AskEdPage() {
         />
         
         <div className="h-full flex flex-col relative z-10 p-2 sm:p-4">
-      <Card className="flex-1 h-full flex flex-col overflow-hidden rounded-card border-0 shadow-xl">
-'use client';
-export default function AskEdPage({ settingType, setSettingType, messages, clearConversation }) {
-        return (
-                <CardHeader className="bg-white border-b border-gray-100 rounded-t-card px-3 py-3 md:px-6 md:py-4">
+          <Card className="flex-1 h-full flex flex-col overflow-hidden rounded-card border-0 shadow-xl">
+            <CardHeader className="bg-white border-b border-gray-100 rounded-t-card px-3 py-3 md:px-6 md:py-4">
                   <div className="flex items-center justify-between w-full">
                     <Button
                       onClick={() => window.location.href = '/'}
@@ -374,10 +371,8 @@ export default function AskEdPage({ settingType, setSettingType, messages, clear
                     </div>
                   </div>
                 </CardHeader>
-        );
-}
-        
-        <CardContent className="flex-1 p-0 flex flex-col overflow-hidden">
+            
+            <CardContent className="flex-1 p-0 flex flex-col overflow-hidden">
           <ScrollArea className="flex-1 p-3 sm:p-4 overflow-y-auto h-full" ref={scrollAreaRef}>
             {messages.length === 0 ? (
               <div className="text-center min-h-full flex flex-col justify-center py-6">
@@ -540,10 +535,10 @@ export default function AskEdPage({ settingType, setSettingType, messages, clear
               Press Enter to send • Maximum 1,000 characters
             </p>
           </div>
-        </CardContent>
-      </Card>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
     </>
   )
 }
