@@ -108,7 +108,13 @@ export async function GET(req: NextRequest) {
 
     // Include statistics if requested
     if (includeStats) {
-      statusInfo.statistics = await getStatistics() || undefined
+      const stats = await getStatistics()
+      if (stats) {
+        if (typeof stats.totalQuestions === 'number' && typeof stats.failedSearches === 'number') {
+          stats.successfulResponses = Math.max(stats.totalQuestions - stats.failedSearches, 0)
+        }
+        statusInfo.statistics = stats
+      }
     }
 
     return new Response(JSON.stringify(statusInfo, null, 2), {

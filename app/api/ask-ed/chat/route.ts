@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
     }
 
     let prompt = ''
-    let hasOfficialDocuments = context && !context.includes('[Off-topic Response]')
+    const hasOfficialDocuments = context && !context.includes('[Off-topic Response]')
     
     if (hasOfficialDocuments) {
       // We have document context - use it as primary source

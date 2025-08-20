@@ -315,62 +315,67 @@ export default function AskEdPage() {
         
         <div className="h-full flex flex-col relative z-10 p-2 sm:p-4">
       <Card className="flex-1 h-full flex flex-col overflow-hidden rounded-card border-0 shadow-xl">
-        <CardHeader className="bg-white border-b border-gray-100 rounded-t-card px-3 py-3 md:px-6 md:py-4">
-          <div className="flex items-center justify-between w-full">
-            <Button
-              onClick={() => window.location.href = '/'}
-              variant="ghost"
-              size="sm"
-              className="text-gray-500 hover:text-gray-700 hover:bg-gray-100 text-xs md:text-sm flex-shrink-0"
-              title="Back to HeyEd"
-            >
-              <ArrowLeft className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
-              <span className="hidden sm:inline">Back to HeyEd</span>
-              <span className="sm:hidden">Back</span>
-            </Button>
-            
-            <div className="absolute left-1/2 transform -translate-x-1/2">
-              <AskEdLogo />
-            </div>
-            
-            <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
-              <div className="flex rounded-lg border border-gray-200 bg-white overflow-hidden">
-                <button
-                  onClick={() => setSettingType('nursery')}
-                  className={`px-2 md:px-3 py-1 text-xs font-medium transition-colours ${
-                    settingType === 'nursery'
-                      ? 'bg-teal-500 text-white'
-                      : 'text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
-                  Nursery
-                </button>
-                <button
-                  onClick={() => setSettingType('club')}
-                  className={`px-2 md:px-3 py-1 text-xs font-medium transition-colours ${
-                    settingType === 'club'
-                      ? 'bg-teal-500 text-white'
-                      : 'text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
-                  Club
-                </button>
-              </div>
-              
-              {messages.length > 0 && (
-                <Button
-                  onClick={clearConversation}
-                  variant="ghost"
-                  size="sm"
-                  className="text-gray-500 hover:text-gray-700 p-1 md:p-2"
-                  title="Clear conversation"
-                >
-                  <Trash2 className="h-3 w-3 md:h-4 md:w-4" />
-                </Button>
-              )}
-            </div>
-          </div>
-        </CardHeader>
+'use client';
+export default function AskEdPage({ settingType, setSettingType, messages, clearConversation }) {
+        return (
+                <CardHeader className="bg-white border-b border-gray-100 rounded-t-card px-3 py-3 md:px-6 md:py-4">
+                  <div className="flex items-center justify-between w-full">
+                    <Button
+                      onClick={() => window.location.href = '/'}
+                      variant="ghost"
+                      size="sm"
+                      className="text-gray-500 hover:text-gray-700 hover:bg-gray-100 text-xs md:text-sm flex-shrink-0"
+                      title="Back to HeyEd"
+                    >
+                      <ArrowLeft className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
+                      <span className="hidden sm:inline">Back to HeyEd</span>
+                      <span className="sm:hidden">Back</span>
+                    </Button>
+                    
+                    <div className="absolute left-1/2 transform -translate-x-1/2">
+                      <AskEdLogo />
+                    </div>
+                    
+                    <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
+                      <div className="flex rounded-lg border border-gray-200 bg-white overflow-hidden">
+                        <button
+                          onClick={() => setSettingType('nursery')}
+                          className={`px-2 md:px-3 py-1 text-xs font-medium transition-colours ${
+                            settingType === 'nursery'
+                              ? 'bg-teal-500 text-white'
+                              : 'text-gray-600 hover:bg-gray-50'
+                          }`}
+                        >
+                          Nursery
+                        </button>
+                        <button
+                          onClick={() => setSettingType('club')}
+                          className={`px-2 md:px-3 py-1 text-xs font-medium transition-colours ${
+                            settingType === 'club'
+                              ? 'bg-teal-500 text-white'
+                              : 'text-gray-600 hover:bg-gray-50'
+                          }`}
+                        >
+                          Club
+                        </button>
+                      </div>
+                      
+                      {messages.length > 0 && (
+                        <Button
+                          onClick={clearConversation}
+                          variant="ghost"
+                          size="sm"
+                          className="text-gray-500 hover:text-gray-700 p-1 md:p-2"
+                          title="Clear conversation"
+                        >
+                          <Trash2 className="h-3 w-3 md:h-4 md:w-4" />
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </CardHeader>
+        );
+}
         
         <CardContent className="flex-1 p-0 flex flex-col overflow-hidden">
           <ScrollArea className="flex-1 p-3 sm:p-4 overflow-y-auto h-full" ref={scrollAreaRef}>

@@ -74,7 +74,8 @@ async function checkVectors() {
     } else if (docs) {
       const sourceCounts: Record<string, number> = {}
       docs.forEach(doc => {
-        sourceCounts[doc.source_document] = (sourceCounts[doc.source_document] || 0) + 1
+        const source = (doc.source_document as string) || 'Unknown'
+        sourceCounts[source] = (sourceCounts[source] || 0) + 1
       })
       
       console.log('   Document sources:')
@@ -133,7 +134,7 @@ async function checkVectors() {
         }
       } else {
         console.log('✅ RPC function "ask_ed_search_documents" is working')
-        console.log(`   Returned ${rpcData?.length || 0} results`)
+        console.log(`   Returned ${(rpcData as any[])?.length || 0} results`)
       }
     } catch (e: any) {
       console.log('❌ Error testing RPC function:', e.message)
@@ -152,7 +153,7 @@ async function checkVectors() {
         
         if (sampleDoc && sampleDoc[0]) {
           console.log('   Sample document content preview:')
-          console.log(`   "${sampleDoc[0].content.substring(0, 100)}..."`)
+          console.log(`   "${(sampleDoc[0] as any).content.substring(0, 100)}..."`)
           
           // You would typically use OpenAI to generate embedding here
           console.log('✅ Vector search infrastructure is ready')

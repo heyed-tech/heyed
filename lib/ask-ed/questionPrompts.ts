@@ -159,7 +159,6 @@ export function getBalancedQuestions(settingType: 'nursery' | 'club', isMobile: 
   
   // Reduce questions on mobile for better UX
   const questionsPerSection = isMobile ? 1 : 2
-  const quickCheckCount = isMobile ? 1 : 3
   
   if (settingType === 'nursery') {
     return {

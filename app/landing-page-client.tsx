@@ -301,48 +301,85 @@ export default function LandingPageClient() {
         </section>
 
         {/* Single Central Record Section */}
-        <section className="py-16 md:py-24 bg-white relative overflow-hidden">
-          {/* Background Decorative Elements */}
+function SingleCentralRecordSection() {
+  const words = [
+    "Maintain complete records",
+    "Automate compliance reminders",
+    "Secure staff document uploads"
+  ];
+  const [text, setText] = React.useState("");
+  const [isDeleting, setIsDeleting] = React.useState(false);
+  const [loopNum, setLoopNum] = React.useState(0);
+  const [currentWordIndex, setCurrentWordIndex] = React.useState(0);
+
+  const typingSpeed = isDeleting ? 80 : 120;
+
+  React.useEffect(() => {
+    const handleType = () => {
+      const currentWord = words[currentWordIndex];
+      const updatedText = isDeleting
+        ? currentWord.substring(0, text.length - 1)
+        : currentWord.substring(0, text.length + 1);
+
+      setText(updatedText);
+
+      if (!isDeleting && updatedText === currentWord) {
+        setTimeout(() => setIsDeleting(true), 1000);
+      } else if (isDeleting && updatedText === "") {
+        setIsDeleting(false);
+        setCurrentWordIndex((prev) => (prev + 1) % words.length);
+        setLoopNum((prev) => prev + 1);
+      }
+    };
+
+    const timer = setTimeout(handleType, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, loopNum, currentWordIndex, typingSpeed]);
+
+  return (
+    <section className="py-16 md:py-24 bg-white relative overflow-hidden">
+      {/* Background Decorative Elements */}
+      <div
+        className="absolute top-20 right-10 w-64 h-64 rounded-full bg-teal-100/20 blur-3xl -z-10 animate-pulse"
+        style={{ animationDuration: "15s" }}
+      ></div>
+      <div
+        className="absolute bottom-20 left-10 w-96 h-96 rounded-full bg-blue-100/20 blur-3xl -z-10 animate-pulse"
+        style={{ animationDuration: "20s" }}
+      ></div>
+
+      <Container className="relative z-10">
+        <div className="flex flex-col items-center justify-center space-y-8 text-center">
+          <div className="space-y-4 max-w-[85rem] mx-auto">
+            <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight xl:text-5xl/tight">
+              Single Central Record
+            </h2>
+            <p className="mx-auto max-w-2xl text-gray-500 md:text-lg xl:text-xl">
+              Maintain complete single central records with automated compliance reminders and secure staff document uploads.
+            </p>
+          </div>
+        </div>
+
+        {/* Video player with correct aspect ratio */}
+        <div className="mt-16 max-w-4xl mx-auto">
           <div
-            className="absolute top-20 right-10 w-64 h-64 rounded-full bg-teal-100/20 blur-3xl -z-10 animate-pulse"
-            style={{ animationDuration: "15s" }}
-          ></div>
-          <div
-            className="absolute bottom-20 left-10 w-96 h-96 rounded-full bg-blue-100/20 blur-3xl -z-10 animate-pulse"
-            style={{ animationDuration: "20s" }}
-          ></div>
-
-          <Container className="relative z-10">
-            <div className="flex flex-col items-center justify-center space-y-8 text-center">
-              <div className="space-y-4 max-w-[85rem] mx-auto">
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight xl:text-5xl/tight">
-                  Single Central Record
-                </h2>
-                <p className="mx-auto max-w-2xl text-gray-500 md:text-lg xl:text-xl">
-                  Maintain complete single central records with automated compliance reminders and secure staff document uploads.
-                </p>
-              </div>
-            </div>
-
-            {/* Video player with correct aspect ratio */}
-            <div className="mt-16 max-w-4xl mx-auto">
-              <div
-                className="relative shadow-2xl rounded-card overflow-hidden bg-black"
-                style={{ aspectRatio: "5813 / 3375" }}
-              >
-                <video
-                  src="https://oxabxfydvltdhxekaqym.supabase.co/storage/v1/object/public/public-assets/Ad.mp4"
-                  controls
-                  preload="metadata"
-                  className="w-full h-full object-cover"
-                >
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-
-            </div>
-          </Container>
-        </section>
+            className="relative shadow-2xl rounded-card overflow-hidden bg-black"
+            style={{ aspectRatio: "5813 / 3375" }}
+          >
+            <video
+              src="https://oxabxfydvltdhxekaqym.supabase.co/storage/v1/object/public/public-assets/Ad.mp4"
+              controls
+              preload="metadata"
+              className="w-full h-full object-cover"
+            >
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
 
         {/* Screenshot Scroll Section with Hijacking */}
         <DynamicScreenshotScrollSection />

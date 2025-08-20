@@ -39,14 +39,14 @@ async function analyzeDocumentChunks() {
     console.log(`Total document chunks analyzed: ${allDocs.length}`)
     
     // Group by source document
-    const sourceGroups = allDocs.reduce((acc, doc) => {
-      const source = doc.source_document || 'Unknown'
-      if (!acc[source]) {
-        acc[source] = []
+    const sourceGroups: Record<string, any[]> = {}
+    for (const doc of allDocs) {
+      const source = (doc.source_document as string) || 'Unknown'
+      if (!(source in sourceGroups)) {
+        sourceGroups[source] = []
       }
-      acc[source].push(doc)
-      return acc
-    }, {} as Record<string, any[]>)
+      sourceGroups[source]!.push(doc)
+    }
     
     const analyses: DocumentAnalysis[] = []
     
