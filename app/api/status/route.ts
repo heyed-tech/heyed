@@ -92,7 +92,7 @@ export async function GET(req: NextRequest) {
   
   try {
     const statusInfo: StatusInfo = {
-      service: 'Ask Ed - AI Compliance Assistant',
+      service: 'AskEd. - AI Compliance Assistant',
       environment: process.env.NODE_ENV || 'development',
       version: process.env.npm_package_version || '1.0.0',
       timestamp: new Date().toISOString(),

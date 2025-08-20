@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Send, Loader2, Copy, Check, Trash2 } from 'lucide-react'
+import { Send, Loader2, Copy, Check, Trash2, ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -37,7 +37,16 @@ export default function AskEdPage() {
 
   // Load dynamic questions when component mounts or setting type changes
   useEffect(() => {
-    setDynamicQuestions(getBalancedQuestions(settingType))
+    const updateQuestions = () => {
+      const isMobile = window.innerWidth < 768 // md breakpoint
+      setDynamicQuestions(getBalancedQuestions(settingType, isMobile))
+    }
+    
+    updateQuestions()
+    
+    // Add resize listener to update questions when screen size changes
+    window.addEventListener('resize', updateQuestions)
+    return () => window.removeEventListener('resize', updateQuestions)
   }, [settingType])
 
   // Load messages from database or localStorage on component mount
@@ -225,7 +234,7 @@ export default function AskEdPage() {
   return (
     <>
       <style jsx global>{`
-        /* Hide Tidio chatbot on Ask Ed page */
+        /* Hide Tidio chatbot on AskEd. page */
         #tidio-chat {
           display: none !important;
         }
@@ -304,17 +313,31 @@ export default function AskEdPage() {
           style={{ animationDuration: "20s" }}
         />
         
-        <div className="container mx-auto px-2 py-2 sm:px-4 sm:py-4 max-w-4xl h-full flex flex-col relative z-10">
+        <div className="h-full flex flex-col relative z-10 p-2 sm:p-4">
       <Card className="flex-1 h-full flex flex-col overflow-hidden rounded-card border-0 shadow-xl">
-        <CardHeader className="bg-white border-b border-gray-100 rounded-t-card px-4 py-3 sm:px-6 sm:py-4">
+        <CardHeader className="bg-white border-b border-gray-100 rounded-t-card px-3 py-3 md:px-6 md:py-4">
           <div className="flex items-center justify-between w-full">
-            <AskEdLogo />
+            <Button
+              onClick={() => window.location.href = '/'}
+              variant="ghost"
+              size="sm"
+              className="text-gray-500 hover:text-gray-700 hover:bg-gray-100 text-xs md:text-sm flex-shrink-0"
+              title="Back to HeyEd"
+            >
+              <ArrowLeft className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
+              <span className="hidden sm:inline">Back to HeyEd</span>
+              <span className="sm:hidden">Back</span>
+            </Button>
             
-            <div className="flex items-center gap-2">
+            <div className="absolute left-1/2 transform -translate-x-1/2">
+              <AskEdLogo />
+            </div>
+            
+            <div className="flex items-center gap-1 md:gap-2 flex-shrink-0">
               <div className="flex rounded-lg border border-gray-200 bg-white overflow-hidden">
                 <button
                   onClick={() => setSettingType('nursery')}
-                  className={`px-3 py-1 text-xs font-medium transition-colours ${
+                  className={`px-2 md:px-3 py-1 text-xs font-medium transition-colours ${
                     settingType === 'nursery'
                       ? 'bg-teal-500 text-white'
                       : 'text-gray-600 hover:bg-gray-50'
@@ -324,7 +347,7 @@ export default function AskEdPage() {
                 </button>
                 <button
                   onClick={() => setSettingType('club')}
-                  className={`px-3 py-1 text-xs font-medium transition-colours ${
+                  className={`px-2 md:px-3 py-1 text-xs font-medium transition-colours ${
                     settingType === 'club'
                       ? 'bg-teal-500 text-white'
                       : 'text-gray-600 hover:bg-gray-50'
@@ -339,10 +362,10 @@ export default function AskEdPage() {
                   onClick={clearConversation}
                   variant="ghost"
                   size="sm"
-                  className="text-gray-500 hover:text-gray-700"
+                  className="text-gray-500 hover:text-gray-700 p-1 md:p-2"
                   title="Clear conversation"
                 >
-                  <Trash2 className="h-4 w-4" />
+                  <Trash2 className="h-3 w-3 md:h-4 md:w-4" />
                 </Button>
               )}
             </div>
@@ -350,10 +373,10 @@ export default function AskEdPage() {
         </CardHeader>
         
         <CardContent className="flex-1 p-0 flex flex-col overflow-hidden">
-          <ScrollArea className="flex-1 p-3 sm:p-4 overflow-y-auto" ref={scrollAreaRef}>
+          <ScrollArea className="flex-1 p-3 sm:p-4 overflow-y-auto h-full" ref={scrollAreaRef}>
             {messages.length === 0 ? (
-              <div className="text-center py-12">
-                <div className="mb-6">
+              <div className="text-center min-h-full flex flex-col justify-center py-6">
+                <div className="flex-shrink-0">
                   <div className="inline-block rounded-card bg-teal-100 px-4 py-2 text-sm mb-4">
                     <span className="text-gray-700">Powered by </span>
                     <span className="font-bitter text-gray-700">Hey<span className="text-teal-500">Ed.</span></span>
@@ -361,9 +384,10 @@ export default function AskEdPage() {
                   <p className="text-gray-600 mb-6">Your AI compliance assistant for instant guidance</p>
                 </div>
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-w-3xl mx-auto">
-                  <div className="bg-teal-50 rounded-card p-3 sm:p-4 border border-teal-100">
-                    <h4 className="font-medium text-gray-900 mb-3">
+                <div className="flex-1 flex flex-col justify-center">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-5xl mx-auto mb-6">
+                  <div className="bg-teal-50 rounded-card p-4 border border-teal-100">
+                    <h4 className="font-medium text-gray-900 mb-3 text-sm md:text-base">
                       {settingType === 'nursery' ? '🏫 Staff & Curriculum' : '🎯 Club Operations'}
                     </h4>
                     <div className="space-y-2">
@@ -371,15 +395,15 @@ export default function AskEdPage() {
                         <button
                           key={index}
                           onClick={() => setInput(question.text)}
-                          className="w-full text-left text-xs bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 transition-colors"
+                          className="w-full text-left text-xs md:text-sm bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-3 transition-colors leading-relaxed"
                         >
-                          {question.text.length > 50 ? `${question.text.substring(0, 47)}...` : question.text}
+                          {question.text.length > 60 ? `${question.text.substring(0, 57)}...` : question.text}
                         </button>
                       ))}
                     </div>
                   </div>
-                  <div className="bg-teal-50 rounded-card p-3 sm:p-4 border border-teal-100">
-                    <h4 className="font-medium text-gray-900 mb-3">
+                  <div className="bg-teal-50 rounded-card p-4 border border-teal-100">
+                    <h4 className="font-medium text-gray-900 mb-3 text-sm md:text-base">
                       {settingType === 'nursery' ? '📚 Assessment & Development' : '🏃‍♂️ Activities & Safety'}
                     </h4>
                     <div className="space-y-2">
@@ -387,31 +411,30 @@ export default function AskEdPage() {
                         <button
                           key={index}
                           onClick={() => setInput(question.text)}
-                          className="w-full text-left text-xs bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 transition-colors"
+                          className="w-full text-left text-xs md:text-sm bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-3 transition-colors leading-relaxed"
                         >
-                          {question.text.length > 50 ? `${question.text.substring(0, 47)}...` : question.text}
+                          {question.text.length > 60 ? `${question.text.substring(0, 57)}...` : question.text}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  </div>
+                  
+                  <div className="max-w-5xl mx-auto">
+                    <h4 className="font-medium text-gray-900 mb-4 text-center text-sm md:text-base">⚡ Quick Compliance Checks</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-5">
+                      {dynamicQuestions.quickChecks.map((question, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setInput(question.text)}
+                          className="text-xs md:text-sm bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-3 transition-colors min-h-[3.5rem] flex items-center justify-center text-center leading-relaxed"
+                        >
+                          {question.text}
                         </button>
                       ))}
                     </div>
                   </div>
                 </div>
-                
-                <div className="mt-6 max-w-2xl mx-auto">
-                  <h4 className="font-medium text-gray-900 mb-3 text-center">⚡ Quick Compliance Checks</h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                    {dynamicQuestions.quickChecks.map((question, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setInput(question.text)}
-                        className="text-xs bg-white hover:bg-teal-50 border border-teal-200 rounded-lg px-3 py-2 transition-colors"
-                      >
-                        {question.text.length > 25 ? `${question.text.substring(0, 22)}...` : question.text}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                
-                <p className="mt-6 text-xs text-gray-500">Click a question above or type your own below!</p>
               </div>
             ) : (
               <div className="space-y-4 min-h-0">

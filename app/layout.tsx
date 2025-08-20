@@ -40,7 +40,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "HeyEd",
+              name: "HeyEd.",
               url: "https://heyed.co.uk",
               logo: "https://heyed.co.uk/logo.png",
               sameAs: [

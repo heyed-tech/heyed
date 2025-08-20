@@ -58,18 +58,18 @@ const nurseryRatiosQuestions: QuestionPrompt[] = [
   { text: "What are the required staff-to-child ratios for our nursery?", category: "ratios", settingType: "nursery" },
   { text: "How many qualified staff do we need at level 2 and 3?", category: "ratios", settingType: "nursery" },
   { text: "Can we include apprentices or students in our ratios?", category: "ratios", settingType: "nursery" },
-  { text: "What happens if regular staff are absent or sick?", category: "ratios", settingType: "nursery" },
   { text: "Do volunteers or parent helpers count towards ratios?", category: "ratios", settingType: "nursery" },
-  { text: "What qualifications are accepted for ratio requirements?", category: "ratios", settingType: "nursery" }
+  { text: "What qualifications are accepted for ratio requirements?", category: "ratios", settingType: "nursery" },
+  { text: "What are the ratio requirements for mixed age groups?", category: "ratios", settingType: "nursery" }
 ]
 
 const nurseryAssessmentQuestions: QuestionPrompt[] = [
-  { text: "How should we assess children's development and progress?", category: "assessment", settingType: "nursery" },
-  { text: "What is the reception baseline assessment and when is it used?", category: "assessment", settingType: "nursery" },
-  { text: "How often should we observe and document children's learning?", category: "assessment", settingType: "nursery" },
   { text: "What records do we need to keep for each child?", category: "assessment", settingType: "nursery" },
   { text: "How do we track progress against development milestones?", category: "assessment", settingType: "nursery" },
-  { text: "What should we include in children's learning journeys?", category: "assessment", settingType: "nursery" }
+  { text: "What are the EYFS assessment and reporting requirements?", category: "assessment", settingType: "nursery" },
+  { text: "How do we identify and support children with SEND needs?", category: "assessment", settingType: "nursery" },
+  { text: "What information must we share with parents about their child's development?", category: "assessment", settingType: "nursery" },
+  { text: "How do we ensure accurate and objective assessment practices?", category: "assessment", settingType: "nursery" }
 ]
 
 const nurseryCurriculumQuestions: QuestionPrompt[] = [
@@ -85,23 +85,21 @@ const nurserySpecificQuestions: QuestionPrompt[] = [
   { text: "What are the EYFS requirements for 2-year-old children?", category: "specific", settingType: "nursery" },
   { text: "How do we support children's transition to school?", category: "specific", settingType: "nursery" },
   { text: "What are the procedures for nappy changing and personal care?", category: "specific", settingType: "nursery" },
-  { text: "How do we handle separation anxiety in young children?", category: "specific", settingType: "nursery" },
   { text: "What learning goals should 3-year-olds achieve before school?", category: "specific", settingType: "nursery" },
-  { text: "How do we work with parents on potty training?", category: "specific", settingType: "nursery" },
-  { text: "What about sleep routines and rest times for younger children?", category: "specific", settingType: "nursery" },
-  { text: "How do we adapt activities for different developmental stages?", category: "specific", settingType: "nursery" }
+  { text: "How do we adapt activities for different developmental stages?", category: "specific", settingType: "nursery" },
+  { text: "What are the requirements for intimate care and toileting assistance?", category: "specific", settingType: "nursery" }
 ]
 
 // Club-specific questions
 const clubSpecificQuestions: QuestionPrompt[] = [
   { text: "What are the requirements for after-school and holiday clubs?", category: "specific", settingType: "club" },
   { text: "How do we supervise children during free play activities?", category: "specific", settingType: "club" },
-  { text: "What activities are appropriate for school-age children?", category: "specific", settingType: "club" },
-  { text: "How should we handle homework time and academic support?", category: "specific", settingType: "club" },
   { text: "What about supporting children with additional needs in clubs?", category: "specific", settingType: "club" },
   { text: "How do we manage different age groups together safely?", category: "specific", settingType: "club" },
   { text: "What are the specific requirements for holiday provision?", category: "specific", settingType: "club" },
-  { text: "How do we ensure safe collection and handover of children?", category: "specific", settingType: "club" }
+  { text: "How do we ensure safe collection and handover of children?", category: "specific", settingType: "club" },
+  { text: "What are the staff qualification requirements for out-of-school care?", category: "specific", settingType: "club" },
+  { text: "How do we maintain child protection standards in club environments?", category: "specific", settingType: "club" }
 ]
 
 // Combine all questions
@@ -141,7 +139,7 @@ export function getQuestionsByCategory(category: string, settingType?: 'nursery'
 }
 
 // Helper function to get a balanced mix of question categories
-export function getBalancedQuestions(settingType: 'nursery' | 'club'): {
+export function getBalancedQuestions(settingType: 'nursery' | 'club', isMobile: boolean = false): {
   primary: QuestionPrompt[]
   secondary: QuestionPrompt[]
   quickChecks: QuestionPrompt[]
@@ -159,35 +157,39 @@ export function getBalancedQuestions(settingType: 'nursery' | 'club'): {
   const shuffleSample = (arr: QuestionPrompt[], count: number) => 
     [...arr].sort(() => Math.random() - 0.5).slice(0, count)
   
+  // Reduce questions on mobile for better UX
+  const questionsPerSection = isMobile ? 1 : 2
+  const quickCheckCount = isMobile ? 1 : 3
+  
   if (settingType === 'nursery') {
     return {
       primary: [
         ...shuffleSample(ratios, 1),
-        ...shuffleSample(curriculum, 1)
-      ],
+        ...shuffleSample(curriculum, isMobile ? 0 : 1)
+      ].filter(Boolean),
       secondary: [
         ...shuffleSample(assessment, 1),
-        ...shuffleSample(specific, 1)
-      ],
+        ...shuffleSample(specific, isMobile ? 0 : 1)
+      ].filter(Boolean),
       quickChecks: [
         ...shuffleSample(safeguarding, 1),
-        ...shuffleSample(ofsted, 1),
-        ...shuffleSample(training, 1)
-      ]
+        ...shuffleSample(ofsted, isMobile ? 0 : 1),
+        ...shuffleSample(training, isMobile ? 0 : 1)
+      ].filter(Boolean)
     }
   } else {
     return {
       primary: [
-        ...shuffleSample(specific, 2)
+        ...shuffleSample(specific, questionsPerSection)
       ],
       secondary: [
-        ...shuffleSample(healthSafety, 2)
+        ...shuffleSample(healthSafety, questionsPerSection)
       ],
       quickChecks: [
         ...shuffleSample(safeguarding, 1),
-        ...shuffleSample(ofsted, 1),
-        ...shuffleSample(training, 1)
-      ]
+        ...shuffleSample(ofsted, isMobile ? 0 : 1),
+        ...shuffleSample(training, isMobile ? 0 : 1)
+      ].filter(Boolean)
     }
   }
 }

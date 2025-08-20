@@ -1,4 +1,4 @@
-// Comprehensive error handling and categorization for Ask Ed
+// Comprehensive error handling and categorization for AskEd.
 
 export enum ErrorCategory {
   VALIDATION = 'validation',
@@ -183,7 +183,7 @@ export function logError(error: AskEdError | Error, context?: Record<string, any
   }
 
   // In production, this would go to a proper logging service
-  console.error('Ask Ed Error:', JSON.stringify(logEntry, null, 2))
+  console.error('AskEd. Error:', JSON.stringify(logEntry, null, 2))
 }
 
 // Error response helper

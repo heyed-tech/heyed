@@ -1,4 +1,4 @@
-// Simple in-memory caching for Ask Ed
+// Simple in-memory caching for AskEd.
 // For production, consider Redis or other distributed cache
 
 interface CacheEntry<T> {

@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import HeroIllustration from "@/components/hero-illustration";
@@ -18,12 +18,13 @@ const DynamicScreenshotScrollSection = dynamic(
   () => import('@/components/screenshot-scroll-section'),
   { 
     ssr: false,
-    loading: () => <div style={{ height: '500vh', backgroundColor: '#f9fafb' }} />, // Placeholder to maintain layout
+    loading: () => <div style={{ height: '300vh', backgroundColor: '#f9fafb' }} />, // Placeholder to maintain layout
   },
 );
 
 // Typewriter words constant - defined outside component to prevent recreating on each render
 const TYPEWRITER_WORDS = ["nurseries.", "clubs."];
+
 
 export default function LandingPageClient() {
   // Typewriter effect state
@@ -162,7 +163,7 @@ export default function LandingPageClient() {
       </header>
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-12 md:py-20 overflow-hidden">
+        <section className="relative py-20 md:py-28 overflow-hidden">
           {/* Background Image */}
           <div
             className="absolute inset-0 z-0 bg-gray-50"
@@ -265,50 +266,42 @@ export default function LandingPageClient() {
           </Container>
         </section>
 
-        {/* Features Section */}
-        <section id="features" className="pt-16 pb-16 md:pt-20 md:pb-20 bg-gray-50 relative overflow-hidden">
-          {/* Background Decorative Elements */}
-          <div className="absolute -left-40 top-40 w-80 h-80 rounded-full border border-teal-200/30 -z-10"></div>
-          <div className="absolute -right-40 bottom-40 w-80 h-80 rounded-full border border-blue-200/30 -z-10"></div>
-          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-gray-200/50 -z-10"></div>
-
+        {/* Trusted By Section */}
+        <section className="py-12 md:py-16 bg-white">
           <Container>
-            <div className="flex flex-col items-center justify-center space-y-8 text-center">
-              <div className="space-y-4 max-w-[85rem] mx-auto">
-                <div className="inline-block rounded-card bg-teal-100 px-3 py-1 text-sm text-teal-700">Features</div>
-                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight xl:text-5xl/tight">
-                  Everything you need to manage your childcare business.
-                </h2>
-                <p className="mx-auto max-w-2xl text-gray-500 md:text-lg xl:text-xl">
-                  Centralise staff records, automate compliance tracking, and streamline task management across all your venues.
-                </p>
-              </div>
+            <div className="text-center mb-8">
+              <p className="text-lg text-gray-600">
+                Join <span className="font-semibold text-teal-500">50+ nurseries</span> and clubs trusting <span className="font-bitter font-medium tracking-tight"><span style={{color: '#727272'}}>Hey</span><span style={{color: '#14B8A6'}}>Ed.</span></span>
+              </p>
             </div>
-            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 mt-16 xl:max-w-6xl 2xl:max-w-7xl">
-              {features.map((feature, i) => (
-                <div
-                  key={i}
-                  className="group flex flex-col items-center space-y-2 rounded-card border bg-white p-6 shadow-sm transition-all duration-700 ease-out hover:shadow-lg hover:scale-[1.01] sm:hover:scale-100 sm:hover:-translate-y-1 sm:duration-500 sm:ease-in-out md:opacity-0 md:animate-fadeIn"
-                  style={{ animationDelay: `${i * 0.1}s` }}
+            <div className="flex items-center justify-center flex-wrap gap-8 md:gap-12 lg:gap-16">
+              {[
+                { name: "Castles", logo: "/images/logos/castles.png" },
+                { name: "Cranbrook", logo: "/images/logos/cranbrook.png" },
+                { name: "Millie's", logo: "/images/logos/millie.png" },
+                { name: "Mum's", logo: "/images/logos/mum.png" },
+                { name: "TC", logo: "/images/logos/tc.png" }
+              ].map((partner) => (
+                <motion.div 
+                  key={partner.name} 
+                  className="relative group"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
                 >
-                  <div
-                    className={`rounded-full p-2 ${feature.iconClass} md:transition-transform md:hover:scale-110`}
-                  >
-                    <feature.icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-xl font-bold">{feature.title}</h3>
-                  <p className="text-center text-gray-500">{feature.description}</p>
-                </div>
+                  <img
+                    src={partner.logo}
+                    alt={`${partner.name} logo`}
+                    className="h-14 md:h-16 lg:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
+                  />
+                </motion.div>
               ))}
             </div>
           </Container>
         </section>
 
-        {/* Screenshot Scroll Section with Hijacking */}
-        <DynamicScreenshotScrollSection />
-
-        {/* Video Section */}
-        <section className="pt-10 pb-16 md:pt-14 md:pb-20 bg-white relative overflow-hidden">
+        {/* Single Central Record Section */}
+        <section className="py-16 md:py-24 bg-white relative overflow-hidden">
           {/* Background Decorative Elements */}
           <div
             className="absolute top-20 right-10 w-64 h-64 rounded-full bg-teal-100/20 blur-3xl -z-10 animate-pulse"
@@ -351,12 +344,54 @@ export default function LandingPageClient() {
           </Container>
         </section>
 
+        {/* Screenshot Scroll Section with Hijacking */}
+        <DynamicScreenshotScrollSection />
+
+        {/* Features Section */}
+        <section id="features" className="pt-12 pb-16 md:pt-16 md:pb-24 bg-gray-50 relative overflow-hidden">
+          {/* Background Decorative Elements */}
+          <div className="absolute -left-40 top-40 w-80 h-80 rounded-full border border-teal-200/30 -z-10"></div>
+          <div className="absolute -right-40 bottom-40 w-80 h-80 rounded-full border border-blue-200/30 -z-10"></div>
+          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-gray-200/50 -z-10"></div>
+
+          <Container>
+            <div className="flex flex-col items-center justify-center space-y-8 text-center">
+              <div className="space-y-4 max-w-[85rem] mx-auto">
+                <div className="inline-block rounded-card bg-teal-100 px-3 py-1 text-sm text-teal-700">Features</div>
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight xl:text-5xl/tight">
+                  Everything you need to manage your childcare business.
+                </h2>
+                <p className="mx-auto max-w-2xl text-gray-500 md:text-lg xl:text-xl">
+                  Centralise staff records, automate compliance tracking, and streamline task management across all your venues.
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 mt-16 xl:max-w-6xl 2xl:max-w-7xl">
+              {features.map((feature, i) => (
+                <div
+                  key={i}
+                  className="group flex flex-col items-center space-y-2 rounded-card border bg-white p-6 shadow-sm transition-all duration-700 ease-out hover:shadow-lg hover:scale-[1.01] sm:hover:scale-100 sm:hover:-translate-y-1 sm:duration-500 sm:ease-in-out md:opacity-0 md:animate-fadeIn"
+                  style={{ animationDelay: `${i * 0.1}s` }}
+                >
+                  <div
+                    className={`rounded-full p-2 ${feature.iconClass} md:transition-transform md:hover:scale-110`}
+                  >
+                    <feature.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-xl font-bold">{feature.title}</h3>
+                  <p className="text-center text-gray-500">{feature.description}</p>
+                </div>
+              ))}
+            </div>
+          </Container>
+        </section>
+
         {/* Pricing Calculator Section */}
-        <section id="pricing" className="py-16 md:py-20 bg-white relative overflow-hidden">
+        <section id="pricing" className="py-16 md:py-24 bg-white relative overflow-hidden">
           {/* Background Decorative Elements */}
           <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-gray-50 to-transparent"></div>
 
-          <Container>
+          <Container className="relative z-10">
             <div className="flex flex-col items-center justify-center space-y-8 text-center">
               <div className="space-y-4 max-w-[85rem] mx-auto">
                 <div className="inline-block rounded-card bg-teal-100 px-3 py-1 text-sm text-teal-700">Pricing</div>
@@ -377,7 +412,7 @@ export default function LandingPageClient() {
         {/* Testimonials Section */}
         <section
           id="testimonials"
-          className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden"
+          className="py-16 md:py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden"
         >
           {/* Background Decorative Elements */}
           <div className="absolute -left-20 top-40 w-40 h-40 rounded-full bg-teal-50 blur-2xl -z-10"></div>
@@ -472,7 +507,7 @@ export default function LandingPageClient() {
         </section>
 
         {/* FAQ Section */}
-        <section className="py-16 md:py-20 bg-white relative overflow-hidden">
+        <section className="py-16 md:py-24 bg-white relative overflow-hidden">
           {/* Background Decorative Elements */}
           <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-gray-50 to-transparent"></div>
 
@@ -546,7 +581,7 @@ export default function LandingPageClient() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 md:py-20 relative overflow-hidden">
+        <section className="py-20 md:py-28 relative overflow-hidden">
           {/* Background gradient */}
           <div
             className="absolute inset-0 z-0 bg-gray-50"

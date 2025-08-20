@@ -23,9 +23,9 @@ const SECURITY_HEADERS = {
     "default-src 'self'",
     "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://code.tidio.co http://code.tidio.co https://widget-v4.tidiochat.com http://widget-v4.tidiochat.com",
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-    "font-src 'self' https://fonts.gstatic.com",
+    "font-src 'self' https://fonts.gstatic.com https://code.tidio.co http://code.tidio.co",
     "img-src 'self' data: https:",
-    "media-src 'self' https://*.supabase.co",
+    "media-src 'self' https://*.supabase.co https://code.tidio.co http://code.tidio.co",
     "connect-src 'self' https://api.openai.com https://*.supabase.co wss://*.supabase.co https://*.tidio.co http://*.tidio.co wss://*.tidio.co ws://*.tidio.co https://*.tidiochat.com http://*.tidiochat.com wss://*.tidiochat.com ws://*.tidiochat.com",
     "frame-src 'self' https://*.tidio.co http://*.tidio.co https://*.tidiochat.com http://*.tidiochat.com",
     "object-src 'none'",
@@ -82,7 +82,7 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // Add specific headers for Ask Ed API routes
+  // Add specific headers for AskEd. API routes
   if (request.nextUrl.pathname.startsWith('/api/ask-ed/')) {
     // Rate limiting headers (these will be set by the rate limiter, but we can add base ones)
     response.headers.set('X-RateLimit-Limit', '10')

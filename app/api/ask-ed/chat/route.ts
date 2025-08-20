@@ -50,15 +50,10 @@ export async function POST(req: NextRequest) {
     
     const { context, responseTemplate, confidence } = await getRelevantContext(message, settingType)
     
-    // Track failed searches for improvement
+    // Always attempt to provide an answer - remove the error return
+    // Track failed searches for analytics but don't block the response
     if (!context) {
       await trackFailedSearch(sessionId, message)
-      return new Response(
-        JSON.stringify({ 
-          error: "I couldn't find relevant information for your question. Please try rephrasing or ask about KCSiE, EYFS, or Ofsted compliance topics." 
-        }),
-        { status: 200, headers: { 'Content-Type': 'application/json' } }
-      )
     }
     
     // Build conversation context if available
@@ -71,12 +66,48 @@ export async function POST(req: NextRequest) {
       conversationContext += '\n'
     }
 
-    let prompt = `Context from official documents:
+    let prompt = ''
+    let hasOfficialDocuments = context && !context.includes('[Off-topic Response]')
+    
+    if (hasOfficialDocuments) {
+      // We have document context - use it as primary source
+      prompt = `Context from official documents:
 ${context}${conversationContext}
 
 Current question: ${message}
 
-Provide a concise, practical answer. Focus on what the user needs to know or do. If this is a follow-up question, use the conversation context to provide a relevant response.`
+Provide a concise, practical answer based on the official documentation above. Focus on what the user needs to know or do. If this is a follow-up question, use the conversation context to provide a relevant response.`
+    } else {
+      // No document context - use AI knowledge with appropriate disclaimers
+      let responseSource = ''
+      
+      if (context && context.includes('[Off-topic Response]')) {
+        // Off-topic question
+        responseSource = 'This question appears to be outside my scope of UK childcare compliance. '
+      } else {
+        // No matching documents found
+        responseSource = 'I couldn\'t find specific information in the official legislation documents for this question. '
+      }
+      
+      prompt = `You are AskEd., an AI compliance assistant specializing in UK nurseries and clubs. You help with KCSiE, EYFS, and Ofsted compliance questions.
+
+${conversationContext}
+Current question: ${message}
+
+${responseSource}However, I can provide general guidance based on my knowledge of UK childcare compliance.
+
+Please provide a helpful response using your knowledge of:
+- Early Years Foundation Stage (EYFS) requirements
+- Ofsted regulations and standards  
+- Keeping Children Safe in Education (KCSiE)
+- Health and safety in childcare settings
+- Insurance and liability considerations
+- General best practices for nurseries and clubs
+
+IMPORTANT: Start your response with the disclaimer: "${responseSource}Based on general compliance knowledge:" and end with "For definitive guidance, please consult the official legislation documents or contact your local authority/Ofsted directly."
+
+Provide practical, helpful guidance while making it clear this is general knowledge rather than from specific official documents.`
+    }
 
     // Add response template if available for structured answers
     if (responseTemplate) {
@@ -89,8 +120,8 @@ Provide a concise, practical answer. Focus on what the user needs to know or do.
         { role: 'system', content: SYSTEM_PROMPT },
         { role: 'user', content: prompt }
       ],
-      temperature: 0.3,
-      max_tokens: 350,
+      temperature: hasOfficialDocuments ? 0.3 : 0.5, // Higher temperature for general knowledge
+      max_tokens: 400, // Increased token limit for more comprehensive answers
       stream: true,
     })
     

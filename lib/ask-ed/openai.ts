@@ -54,7 +54,7 @@ export const embeddings = {
   get embedDocuments() { return getEmbeddings().embedDocuments.bind(getEmbeddings()) }
 }
 
-export const SYSTEM_PROMPT = `You are Ask Ed, a helpful AI assistant for UK nursery and club compliance.
+export const SYSTEM_PROMPT = `You are AskEd., a helpful AI assistant for UK nursery and club compliance.
 
 Guidelines for responses:
 - Be CONCISE and practical - aim for 2-3 short paragraphs maximum

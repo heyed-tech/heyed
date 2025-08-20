@@ -5,15 +5,15 @@ import { Logo } from "@/components/logo"
 export function Footer() {
   return (
     <footer className="border-t bg-gray-50">
-      <Container>
-        <div className="flex flex-col gap-6 py-8 md:py-12">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <Link href="/" className="flex items-center">
+      <Container className="!max-w-4xl">
+        <div className="flex flex-col gap-6 py-8 md:py-12 mx-auto">
+          <div className="flex flex-col items-center justify-center gap-4 text-center">
+            <Link href="/" className="flex items-center ml-3.5">
               <Logo />
             </Link>
             <nav className="flex flex-col sm:flex-row gap-2 sm:gap-4 md:gap-6 text-center">
-              <Link href="/ask-ed" className="text-sm font-medium hover:underline underline-offset-4 text-blue-600 hover:text-blue-700">
-                Ask Ed (AI Assistant)
+              <Link href="/ask-ed" className="text-sm font-medium hover:underline underline-offset-4">
+                AskEd.
               </Link>
               <Link href="/privacy" className="text-sm font-medium hover:underline underline-offset-4">
                 Privacy Policy
@@ -32,9 +32,9 @@ export function Footer() {
               </Link>
             </nav>
           </div>
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-gray-500">© {new Date().getFullYear()} HeyEd. All rights reserved.</p>
-            <div className="flex items-center gap-4">
+          <div className="flex flex-col items-center justify-center gap-4 text-center">
+            <p className="text-sm text-gray-500">© {new Date().getFullYear()} HeyEd.. All rights reserved.</p>
+            <div className="flex items-center justify-center gap-4">
               <Link
                 href="https://www.facebook.com/profile.php?id=61568198237207"
                 className="text-gray-500 hover:text-teal-500"

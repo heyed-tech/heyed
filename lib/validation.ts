@@ -1,4 +1,4 @@
-// Input validation and sanitization for Ask Ed
+// Input validation and sanitization for AskEd.
 
 export interface ValidationResult {
   isValid: boolean

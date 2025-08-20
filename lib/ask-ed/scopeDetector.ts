@@ -96,5 +96,5 @@ export function isTopicInScope(query: string): boolean {
 }
 
 export function getOffTopicResponse(): string {
-  return "I'm Ask Ed, a specialist AI assistant for UK nursery and club compliance. I can help with questions about KCSiE, EYFS, Ofsted inspections, safeguarding, staff ratios, and other compliance topics. Please ask me about nursery or club compliance matters, and I'll be happy to help!"
+  return "I'm AskEd., a specialist AI assistant for UK nursery and club compliance. I can help with questions about KCSiE, EYFS, Ofsted inspections, safeguarding, staff ratios, and other compliance topics. Please ask me about nursery or club compliance matters, and I'll be happy to help!"
 }

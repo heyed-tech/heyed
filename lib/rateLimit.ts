@@ -1,4 +1,4 @@
-// Simple in-memory rate limiting for Ask Ed API
+// Simple in-memory rate limiting for AskEd. API
 // For production, consider Redis-based rate limiting
 
 interface RateLimitEntry {
