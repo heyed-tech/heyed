@@ -178,21 +178,6 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
     return result
   }
   
-  // Next, check knowledge base for common edge cases
-  const knowledgeBaseResults = searchKnowledgeBase(query, settingType)
-  if (knowledgeBaseResults.length > 0) {
-    const kbContext = knowledgeBaseResults
-      .slice(0, 2) // Take top 2 knowledge base matches
-      .map(entry => `[Knowledge Base - ${entry.source || 'Expert Guidance'}]\n${entry.answer}`)
-      .join('\n\n---\n\n')
-    
-    return {
-      context: kbContext,
-      responseTemplate: undefined,
-      confidence: { score: 0.9, method: 'semantic', resultCount: knowledgeBaseResults.length, bestSimilarity: 1.0 }
-    }
-  }
-  
   // Enhance the query with preprocessing
   const { processedQuery, intent, variations, responseTemplate } = enhanceQuery(query)
   
@@ -203,6 +188,50 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
                      query.toLowerCase().includes('changes') ||
                      query.toLowerCase().includes('safeguarding') ||
                      query.toLowerCase().includes('requirements')
+  
+  // Determine if this query should prioritize vector search
+  const prioritizeVectorSearch = 
+    // Questions about updates, changes, or new requirements
+    (query.toLowerCase().includes('new') || 
+     query.toLowerCase().includes('update') || 
+     query.toLowerCase().includes('change') ||
+     query.toLowerCase().includes('latest') ||
+     query.toLowerCase().includes('2025') ||
+     query.toLowerCase().includes('september')) ||
+    // Questions asking for detailed information
+    (query.toLowerCase().includes('what are') ||
+     query.toLowerCase().includes('list of') ||
+     query.toLowerCase().includes('all the') ||
+     query.toLowerCase().includes('tell me about'))
+  
+  // For simple/edge-case queries, check knowledge base first
+  if (!prioritizeVectorSearch) {
+    const knowledgeBaseResults = searchKnowledgeBase(query, settingType)
+    // Only use KB if it's a strong match (not just any keyword match)
+    if (knowledgeBaseResults.length > 0) {
+      // Check if it's a really good KB match (multiple keywords or exact query match)
+      const strongMatch = knowledgeBaseResults.some(entry => {
+        const normalizedQuery = query.toLowerCase()
+        const matchCount = entry.keywords.filter(k => 
+          normalizedQuery.includes(k.toLowerCase())
+        ).length
+        return matchCount >= 2 || entry.query.toLowerCase() === normalizedQuery
+      })
+      
+      if (strongMatch) {
+        const kbContext = knowledgeBaseResults
+          .slice(0, 2)
+          .map(entry => `[Knowledge Base - ${entry.source || 'Expert Guidance'}]\n${entry.answer}`)
+          .join('\n\n---\n\n')
+        
+        return {
+          context: kbContext,
+          responseTemplate: undefined,
+          confidence: { score: 0.9, method: 'semantic', resultCount: knowledgeBaseResults.length, bestSimilarity: 1.0 }
+        }
+      }
+    }
+  }
   
   const initialThreshold = isEyfsQuery ? 0.5 : 0.6
   
@@ -272,13 +301,19 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
     return result
   }
   
-  // For EYFS queries, prioritize Updates 2025 content and include more results
-  const prioritizeUpdates = isEyfsQuery && results.some(r => r.metadata.source.includes('Updates 2025'))
+  // For EYFS queries, prioritize EYFS Updates content and include more results
+  const prioritizeUpdates = isEyfsQuery && results.some(r => 
+    r.metadata.source.includes('EYFS Updates') || r.metadata.source.includes('Updates 2025')
+  )
   
   if (prioritizeUpdates) {
-    // Separate Updates 2025 from other results
-    const updatesResults = results.filter(r => r.metadata.source.includes('Updates 2025'))
-    const otherResults = results.filter(r => !r.metadata.source.includes('Updates 2025'))
+    // Separate EYFS Updates from other results
+    const updatesResults = results.filter(r => 
+      r.metadata.source.includes('EYFS Updates') || r.metadata.source.includes('Updates 2025')
+    )
+    const otherResults = results.filter(r => 
+      !r.metadata.source.includes('EYFS Updates') && !r.metadata.source.includes('Updates 2025')
+    )
     
     // Sort each group by similarity
     updatesResults.sort((a, b) => b.similarity - a.similarity)

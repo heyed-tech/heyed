@@ -76,9 +76,18 @@ ${context}${conversationContext}
 
 Current question: ${message}
 
-Provide a concise, practical answer based on the official documentation above. Focus on what the user needs to know or do. If this is a follow-up question, use the conversation context to provide a relevant response.
+IMPORTANT INSTRUCTIONS:
+1. Base your answer DIRECTLY on the specific details provided in the context above
+2. If the context contains a list of changes or requirements, present them clearly as bullet points
+3. Do NOT add general information not found in the provided context
+4. Extract and present the EXACT information from the documents, especially:
+   - Specific requirements mentioned
+   - Dates and deadlines
+   - New policies or procedures
+   - Changes to existing practices
+5. Use UK English spelling and grammar throughout
 
-IMPORTANT: Use UK English spelling and grammar throughout (e.g., "organised" not "organized", "centre" not "center", "colour" not "color", "realise" not "realize").`
+Provide a practical answer that directly addresses the question using the specific information from the documents above.`
     } else {
       // No document context - use AI knowledge with appropriate disclaimers
       let responseSource = ''
