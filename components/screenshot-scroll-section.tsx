@@ -148,12 +148,12 @@ function ScrollContent({ isMobile }: { isMobile: boolean }) {
                     <img 
                       src="/images/mobile-staff-management.png" 
                       alt="HeyEd Staff Management" 
-                      className="relative w-full h-auto shadow-xl block md:hidden rounded-lg object-contain"
+                      className="relative w-full h-auto shadow-xl block md:hidden rounded-2xl object-contain"
                     />
                     <img 
                       src="/images/Group 1.svg" 
                       alt="HeyEd Staff Management" 
-                      className="relative w-full h-auto shadow-xl hidden md:block rounded-lg"
+                      className="relative w-full h-auto shadow-xl hidden md:block rounded-2xl"
                     />
                   </div>
                 </motion.div>
@@ -173,12 +173,12 @@ function ScrollContent({ isMobile }: { isMobile: boolean }) {
                     <img 
                       src="/images/mobile-compliance.png" 
                       alt="HeyEd Compliance Dashboard" 
-                      className="relative w-full h-auto shadow-xl block md:hidden rounded-lg object-contain"
+                      className="relative w-full h-auto shadow-xl block md:hidden rounded-2xl object-contain"
                     />
                     <img 
                       src="/images/Group 2.svg" 
                       alt="HeyEd Compliance Dashboard" 
-                      className="relative w-full h-auto shadow-xl hidden md:block rounded-lg"
+                      className="relative w-full h-auto shadow-xl hidden md:block rounded-2xl"
                     />
                   </div>
                 </motion.div>
@@ -198,12 +198,12 @@ function ScrollContent({ isMobile }: { isMobile: boolean }) {
                     <img 
                       src="/images/mobile-document-management.png" 
                       alt="HeyEd Document Management" 
-                      className="relative w-full h-auto shadow-xl block md:hidden rounded-lg object-contain"
+                      className="relative w-full h-auto shadow-xl block md:hidden rounded-2xl object-contain"
                     />
                     <img 
                       src="/images/Group 3.svg" 
                       alt="HeyEd Document Management" 
-                      className="relative w-full h-auto shadow-xl hidden md:block rounded-lg"
+                      className="relative w-full h-auto shadow-xl hidden md:block rounded-2xl"
                     />
                   </div>
                 </motion.div>
