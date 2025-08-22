@@ -165,8 +165,11 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
   let results: SearchResult[] = []
   let searchMethod: SearchConfidence['method'] = 'none'
   
-  // First, check if the query is within scope
-  if (!isTopicInScope(query)) {
+  // Only block obviously off-topic queries (greetings, weather, etc.)
+  // Let vector search handle edge cases rather than being overly restrictive
+  const obviouslyOffTopic = query.toLowerCase().match(/^(hi|hello|hey|good morning|what('s| is) the weather|who is the prime minister|what year is it)/)
+  
+  if (obviouslyOffTopic) {
     const result = {
       context: `[Off-topic Response]\n${getOffTopicResponse()}`,
       responseTemplate: undefined,
@@ -189,6 +192,10 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
                      query.toLowerCase().includes('safeguarding') ||
                      query.toLowerCase().includes('requirements')
   
+  // Check if this is an annex-related query that needs higher precision
+  const isAnnexQuery = query.toLowerCase().includes('annex') ||
+                       query.toLowerCase().includes('appendix')
+  
   // Determine if this query should prioritize vector search
   const prioritizeVectorSearch = 
     // Questions about updates, changes, or new requirements
@@ -202,7 +209,9 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
     (query.toLowerCase().includes('what are') ||
      query.toLowerCase().includes('list of') ||
      query.toLowerCase().includes('all the') ||
-     query.toLowerCase().includes('tell me about'))
+     query.toLowerCase().includes('tell me about')) ||
+    // Annex queries need vector search priority
+    isAnnexQuery
   
   // For simple/edge-case queries, check knowledge base first
   if (!prioritizeVectorSearch) {
@@ -233,7 +242,10 @@ export async function getRelevantContext(query: string, settingType?: 'nursery' 
     }
   }
   
-  const initialThreshold = isEyfsQuery ? 0.5 : 0.6
+  // Set appropriate threshold based on query type
+  let initialThreshold = 0.6 // default
+  if (isEyfsQuery) initialThreshold = 0.5 // lower for EYFS to get more content
+  if (isAnnexQuery) initialThreshold = 0.7 // higher for annex queries for precision
   
   // Try semantic search with processed query first
   results = await searchDocuments(processedQuery, 5, initialThreshold)

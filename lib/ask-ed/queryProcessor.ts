@@ -28,6 +28,10 @@ const TERM_NORMALIZATIONS: Record<string, string> = {
   'nursery school': 'nursery',
   'early years': 'EYFS',
   'safeguarding lead': 'Designated Safeguarding Lead',
+  'annex c': 'EYFS Annex C safeguarding training criteria',
+  'what is annex c': 'EYFS Annex C safeguarding training criteria',
+  'annex a': 'EYFS Annex A',
+  'annex b': 'EYFS Annex B',
 }
 
 const COMMON_VARIATIONS: Record<string, string[]> = {

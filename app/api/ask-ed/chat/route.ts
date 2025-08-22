@@ -89,23 +89,22 @@ IMPORTANT INSTRUCTIONS:
 
 Provide a practical answer that directly addresses the question using the specific information from the documents above.`
     } else {
-      // No document context - use AI knowledge with appropriate disclaimers
-      let responseSource = ''
-      
+      // No document context - act like ChatGPT with compliance knowledge
       if (context && context.includes('[Off-topic Response]')) {
-        // Off-topic question
-        responseSource = 'This question appears to be outside my scope of UK childcare compliance. '
+        // Truly off-topic question
+        prompt = `You are AskEd., an AI compliance assistant specialising in UK nurseries and clubs.
+
+Current question: ${message}
+
+This question appears to be outside my area of expertise in UK childcare compliance. I focus specifically on helping with KCSiE, EYFS, and Ofsted requirements.`
       } else {
-        // No matching documents found
-        responseSource = 'I couldn\'t find specific information in the official legislation documents for this question. '
-      }
-      
-      prompt = `You are AskEd., an AI compliance assistant specialising in UK nurseries and clubs. You help with KCSiE, EYFS, and Ofsted compliance questions.
+        // No matching documents but could be compliance-related - answer naturally
+        prompt = `You are AskEd., an AI compliance assistant specialising in UK nurseries and clubs. You help with KCSiE, EYFS, and Ofsted compliance questions.
 
 ${conversationContext}
 Current question: ${message}
 
-${responseSource}However, I can provide general guidance based on my knowledge of UK childcare compliance.
+Answer this question using your knowledge of UK childcare compliance, EYFS framework, KCSiE guidelines, and Ofsted requirements. Be helpful and specific where possible.
 
 Please provide a helpful response using your knowledge of:
 - Early Years Foundation Stage (EYFS) requirements
@@ -115,11 +114,10 @@ Please provide a helpful response using your knowledge of:
 - Insurance and liability considerations
 - General best practices for nurseries and clubs
 
-IMPORTANT: 
-1. Start your response with the disclaimer: "${responseSource}Based on general compliance knowledge:" and end with "For definitive guidance, please consult the official legislation documents or contact your local authority/Ofsted directly."
-2. Use UK English spelling and grammar throughout (e.g., "organised" not "organized", "centre" not "center", "colour" not "color", "realise" not "realize", "specialising" not "specializing").
+IMPORTANT: Use UK English spelling and grammar throughout (e.g., "organised" not "organized", "centre" not "center", "colour" not "color", "realise" not "realize").
 
-Provide practical, helpful guidance while making it clear this is general knowledge rather than from specific official documents.`
+Provide practical, helpful guidance based on your compliance knowledge.`
+      }
     }
 
     // Add response template if available for structured answers
