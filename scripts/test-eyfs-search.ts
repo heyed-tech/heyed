@@ -38,11 +38,13 @@ async function testSearch() {
       const { context, confidence } = await getRelevantContext(query)
       console.log('\ngetRelevantContext:')
       console.log('  Confidence:', confidence)
-      console.log('  Context length:', context.length)
+      console.log('  Context length:', context?.length || 0)
       if (context) {
         const lines = context.split('\n')
         console.log('  First source:', lines[0])
         console.log('  Content preview:', lines[1]?.substring(0, 150))
+      } else {
+        console.log('  No context returned')
       }
     } catch (e: any) {
       console.error('getRelevantContext error:', e.message)
