@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     siteName: 'HeyEd.',
     images: [
       {
-        url: 'https://heyed.co.uk/images/ask-ed-og.png',
+        url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Hey-gIqoFSW8trhDYPD5yHQTr9PEyNKnFQ.png',
         width: 1200,
         height: 630,
         alt: 'AskEd. - AI Compliance Assistant',

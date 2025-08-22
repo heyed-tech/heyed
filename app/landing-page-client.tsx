@@ -271,7 +271,7 @@ export default function LandingPageClient() {
           <Container>
             <div className="text-center mb-8">
               <p className="text-lg text-gray-600">
-                Join <span className="font-semibold text-teal-500">50+ nurseries</span> and clubs trusting <span className="font-bitter font-medium tracking-tight"><span style={{color: '#727272'}}>Hey</span><span style={{color: '#14B8A6'}}>Ed.</span></span>
+                Join <span className="font-semibold text-teal-500">50+ nurseries</span> and clubs trusting <span className="font-bitter font-medium tracking-tight" style={{color: '#727272'}}>Hey<span style={{color: '#14B8A6'}}>Ed.</span></span>
               </p>
             </div>
             <div className="flex items-center justify-center flex-wrap gap-8 md:gap-12 lg:gap-16">
