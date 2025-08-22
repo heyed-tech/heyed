@@ -67,5 +67,49 @@ export default function RootLayout({
 }
 
 export const metadata = {
-      generator: 'v0.dev'
-    };
+  title: 'HeyEd. - UK Nursery & Club Management Software',
+  description: 'Streamline your UK nursery or club operations with HeyEd. Complete compliance management, staff tracking, and business tools designed for EYFS, KCSiE, and Ofsted requirements.',
+  keywords: 'nursery management, club management, EYFS compliance, KCSiE, Ofsted, UK childcare software',
+  authors: [{ name: 'HeyEd.' }],
+  creator: 'HeyEd.',
+  publisher: 'HeyEd.',
+  metadataBase: new URL('https://heyed.co.uk'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'HeyEd. - UK Nursery & Club Management Software',
+    description: 'Streamline your UK nursery or club operations with HeyEd. Complete compliance management, staff tracking, and business tools designed for EYFS, KCSiE, and Ofsted requirements.',
+    url: 'https://heyed.co.uk',
+    siteName: 'HeyEd.',
+    images: [
+      {
+        url: '/heyed2.svg',
+        width: 1200,
+        height: 630,
+        alt: 'HeyEd. - UK Nursery & Club Management Software',
+      },
+    ],
+    locale: 'en_GB',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'HeyEd. - UK Nursery & Club Management Software',
+    description: 'Streamline your UK nursery or club operations with HeyEd. Complete compliance management, staff tracking, and business tools designed for EYFS, KCSiE, and Ofsted requirements.',
+    images: ['/heyed2.svg'],
+    creator: '@oh_hey_ed',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  generator: 'v0.dev'
+};
