@@ -48,13 +48,13 @@ export default function HeroIllustration() {
                     <MoreVertical className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent asChild>
+                <DropdownMenuContent className="relative p-0 overflow-visible">
                   <motion.div
                     initial={{ opacity: 0, y: -5 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -5 }}
                     transition={{ duration: 0.2 }}
-                    className="w-48 rounded-xl bg-white p-1 shadow-lg border z-50"
+                    className="w-48 rounded-xl bg-white p-1 shadow-lg border relative"
                   >
                     <DropdownMenuItem className="flex items-center justify-between rounded-lg">
                       Show Verified
@@ -211,13 +211,13 @@ export default function HeroIllustration() {
                   <span className="text-xs sm:text-sm text-slate-600">All Roles</span>
                   <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4 text-slate-400" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent asChild>
+                <DropdownMenuContent className="relative p-0 overflow-visible">
                   <motion.div
                     initial={{ opacity: 0, y: -5 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -5 }}
                     transition={{ duration: 0.2 }}
-                    className="rounded-xl bg-white p-1 shadow-lg border z-50"
+                    className="rounded-xl bg-white p-1 shadow-lg border relative"
                   >
                     <DropdownMenuItem className="rounded-lg">Head Office</DropdownMenuItem>
                     <DropdownMenuItem className="rounded-lg">Admin</DropdownMenuItem>
