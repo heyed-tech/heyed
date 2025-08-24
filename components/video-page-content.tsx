@@ -5,7 +5,61 @@ import { Button } from "@/components/ui/button";
 import { CalendlyModal } from "@/components/calendly-modal";
 import { Logo } from "@/components/logo";
 import Link from "next/link";
+import Image from "next/image";
+import { Play } from "lucide-react";
 import { Footer } from "@/components/footer";
+
+// Video Player Component with Mobile Poster Fix
+function VideoPlayer() {
+  const [videoStarted, setVideoStarted] = useState(false);
+
+  const handleStartVideo = () => {
+    setVideoStarted(true);
+  };
+
+  return (
+    <div
+      className="relative shadow-2xl rounded-card overflow-hidden"
+      style={{ 
+        aspectRatio: "16 / 9",
+        backgroundColor: '#f1f5f9'
+      }}
+    >
+      {!videoStarted ? (
+        // Show poster with play button until user clicks
+        <div 
+          className="absolute inset-0 cursor-pointer group"
+          onClick={handleStartVideo}
+        >
+          <Image
+            src="/images/heyed-demo-poster.png"
+            alt="HeyEd Demo Video"
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Play button overlay */}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
+            <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center group-hover:bg-white group-hover:scale-110 transition-all duration-300 shadow-lg">
+              <Play className="h-8 w-8 text-teal-500 ml-1" />
+            </div>
+          </div>
+        </div>
+      ) : (
+        // Show video after user clicks
+        <video
+          src="https://oxabxfydvltdhxekaqym.supabase.co/storage/v1/object/public/public-assets/Ad.mp4"
+          controls
+          autoPlay
+          playsInline
+          className="w-full h-full object-cover"
+        >
+          Your browser does not support the video tag.
+        </video>
+      )}
+    </div>
+  );
+}
 
 export default function VideoPageContent() {
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
@@ -56,37 +110,7 @@ export default function VideoPageContent() {
               </div>
 
               {/* Video player */}
-              <div
-                className="relative shadow-2xl rounded-card overflow-hidden"
-                style={{ 
-                  aspectRatio: "16 / 9",
-                  backgroundColor: '#f1f5f9' // Fallback background
-                }}
-              >
-                {/* Fallback poster image for mobile */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                  style={{ 
-                    backgroundImage: "url('/images/heyed-demo-poster.png')",
-                    zIndex: 1
-                  }}
-                />
-                <video
-                  src="https://oxabxfydvltdhxekaqym.supabase.co/storage/v1/object/public/public-assets/Ad.mp4"
-                  poster="/images/heyed-demo-poster.png"
-                  controls
-                  preload="none"
-                  playsInline
-                  className="w-full h-full object-cover relative z-10"
-                  onLoadStart={() => {
-                    // Hide background poster when video starts loading
-                    const bg = document.querySelector('.absolute.inset-0.bg-cover') as HTMLElement;
-                    if (bg) bg.style.display = 'none';
-                  }}
-                >
-                  Your browser does not support the video tag.
-                </video>
-              </div>
+              <VideoPlayer />
 
               {/* CTA Section */}
               <div className="bg-white rounded-card p-8 md:p-12 shadow-sm border text-center space-y-6">
