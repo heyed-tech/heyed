@@ -27,7 +27,7 @@ const SECURITY_HEADERS = {
     "img-src 'self' data: https:",
     "media-src 'self' https://*.supabase.co https://code.tidio.co http://code.tidio.co",
     "connect-src 'self' https://api.openai.com https://*.supabase.co wss://*.supabase.co https://*.tidio.co http://*.tidio.co wss://*.tidio.co ws://*.tidio.co https://*.tidiochat.com http://*.tidiochat.com wss://*.tidiochat.com ws://*.tidiochat.com",
-    "frame-src 'self' https://*.tidio.co http://*.tidio.co https://*.tidiochat.com http://*.tidiochat.com",
+    "frame-src 'self' https://*.tidio.co http://*.tidio.co https://*.tidiochat.com http://*.tidiochat.com https://calendly.com",
     "object-src 'none'",
     "base-uri 'self'"
   ].join('; '),

@@ -8,7 +8,7 @@ import Script from "next/script"
 
 const bitter = Bitter({
   subsets: ["latin"],
-  weight: ["500"],
+  weight: ["500", "600"],
   variable: "--font-bitter",
 })
 
