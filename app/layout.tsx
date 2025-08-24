@@ -27,9 +27,17 @@ export default function RootLayout({
       <head>
         {/* Primary SVG favicon */}
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        
+        {/* Fallback PNG favicons for older browsers */}
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 
-        {/* Apple Touch Icon */}
-        <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+        {/* Apple Touch Icon - corrected path */}
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        
+        {/* Android Chrome icons */}
+        <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
 
         <link rel="canonical" href="https://heyed.co.uk" />
       </head>
