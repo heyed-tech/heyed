@@ -2,6 +2,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import HeroIllustration from "@/components/hero-illustration";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -289,10 +290,14 @@ export default function LandingPageClient() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <img
+                  <Image
                     src={partner.logo}
                     alt={`${partner.name} logo`}
+                    width={120}
+                    height={80}
                     className="h-14 md:h-16 lg:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
+                    loading="lazy"
+                    sizes="(max-width: 768px) 56px, (max-width: 1024px) 64px, 80px"
                   />
                 </motion.div>
               ))}

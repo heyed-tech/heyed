@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft, Search, Play, Clock, Users, FileCheck, Shield, Building, Settings } from "lucide-react"
 import { Logo } from "@/components/logo"
 import { Footer } from "@/components/footer"
@@ -220,10 +221,13 @@ export default function HelpPageContent() {
                 >
                   <div className="relative aspect-video overflow-hidden">
                     <div className="relative w-full h-full cursor-pointer" onClick={() => handleVideoPlay(video)}>
-                      <img
+                      <Image
                         src={video.thumbnail || "/placeholder.svg"}
                         alt={video.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-300" />
                       <div className="absolute inset-0 flex items-center justify-center">
