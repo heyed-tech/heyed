@@ -57,15 +57,32 @@ export default function VideoPageContent() {
 
               {/* Video player */}
               <div
-                className="relative shadow-2xl rounded-card overflow-hidden bg-black"
-                style={{ aspectRatio: "16 / 9" }}
+                className="relative shadow-2xl rounded-card overflow-hidden"
+                style={{ 
+                  aspectRatio: "16 / 9",
+                  backgroundColor: '#f1f5f9' // Fallback background
+                }}
               >
+                {/* Fallback poster image for mobile */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                  style={{ 
+                    backgroundImage: "url('/images/heyed-demo-poster.png')",
+                    zIndex: 1
+                  }}
+                />
                 <video
                   src="https://oxabxfydvltdhxekaqym.supabase.co/storage/v1/object/public/public-assets/Ad.mp4"
                   poster="/images/heyed-demo-poster.png"
                   controls
-                  preload="metadata"
-                  className="w-full h-full object-cover"
+                  preload="none"
+                  playsInline
+                  className="w-full h-full object-cover relative z-10"
+                  onLoadStart={() => {
+                    // Hide background poster when video starts loading
+                    const bg = document.querySelector('.absolute.inset-0.bg-cover') as HTMLElement;
+                    if (bg) bg.style.display = 'none';
+                  }}
                 >
                   Your browser does not support the video tag.
                 </video>
