@@ -62,6 +62,7 @@ export default function VideoPageContent() {
               >
                 <video
                   src="https://oxabxfydvltdhxekaqym.supabase.co/storage/v1/object/public/public-assets/Ad.mp4"
+                  poster="/images/heyed-demo-poster.png"
                   controls
                   preload="metadata"
                   className="w-full h-full object-cover"

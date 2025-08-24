@@ -213,8 +213,6 @@ export default function HelpPageContent() {
               {filteredVideos.length} tutorial{filteredVideos.length !== 1 ? "s" : ""} found
             </div>
 
-function HelpPageContent() {
-            return (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {filteredVideos.map((video) => (
                 <Card
@@ -262,8 +260,6 @@ function HelpPageContent() {
                 </Card>
               ))}
             </div>
-            );
-}
 
             {filteredVideos.length === 0 && (
               <div className="text-center py-12">
