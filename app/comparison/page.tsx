@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { Container } from "@/components/ui/container"
 import { Logo } from "@/components/logo"
 import { UCheckLogo } from "@/components/ucheck-logo"
@@ -5,6 +6,22 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Footer } from "@/components/footer"
 import { CheckCircle2, X } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Feature Comparison: HeyEd vs uCheck | Background Check Services",
+  description: "Compare HeyEd and uCheck background check services for UK nurseries and clubs. See features, pricing, and cost savings for DBS, Right to Work, and IDVT checks.",
+  keywords: "DBS checks, Right to Work checks, background screening, uCheck comparison, nursery compliance, childcare vetting",
+  openGraph: {
+    title: "HeyEd vs uCheck: Complete Feature & Pricing Comparison",
+    description: "See how HeyEd compares to uCheck for background checks, DBS verification, and compliance management for UK nurseries and clubs.",
+    url: "https://heyed.co.uk/comparison",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HeyEd vs uCheck Comparison",
+    description: "Compare features and pricing for background check services designed for UK childcare providers.",
+  },
+}
 
 export default function ComparisonPage() {
   return (
