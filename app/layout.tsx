@@ -75,8 +75,8 @@ export default function RootLayout({
 }
 
 export const metadata = {
-  title: 'HeyEd. - UK Nursery & Club Management Software',
-  description: 'Streamline your UK nursery or club operations with HeyEd. Complete compliance management, staff tracking, and business tools designed for EYFS, KCSiE, and Ofsted requirements.',
+  title: 'HeyEd. | Compliance Made Simple For Nurseries & Clubs',
+  description: 'Turn your Single Central Record into a live compliance system with HeyEd. Automated reminders, DBS tracking, and inspection-ready peace of mind.',
   keywords: 'nursery management, club management, EYFS compliance, KCSiE, Ofsted, UK childcare software',
   authors: [{ name: 'HeyEd.' }],
   creator: 'HeyEd.',
@@ -86,8 +86,8 @@ export const metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'HeyEd. - UK Nursery & Club Management Software',
-    description: 'Streamline your UK nursery or club operations with HeyEd. Complete compliance management, staff tracking, and business tools designed for EYFS, KCSiE, and Ofsted requirements.',
+    title: 'HeyEd. | Compliance Made Simple For Nurseries & Clubs',
+    description: 'Turn your Single Central Record into a live compliance system with HeyEd. Automated reminders, DBS tracking, and inspection-ready peace of mind.',
     url: 'https://heyed.co.uk',
     siteName: 'HeyEd.',
     images: [
@@ -95,7 +95,7 @@ export const metadata = {
         url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Hey-gIqoFSW8trhDYPD5yHQTr9PEyNKnFQ.png',
         width: 1200,
         height: 630,
-        alt: 'HeyEd. - UK Nursery & Club Management Software',
+        alt: 'HeyEd. | Compliance Made Simple For Nurseries & Clubs',
       },
     ],
     locale: 'en_GB',
@@ -103,8 +103,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'HeyEd. - UK Nursery & Club Management Software',
-    description: 'Streamline your UK nursery or club operations with HeyEd. Complete compliance management, staff tracking, and business tools designed for EYFS, KCSiE, and Ofsted requirements.',
+    title: 'HeyEd. | Compliance Made Simple For Nurseries & Clubs',
+    description: 'Turn your Single Central Record into a live compliance system with HeyEd. Automated reminders, DBS tracking, and inspection-ready peace of mind.',
     images: ['https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Hey-gIqoFSW8trhDYPD5yHQTr9PEyNKnFQ.png'],
     creator: '@oh_hey_ed',
   },
