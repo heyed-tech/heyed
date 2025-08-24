@@ -1,9 +1,26 @@
+import type { Metadata } from "next"
 import { Container } from "@/components/ui/container"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import { Logo } from "@/components/logo"
 import { Footer } from "@/components/footer"
+
+export const metadata: Metadata = {
+  title: "Cookies Policy | HeyEd - Understanding Our Cookie Usage",
+  description: "Learn about cookies used by HeyEd for UK nursery and club management software. Understand cookie types, purposes, and how to manage your preferences.",
+  keywords: "cookies policy, privacy, data protection, website cookies, GDPR compliance, UK nursery software",
+  openGraph: {
+    title: "Cookies Policy | HeyEd",
+    description: "Understand how HeyEd uses cookies to provide better service for UK nurseries and clubs. Complete policy and preference management.",
+    url: "https://heyed.co.uk/cookies",
+  },
+  twitter: {
+    card: "summary",
+    title: "Cookies Policy | HeyEd",
+    description: "Learn about HeyEd's cookie usage and data protection practices for UK childcare providers.",
+  },
+}
 
 export default function CookiesPage() {
   return (

@@ -1,9 +1,26 @@
+import type { Metadata } from "next"
 import { Container } from "@/components/ui/container"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 import { Logo } from "@/components/logo"
 import { Footer } from "@/components/footer"
+
+export const metadata: Metadata = {
+  title: "Data Processing Agreement (DPA) | HeyEd - GDPR Compliance",
+  description: "Read HeyEd's Data Processing Agreement outlining how we handle personal data for UK nurseries and clubs in compliance with GDPR and UK data protection laws.",
+  keywords: "data processing agreement, DPA, GDPR compliance, data protection, UK nursery software, personal data, privacy",
+  openGraph: {
+    title: "Data Processing Agreement | HeyEd",
+    description: "Comprehensive DPA outlining HeyEd's data processing practices for UK nurseries and clubs, ensuring GDPR compliance and data security.",
+    url: "https://heyed.co.uk/dpa",
+  },
+  twitter: {
+    card: "summary",
+    title: "Data Processing Agreement | HeyEd",
+    description: "Learn about HeyEd's data processing practices and GDPR compliance for UK childcare providers.",
+  },
+}
 
 export default function DPAPage() {
   return (

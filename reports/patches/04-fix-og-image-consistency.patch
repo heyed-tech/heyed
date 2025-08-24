@@ -1,0 +1,24 @@
+--- a/app/layout.tsx
++++ b/app/layout.tsx
+@@ -85,7 +85,7 @@ export const metadata = {
+   openGraph: {
+     title: 'HeyEd. - UK Nursery & Club Management Software',
+     description: 'Streamline your UK nursery or club operations with HeyEd. Complete compliance management, staff tracking, and business tools designed for EYFS, KCSiE, and Ofsted requirements.',
+     url: 'https://heyed.co.uk',
+     siteName: 'HeyEd.',
+     images: [
+       {
+-        url: '/heyed2.svg',
++        url: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Hey-gIqoFSW8trhDYPD5yHQTr9PEyNKnFQ.png',
+         width: 1200,
+         height: 630,
+         alt: 'HeyEd. - UK Nursery & Club Management Software',
+@@ -97,7 +97,7 @@ export const metadata = {
+     card: 'summary_large_image',
+     title: 'HeyEd. - UK Nursery & Club Management Software',
+     description: 'Streamline your UK nursery or club operations with HeyEd. Complete compliance management, staff tracking, and business tools designed for EYFS, KCSiE, and Ofsted requirements.',
+-    images: ['/heyed2.svg'],
++    images: ['https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Hey-gIqoFSW8trhDYPD5yHQTr9PEyNKnFQ.png'],
+     creator: '@oh_hey_ed',
+   },
+   robots: {
