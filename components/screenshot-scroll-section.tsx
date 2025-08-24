@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useState, useEffect, useRef } from "react"
 import { Container } from "@/components/ui/container"
+import Image from "next/image"
 
 export default function ScreenshotScrollSection() {
   const [mounted, setMounted] = useState(false)
@@ -145,15 +146,23 @@ function ScrollContent({ isMobile }: { isMobile: boolean }) {
                 >
                   <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
                     <div className="absolute -inset-4 bg-gradient-to-br from-teal-400/20 to-blue-400/20 blur-xl opacity-50"></div>
-                    <img 
+                    <Image
                       src="/images/mobile-staff-management.png" 
                       alt="HeyEd Staff Management" 
-                      className="relative w-full h-auto shadow-xl block md:hidden rounded-2xl object-contain"
+                      width={400}
+                      height={800}
+                      className="relative w-full h-auto shadow-xl block md:hidden rounded-2xl"
+                      loading="lazy"
+                      sizes="(max-width: 768px) 100vw, 0px"
                     />
-                    <img 
+                    <Image
                       src="/images/Group 1.svg" 
                       alt="HeyEd Staff Management" 
+                      width={1200}
+                      height={800}
                       className="relative w-full h-auto shadow-xl hidden md:block rounded-2xl"
+                      loading="lazy"
+                      sizes="(max-width: 768px) 0px, 75vw"
                     />
                   </div>
                 </motion.div>
@@ -170,15 +179,23 @@ function ScrollContent({ isMobile }: { isMobile: boolean }) {
                 >
                   <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
                     <div className="absolute -inset-4 bg-gradient-to-br from-teal-400/20 to-teal-500/20 blur-xl opacity-50"></div>
-                    <img 
+                    <Image
                       src="/images/mobile-compliance.png" 
                       alt="HeyEd Compliance Dashboard" 
-                      className="relative w-full h-auto shadow-xl block md:hidden rounded-2xl object-contain"
+                      width={400}
+                      height={800}
+                      className="relative w-full h-auto shadow-xl block md:hidden rounded-2xl"
+                      loading="lazy"
+                      sizes="(max-width: 768px) 100vw, 0px"
                     />
-                    <img 
+                    <Image
                       src="/images/Group 2.svg" 
                       alt="HeyEd Compliance Dashboard" 
+                      width={1200}
+                      height={800}
                       className="relative w-full h-auto shadow-xl hidden md:block rounded-2xl"
+                      loading="lazy"
+                      sizes="(max-width: 768px) 0px, 75vw"
                     />
                   </div>
                 </motion.div>
@@ -195,15 +212,23 @@ function ScrollContent({ isMobile }: { isMobile: boolean }) {
                 >
                   <div className="relative w-full md:w-[75%] lg:w-[75%] xl:w-[75%] 2xl:w-[70%] max-w-4xl">
                     <div className="absolute -inset-4 bg-gradient-to-br from-teal-300/20 to-blue-400/20 blur-xl opacity-50"></div>
-                    <img 
+                    <Image
                       src="/images/mobile-document-management.png" 
                       alt="HeyEd Document Management" 
-                      className="relative w-full h-auto shadow-xl block md:hidden rounded-2xl object-contain"
+                      width={400}
+                      height={800}
+                      className="relative w-full h-auto shadow-xl block md:hidden rounded-2xl"
+                      loading="lazy"
+                      sizes="(max-width: 768px) 100vw, 0px"
                     />
-                    <img 
+                    <Image
                       src="/images/Group 3.svg" 
                       alt="HeyEd Document Management" 
+                      width={1200}
+                      height={800}
                       className="relative w-full h-auto shadow-xl hidden md:block rounded-2xl"
+                      loading="lazy"
+                      sizes="(max-width: 768px) 0px, 75vw"
                     />
                   </div>
                 </motion.div>
