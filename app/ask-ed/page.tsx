@@ -342,6 +342,8 @@ export default function AskEdPage() {
                               ? 'bg-teal-500 text-white'
                               : 'text-gray-600 hover:bg-gray-50'
                           }`}
+                          aria-pressed={settingType === 'nursery'}
+                          aria-label="Select nursery setting type"
                         >
                           Nursery
                         </button>
@@ -352,6 +354,8 @@ export default function AskEdPage() {
                               ? 'bg-teal-500 text-white'
                               : 'text-gray-600 hover:bg-gray-50'
                           }`}
+                          aria-pressed={settingType === 'club'}
+                          aria-label="Select club setting type"
                         >
                           Club
                         </button>

@@ -210,6 +210,11 @@ export default function PricingCalculator() {
               value={staffCount}
               onChange={(e) => setStaffCount(Number.parseInt(e.target.value))}
               className={cn("w-full h-2 rounded-full appearance-none cursor-pointer", currentTier.lightColor)}
+              aria-label="Number of staff members"
+              aria-valuemin={1}
+              aria-valuemax={100}
+              aria-valuenow={staffCount}
+              aria-valuetext={`${staffCount} staff members`}
               style={
                 {
                   "--slider-thumb-color": getSliderThumbColor(),

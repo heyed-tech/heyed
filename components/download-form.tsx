@@ -122,11 +122,15 @@ export default function DownloadForm() {
                   <p className="text-gray-500 text-sm px-4 sm:px-0">Fill out the form below to get instant access</p>
                 </div>
 
-                <form ref={formRef} onSubmit={async (e) => { 
-                  e.preventDefault(); 
-                  const formData = new FormData(e.currentTarget); 
-                  await onSubmit(formData); 
-                }} className="space-y-4">
+                <form 
+                  ref={formRef} 
+                  onSubmit={async (e) => { 
+                    e.preventDefault(); 
+                    const formData = new FormData(e.currentTarget); 
+                    await onSubmit(formData); 
+                  }} 
+                  className="space-y-4"
+                >
                   <div className="space-y-2">
                     <Label htmlFor="email">Email*</Label>
                     <div className="relative">

@@ -122,6 +122,7 @@ export function EnterpriseContact({ staffCount, className }: EnterpriseContactPr
                 type="button"
                 onClick={increment}
                 className="flex h-1/2 w-8 items-center justify-center rounded-t-lg bg-gray-50 text-gray-600 transition-colors hover:bg-gray-100 active:bg-gray-200"
+                aria-label="Increase number of staff"
               >
                 <ChevronUp className="h-3 w-3" />
               </button>
@@ -129,6 +130,7 @@ export function EnterpriseContact({ staffCount, className }: EnterpriseContactPr
                 type="button"
                 onClick={decrement}
                 className="flex h-1/2 w-8 items-center justify-center rounded-b-lg bg-gray-50 text-gray-600 transition-colors hover:bg-gray-100 active:bg-gray-200"
+                aria-label="Decrease number of staff"
               >
                 <ChevronDown className="h-3 w-3" />
               </button>
