@@ -324,10 +324,10 @@ export default function LandingPageClient() {
           <Container>
             <div className="text-center mb-8">
               <p className="text-lg text-gray-600">
-                Join <span className="font-semibold text-teal-500">50+ nurseries</span> and clubs trusting <span className="font-bitter font-medium tracking-tight" style={{color: '#727272'}}>Hey<span style={{color: '#14B8A6'}}>Ed.</span></span>
+                Join a growing community of nurseries and hundreds of staff trusting <span className="font-bitter font-medium tracking-tight" style={{color: '#727272'}}>Hey<span style={{color: '#14B8A6'}}>Ed.</span></span>
               </p>
             </div>
-            <div className="flex items-center justify-center flex-wrap gap-8 md:gap-12 lg:gap-16">
+            <div className="flex items-center justify-center flex-wrap gap-1 md:gap-12 lg:gap-16">
               {[
                 { name: "Castles", logo: "/images/logos/castles.png" },
                 { name: "Cranbrook", logo: "/images/logos/cranbrook.png" },
@@ -347,7 +347,7 @@ export default function LandingPageClient() {
                     alt={`${partner.name} logo`}
                     width={120}
                     height={80}
-                    className="h-14 md:h-16 lg:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
+                    className="h-16 md:h-16 lg:h-20 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
                     loading="lazy"
                     sizes="(max-width: 768px) 56px, (max-width: 1024px) 64px, 80px"
                   />
