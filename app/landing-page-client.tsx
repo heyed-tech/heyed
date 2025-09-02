@@ -1,6 +1,6 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { Play } from "lucide-react";
 import Image from "next/image";
@@ -244,10 +244,10 @@ export default function LandingPageClient() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="flex flex-col justify-center space-y-4 sm:space-y-6 md:space-y-8 2xl:col-span-2"
+                className="flex flex-col justify-center space-y-4 sm:space-y-6 md:space-y-8 2xl:col-span-4"
               >
                 <div className="space-y-6">
-                  <h1 className="relative text-4xl sm:text-5xl md:text-5xl lg:text-5xl/none xl:text-6xl/none font-bold tracking-tighter">
+                  <h1 className="relative text-4xl sm:text-5xl md:text-5xl lg:text-5xl/none xl:text-6xl/none font-bold tracking-tighter overflow-visible">
                     {/* Desktop version with typewriter effect */}
                     <motion.span
                       initial={{ opacity: 0 }}
@@ -255,28 +255,15 @@ export default function LandingPageClient() {
                       transition={{ duration: 0.5, delay: 0.2 }}
                       className="hidden 2xl:block"
                     >
-                      Automated staff records & task tracking for
+                      <span className="whitespace-nowrap">From <span className="relative">missed<svg className="absolute top-1/2 left-0 w-full h-full transform -translate-y-1/2" viewBox="0 0 100 20" preserveAspectRatio="none"><motion.path d="M2,10 Q8,5 14,16 Q20,19 26,6 Q32,4 38,17 Q44,20 50,5 Q56,3 62,18 Q68,19 74,7 Q80,4 86,16 Q92,18 98,8" stroke="#14b8a6" strokeWidth="2.2" fill="none" strokeLinecap="round" initial={{pathLength: 0, opacity: 0}} animate={{pathLength: 1, opacity: 1}} transition={{pathLength: {duration: 0.8, delay: 1, ease: "linear"}, opacity: {duration: 0, delay: 1}}}/></svg></span> renewals</span><br />to inspection-ready<br /><span className="text-teal-500">peace of mind</span>
                     </motion.span>
 
-                    <div className="hidden 2xl:block h-[1.25em] relative">
-                      <span className="text-teal-500">
-                        {text}
-                        <span className="animate-pulse">|</span>
-                      </span>
-                    </div>
 
                     {/* Mobile version with typewriter effect */}
                     <div className="2xl:hidden">
                       <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-                        Automated staff<br className="hidden xl:block 2xl:hidden" /> records & task tracking for<br className="hidden xl:block 2xl:hidden" />
+                        <span className="whitespace-nowrap">From <span className="relative">missed<svg className="absolute top-1/2 left-0 w-full h-full transform -translate-y-1/2" viewBox="0 0 100 20" preserveAspectRatio="none"><motion.path d="M2,10 Q8,5 14,16 Q20,19 26,6 Q32,4 38,17 Q44,20 50,5 Q56,3 62,18 Q68,19 74,7 Q80,4 86,16 Q92,18 98,8" stroke="#14b8a6" strokeWidth="2.2" fill="none" strokeLinecap="round" initial={{pathLength: 0, opacity: 0}} animate={{pathLength: 1, opacity: 1}} transition={{pathLength: {duration: 0.8, delay: 1, ease: "linear"}, opacity: {duration: 0, delay: 1}}}/></svg></span> renewals</span><br />to inspection-ready<br /><span className="text-teal-500">peace of mind</span>
                       </motion.span>
-                      <span className="inline min-[400px]:hidden lg:hidden">{' '}</span>
-                      <br className="min-[400px]:hidden lg:hidden" />
-                      <span className="hidden min-[400px]:inline xl:hidden">{' '}</span>
-                      <span className="text-teal-500">
-                        {text}
-                        <span className="animate-pulse">|</span>
-                      </span>
                     </div>
                   </h1>
                   <p className="max-w-[600px] xl:max-w-none xl:w-max text-gray-500 md:text-lg xl:text-xl">
