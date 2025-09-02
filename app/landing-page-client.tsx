@@ -7,7 +7,7 @@ import Image from "next/image";
 import HeroIllustration from "@/components/hero-illustration";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Building, CheckCircle2, Clock, FileCheck, Shield, Star, Users } from "lucide-react";
+import { Building, CheckCircle2, Clock, FileCheck, Shield, Star, Users, Rocket } from "lucide-react";
 import { Logo } from "@/components/logo";
 import Link from "next/link";
 import PricingCalculator from "@/components/pricing-calculator";
@@ -431,9 +431,8 @@ export default function LandingPageClient() {
           </Container>
         </section>
 
-        {/* Pricing Calculator Section */}
+        {/* Pricing Section */}
         <section id="pricing" className="py-16 md:py-24 bg-white relative overflow-hidden">
-          {/* Background Decorative Elements */}
           <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-gray-50 to-transparent"></div>
 
           <Container className="relative z-10">
@@ -449,8 +448,133 @@ export default function LandingPageClient() {
               </div>
             </div>
             <div className="mt-16">
-              <PricingCalculator />
+              <div className="grid md:grid-cols-2 gap-16 md:gap-8 max-w-6xl mx-auto">
+                {/* Essentials Pricing Card */}
+                <div className="relative border-2 border-teal-500 rounded-card bg-white p-9 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                  {/* Early Access Badge */}
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-teal-500 text-white px-5 py-1.5 rounded-button text-sm font-semibold shadow-md">
+                      👉 Early Access
+                    </span>
+                  </div>
+                  
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-2xl font-bold">Essentials</h3>
+                      <p className="text-gray-600 mt-2">Built for nurseries that want peace of mind</p>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-start gap-2 min-h-[60px]">
+                        <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="text-teal-600 font-semibold">Digital Single Central Record</span>
+                          <p className="text-base text-gray-600">Always inspection-ready, without spreadsheets</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2 min-h-[60px]">
+                        <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="text-teal-600 font-semibold">Automated Reminders</span>
+                          <p className="text-base text-gray-600">Stay ahead of staff renewals and expiry dates</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2 min-h-[60px]">
+                        <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="text-teal-600 font-semibold">Venue Task Management</span>
+                          <p className="text-base text-gray-600">Assign tasks, collect evidence, and track completion</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2 min-h-[60px]">
+                        <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="text-teal-600 font-semibold">Compliance Dashboards</span>
+                          <p className="text-base text-gray-600">Spot risks early and stay inspection-ready with confidence</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="border-t pt-6">
+                      <div className="space-y-3">
+                        <div className="text-left">
+                          <div className="mb-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center">
+                                <span className="text-4xl font-bold text-teal-500">£29</span><span className="text-lg text-gray-600">/month</span>
+                              </div>
+                              <span className="inline-flex items-center gap-1 bg-teal-50 text-teal-600 px-3 py-1 rounded-full text-sm font-medium">
+                                🎉 Early Access - 50% Off
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <Button size="lg" className="w-full transition-all duration-200 hover:scale-105 hover:shadow-lg" asChild>
+                      <Link href="https://app.heyed.co.uk/signup">
+                        Get Started
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Coming Soon Card */}
+                <div className="relative border-2 border-gray-300 rounded-card bg-gradient-to-br from-gray-100 to-gray-200/40 p-9 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] hover:border-teal-200 hover:bg-gradient-to-br hover:from-white hover:to-teal-50/30">
+                  
+                  <div className="flex flex-col h-full">
+                    <div className="space-y-6">
+                      <div>
+                        <h3 className="text-2xl font-bold">Coming Soon</h3>
+                        <p className="text-gray-600 mt-2">New capabilities to supercharge your operations</p>
+                      </div>
+                      
+                      <div className="space-y-3">
+                        <div className="flex items-start gap-2 min-h-[60px]">
+                          <Rocket className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <span className="text-teal-600 font-semibold">Recruitment & Referencing</span>
+                            <p className="text-base text-gray-600">From applicants to onboarding, references on auto-pilot</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-2 min-h-[60px]">
+                          <Rocket className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <span className="text-teal-600 font-semibold">Policy Management</span>
+                            <p className="text-base text-gray-600">AI audits, version control, EYFS/KCSiE aligned</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-2 min-h-[60px]">
+                          <Rocket className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <span className="text-teal-600 font-semibold">E-Learning & Training</span>
+                            <p className="text-base text-gray-600">Assign training, certificates flow into the SCR</p>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-2 min-h-[60px]">
+                          <Rocket className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                          <div>
+                            <span className="text-teal-600 font-semibold">Appraisals & Staff Development</span>
+                            <p className="text-base text-gray-600">Structured reviews, goals, and staff development plans</p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="border-t pt-6">
+                      </div>
+                    </div>
+                    
+                    <div className="flex-1 flex items-center justify-center">
+                      <p className="text-center text-gray-600 text-base">
+                        ✨ All your compliance, once fragmented<br/>now seamlessly connected
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+            
           </Container>
         </section>
 
