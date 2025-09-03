@@ -206,12 +206,12 @@ export default function HeroIllustration() {
               <span className="text-slate-400 text-xs sm:text-sm">Search staff records...</span>
               <div className="h-4 border-l border-slate-200"></div>
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-2">
+                <DropdownMenuTrigger className="flex items-center gap-2 focus:outline-none focus:ring-0">
                   <Filter className="h-3 w-3 sm:h-4 sm:w-4 text-slate-400" />
                   <span className="text-xs sm:text-sm text-slate-600">All Roles</span>
                   <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4 text-slate-400" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="relative p-0 overflow-visible">
+                <DropdownMenuContent className="relative p-0 overflow-visible rounded-2xl">
                   <motion.div
                     initial={{ opacity: 0, y: -5 }}
                     animate={{ opacity: 1, y: 0 }}
