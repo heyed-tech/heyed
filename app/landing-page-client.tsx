@@ -491,7 +491,7 @@ export default function LandingPageClient() {
                                 <span className="text-4xl font-bold text-teal-500">£29</span><span className="text-lg text-gray-600">/month</span>
                               </div>
                               <span className="inline-flex items-center gap-1 bg-teal-50 text-teal-600 px-3 py-1 rounded-full text-sm font-medium">
-                                🎉 50% Off ➜ Early Access
+                                🎉 50% Off
                               </span>
                             </div>
                           </div>
@@ -542,7 +542,7 @@ export default function LandingPageClient() {
                         <div className="flex items-start gap-2 min-h-[60px]">
                           <Rocket className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
                           <div>
-                            <span className="text-gray-900 font-semibold">Appraisals & Staff Development</span>
+                            <span className="text-gray-900 font-semibold">Staff Appraisals</span>
                             <p className="text-base text-gray-600">Structured reviews, goals, and staff development plans</p>
                           </div>
                         </div>
@@ -554,7 +554,8 @@ export default function LandingPageClient() {
                     
                     <div className="flex-1 flex items-center justify-center">
                       <p className="text-center text-gray-600 text-base">
-                        ✨ All your compliance, once fragmented<br/>now seamlessly connected
+                        <span className="hidden sm:inline">✨ All your compliance, once fragmented<br/>now seamlessly connected</span>
+                        <span className="sm:hidden">✨ All your compliance,<br/>once fragmented<br/>now seamlessly connected</span>
                       </p>
                     </div>
                   </div>
