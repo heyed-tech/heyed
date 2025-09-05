@@ -462,15 +462,15 @@ export default function LandingPageClient() {
                       <div className="flex items-start gap-2 min-h-[60px]">
                         <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
                         <div>
-                          <span className="text-gray-900 font-semibold">Automated Reminders</span>
-                          <p className="text-base text-gray-600">Stay ahead of staff renewals and expiry dates</p>
+                          <span className="text-gray-900 font-semibold">Venue Task Management</span>
+                          <p className="text-base text-gray-600">Assign tasks, collect evidence, and track completion</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-2 min-h-[60px]">
                         <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
                         <div>
-                          <span className="text-gray-900 font-semibold">Venue Task Management</span>
-                          <p className="text-base text-gray-600">Assign tasks, collect evidence, and track completion</p>
+                          <span className="text-gray-900 font-semibold">Automated Reminders</span>
+                          <p className="text-base text-gray-600">Stay ahead of staff renewals and expiry dates</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-2 min-h-[60px]">
