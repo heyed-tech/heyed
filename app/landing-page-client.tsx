@@ -439,9 +439,9 @@ export default function LandingPageClient() {
                 {/* Essentials Pricing Card */}
                 <div className="relative border-2 border-teal-500 rounded-card bg-white p-9 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
                   {/* Early Access Badge */}
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-teal-500 text-white px-5 py-1.5 rounded-full text-sm font-semibold shadow-md">
-                      👉 Early Access
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                    <span className="bg-teal-500 text-white px-5 py-1.5 rounded-full text-sm font-semibold shadow-md whitespace-nowrap">
+                      50% off - 12 Months 🎉
                     </span>
                   </div>
                   
@@ -487,11 +487,12 @@ export default function LandingPageClient() {
                         <div className="text-left">
                           <div className="mb-2">
                             <div className="flex items-center justify-between">
-                              <div className="flex items-center">
+                              <div className="flex items-center gap-2">
+                                <span className="text-xl text-gray-400 line-through">£59</span>
                                 <span className="text-4xl font-bold text-teal-500">£29</span><span className="text-lg text-gray-600">/month</span>
                               </div>
-                              <span className="inline-flex items-center gap-1 bg-teal-50 text-teal-600 px-3 py-1 rounded-full text-sm font-medium">
-                                🎉 50% Off
+                              <span className="hidden sm:inline-flex items-center gap-1 bg-teal-50 text-teal-600 px-3 py-1 rounded-full text-sm font-medium">
+                                No card required
                               </span>
                             </div>
                           </div>
@@ -501,9 +502,10 @@ export default function LandingPageClient() {
                     
                     <Button size="lg" className="w-full transition-all duration-200 hover:scale-105 hover:shadow-lg" asChild>
                       <Link href="https://app.heyed.co.uk/signup">
-                        Get Started
+                        Try 1 Month Free
                       </Link>
                     </Button>
+                    <p className="text-center text-sm text-gray-600 sm:hidden">No card required</p>
                   </div>
                 </div>
 
