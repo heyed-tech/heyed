@@ -267,7 +267,7 @@ export default function LandingPageClient() {
                     </div>
                   </h1>
                   <p className="max-w-[600px] xl:max-w-none xl:w-max text-gray-500 md:text-lg xl:text-xl">
-                    Purpose-built for nurseries, schools and clubs to meet<br className="hidden xl:block" /> Ofsted requirements and maintain inspection-ready compliance.
+                    The compliance layer for nurseries and clubs, purpose-built<br className="hidden xl:block" /> to meet Ofsted requirements and stay inspection-ready.
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 sm:flex-row">
