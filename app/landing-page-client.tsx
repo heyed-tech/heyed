@@ -238,7 +238,7 @@ export default function LandingPageClient() {
           ></div>
 
           {/* Content with relative positioning to appear above background */}
-          <Container className="relative z-10 px-6 sm:px-8 md:px-12 lg:px-16">
+          <Container className="relative z-10">
             <div className="grid gap-6 sm:gap-8 md:gap-12 xl:grid-cols-2 xl:gap-16 2xl:grid-cols-5">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
