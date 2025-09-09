@@ -88,6 +88,9 @@ export default function LandingPageClient() {
   
   // Calendly modal state
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
+  
+  // Pricing toggle state
+  const [isAnnual, setIsAnnual] = useState(true);
 
   const currentWordIndex = loopNum % TYPEWRITER_WORDS.length;
 
@@ -433,18 +436,31 @@ export default function LandingPageClient() {
                   Choose the perfect plan for your team size. All features included, no hidden fees.
                 </p>
               </div>
+              
+              {/* Pricing Toggle */}
+              <div className="flex items-center justify-center gap-4 mt-8">
+                <span className={`text-lg font-medium ${!isAnnual ? 'text-gray-900' : 'text-gray-500'}`}>Monthly</span>
+                <button
+                  onClick={() => setIsAnnual(!isAnnual)}
+                  className="relative inline-flex h-7 w-14 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-teal-500 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                  role="switch"
+                  aria-checked={isAnnual}
+                >
+                  <span
+                    className={`pointer-events-none inline-block h-6 w-6 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                      isAnnual ? 'translate-x-7' : 'translate-x-0'
+                    }`}
+                  />
+                </button>
+                <span className={`text-lg font-medium ${isAnnual ? 'text-gray-900' : 'text-gray-500'}`}>
+                  Annual <span className="text-teal-500 font-semibold">(Save 17%)</span>
+                </span>
+              </div>
             </div>
-            <div className="mt-16">
+            <div className="mt-8">
               <div className="grid md:grid-cols-2 gap-16 md:gap-8 max-w-6xl mx-auto">
                 {/* Essentials Pricing Card */}
                 <div className="relative border-2 border-teal-500 rounded-card bg-white p-9 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
-                  {/* Early Access Badge */}
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                    <span className="bg-teal-500 text-white px-5 py-1.5 rounded-full text-sm font-semibold shadow-md whitespace-nowrap">
-                      50% off - 12 Months 🎉
-                    </span>
-                  </div>
-                  
                   <div className="space-y-6">
                     <div>
                       <h3 className="text-2xl font-bold">Essentials</h3>
@@ -456,7 +472,7 @@ export default function LandingPageClient() {
                         <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
                         <div>
                           <span className="text-gray-900 font-semibold">Digital Single Central Record</span>
-                          <p className="text-base text-gray-600">Always inspection-ready, without spreadsheets</p>
+                          <p className="text-base text-gray-600">Live data you can trust, across every venue</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-2 min-h-[60px]">
@@ -486,14 +502,23 @@ export default function LandingPageClient() {
                       <div className="space-y-3">
                         <div className="text-left">
                           <div className="mb-2">
-                            <div className="flex items-center justify-between">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                               <div className="flex items-center gap-2">
-                                <span className="text-xl text-gray-400 line-through">£59</span>
-                                <span className="text-4xl font-bold text-teal-500">£29</span><span className="text-lg text-gray-600">/month</span>
+                                {isAnnual ? (
+                                  <>
+                                    <span className="text-4xl font-bold text-teal-500">£49</span>
+                                    <span className="text-lg text-gray-600">/month/venue</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <span className="text-4xl font-bold text-teal-500">£59</span>
+                                    <span className="text-lg text-gray-600">/month/venue</span>
+                                  </>
+                                )}
                               </div>
-                              <span className="hidden sm:inline-flex items-center gap-1 bg-teal-50 text-teal-600 px-3 py-1 rounded-full text-sm font-medium">
-                                No card required
-                              </span>
+                              {isAnnual && (
+                                <span className="text-sm text-gray-500 mt-1 sm:mt-0">Billed annually at £588</span>
+                              )}
                             </div>
                           </div>
                         </div>
@@ -505,7 +530,6 @@ export default function LandingPageClient() {
                         Try 1 Month Free
                       </Link>
                     </Button>
-                    <p className="text-center text-sm text-gray-600 sm:hidden">No card required</p>
                   </div>
                 </div>
 

@@ -49,6 +49,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               name: "HeyEd.",
+              alternateName: ["HeyTech Labs", "Hey Tech Labs"],
               url: "https://heyed.co.uk",
               logo: "https://heyed.co.uk/logo.png",
               sameAs: [
@@ -77,7 +78,7 @@ export default function RootLayout({
 export const metadata = {
   title: 'HeyEd. | Compliance Made Simple For Nurseries & Clubs',
   description: 'Turn your Single Central Record into a live compliance system with HeyEd. Automated reminders, DBS tracking, and inspection-ready peace of mind.',
-  keywords: 'nursery management, club management, EYFS compliance, KCSiE, Ofsted, UK childcare software',
+  keywords: 'HeyTech Labs, Hey Tech Labs, HeyEd, nursery management, club management, EYFS compliance, KCSiE, Ofsted, UK childcare software, childcare compliance software',
   authors: [{ name: 'HeyEd.' }],
   creator: 'HeyEd.',
   publisher: 'HeyEd.',
