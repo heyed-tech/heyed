@@ -516,9 +516,6 @@ export default function LandingPageClient() {
                                   </>
                                 )}
                               </div>
-                              {isAnnual && (
-                                <span className="text-sm text-gray-500 mt-1 sm:mt-0">Billed annually at £588</span>
-                              )}
                             </div>
                           </div>
                         </div>
