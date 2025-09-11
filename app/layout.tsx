@@ -77,7 +77,7 @@ export default function RootLayout({
 
 export const metadata = {
   title: 'HeyEd. | Compliance Made Simple For Nurseries & Clubs',
-  description: 'Turn your Single Central Record into a live compliance system with HeyEd. Automated reminders, DBS tracking, and inspection-ready peace of mind.',
+  description: 'Turn your Single Central Record into a live compliance system. Automated reminders, DBS tracking, inspection-ready peace of mind.',
   keywords: 'HeyTech Labs, Hey Tech Labs, HeyEd, nursery management, club management, EYFS compliance, KCSiE, Ofsted, UK childcare software, childcare compliance software',
   authors: [{ name: 'HeyEd.' }],
   creator: 'HeyEd.',
@@ -93,7 +93,7 @@ export const metadata = {
     siteName: 'HeyEd.',
     images: [
       {
-        url: '/thumbnails/thumbnail.png',
+        url: 'https://heyed.co.uk/thumbnails/thumbnail.png',
         width: 1200,
         height: 630,
         alt: 'HeyEd. | Compliance Made Simple For Nurseries & Clubs',
@@ -105,8 +105,8 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'HeyEd. | Compliance Made Simple For Nurseries & Clubs',
-    description: 'Turn your Single Central Record into a live compliance system with HeyEd. Automated reminders, DBS tracking, and inspection-ready peace of mind.',
-    images: ['/thumbnails/thumbnail.png'],
+    description: 'Turn your Single Central Record into a live compliance system. Automated reminders, DBS tracking, inspection-ready peace of mind.',
+    images: ['https://heyed.co.uk/thumbnails/thumbnail.png'],
     creator: '@oh_hey_ed',
   },
   robots: {
