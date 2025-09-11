@@ -93,7 +93,7 @@ export const metadata = {
     siteName: 'HeyEd.',
     images: [
       {
-        url: 'https://heyed.co.uk/thumbnails/thumbnail.png',
+        url: 'https://heyed.co.uk/thumbnails/thumbnail-compressed.jpg',
         width: 1200,
         height: 630,
         alt: 'HeyEd. | Compliance Made Simple For Nurseries & Clubs',
@@ -106,7 +106,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'HeyEd. | Compliance Made Simple For Nurseries & Clubs',
     description: 'Turn your Single Central Record into a live compliance system. Automated reminders, DBS tracking, inspection-ready peace of mind.',
-    images: ['https://heyed.co.uk/thumbnails/thumbnail.png'],
+    images: ['https://heyed.co.uk/thumbnails/thumbnail-compressed.jpg'],
     creator: '@oh_hey_ed',
   },
   robots: {
