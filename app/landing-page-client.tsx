@@ -458,7 +458,7 @@ export default function LandingPageClient() {
               </div>
               
               {/* Pricing Toggle */}
-              <div className="flex items-center justify-center gap-4 mt-8">
+              <div className="flex items-center justify-center gap-2 md:gap-4 mt-8">
                 <span className={`text-lg font-medium ${!isAnnual ? 'text-gray-900' : 'text-gray-500'}`}>Monthly</span>
                 <button
                   onClick={() => setIsAnnual(!isAnnual)}
@@ -473,18 +473,22 @@ export default function LandingPageClient() {
                   />
                 </button>
                 <span className={`text-lg font-medium ${isAnnual ? 'text-gray-900' : 'text-gray-500'}`}>
-                  Annual <span className="text-teal-500 font-semibold">(Save 17%)</span>
+                  Annual <span className="text-teal-500 font-semibold">
+                    <span className="hidden md:inline">(Save up to 26%)</span>
+                    <span className="md:hidden">(Save 26%)</span>
+                  </span>
                 </span>
               </div>
             </div>
             <div className="mt-8">
-              <div className="grid md:grid-cols-2 gap-16 md:gap-8 max-w-6xl mx-auto">
-                {/* Essentials Pricing Card */}
-                <div className="relative border-2 border-teal-500 rounded-card bg-white p-9 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
+              {/* Top row with Lite and Essentials */}
+              <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-8">
+                {/* Lite Pricing Card */}
+                <div className="relative border-2 border-gray-300 rounded-card bg-white p-9 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
                   <div className="space-y-6">
                     <div>
-                      <h3 className="text-2xl font-bold">Essentials</h3>
-                      <p className="text-gray-600 mt-2">Built for nurseries that want peace of mind</p>
+                      <h3 className="text-2xl font-bold">Foundation</h3>
+                      <p className="text-gray-600 mt-2">For teams up to <span className="font-bold">10</span> staff per venue</p>
                     </div>
                     
                     <div className="space-y-3">
@@ -493,13 +497,6 @@ export default function LandingPageClient() {
                         <div>
                           <span className="text-gray-900 font-semibold">Digital Single Central Record</span>
                           <p className="text-base text-gray-600">Live data you can trust, across every venue</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-2 min-h-[60px]">
-                        <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
-                        <div>
-                          <span className="text-gray-900 font-semibold">Venue Task Management</span>
-                          <p className="text-base text-gray-600">Assign tasks, collect evidence, and track completion</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-2 min-h-[60px]">
@@ -514,6 +511,88 @@ export default function LandingPageClient() {
                         <div>
                           <span className="text-gray-900 font-semibold">Compliance Dashboards</span>
                           <p className="text-base text-gray-600">Spot risks early and stay inspection-ready with confidence</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2 min-h-[60px] opacity-40">
+                        <CheckCircle2 className="h-5 w-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="text-gray-500 font-semibold line-through">Venue Task Management</span>
+                          <p className="text-base text-gray-400">Assign tasks, collect evidence, and track completion</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="border-t pt-6">
+                      <div className="space-y-3">
+                        <div className="text-left">
+                          <div className="mb-2">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                              <div className="flex items-center gap-2">
+                                {isAnnual ? (
+                                  <>
+                                    <span className="text-4xl font-bold text-teal-500">£29</span>
+                                    <span className="text-lg text-gray-600">/month/venue</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <span className="text-4xl font-bold text-teal-500">£39</span>
+                                    <span className="text-lg text-gray-600">/month/venue</span>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <Button size="lg" className="w-full transition-all duration-200 hover:scale-105 hover:shadow-lg" asChild>
+                      <Link href="https://app.heyed.co.uk/signup">
+                        Try 1 Month Free
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Essentials Pricing Card */}
+                <div className="relative border-2 border-teal-500 rounded-card bg-white p-9 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                  {/* Most Popular Badge */}
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-teal-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    Most Popular
+                  </div>
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-2xl font-bold">Development</h3>
+                      <p className="text-gray-600 mt-2">For teams up to <span className="font-bold">30</span> staff per venue</p>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-start gap-2 min-h-[60px]">
+                        <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="text-gray-900 font-semibold">Digital Single Central Record</span>
+                          <p className="text-base text-gray-600">Live data you can trust, across every venue</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2 min-h-[60px]">
+                        <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="text-gray-900 font-semibold">Automated Reminders</span>
+                          <p className="text-base text-gray-600">Stay ahead of staff renewals and expiry dates</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2 min-h-[60px]">
+                        <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="text-gray-900 font-semibold">Compliance Dashboards</span>
+                          <p className="text-base text-gray-600">Spot risks early and stay inspection-ready with confidence</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2 min-h-[60px]">
+                        <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="text-gray-900 font-semibold">Venue Task Management</span>
+                          <p className="text-base text-gray-600">Assign tasks, collect evidence, and track completion</p>
                         </div>
                       </div>
                     </div>
@@ -549,7 +628,10 @@ export default function LandingPageClient() {
                     </Button>
                   </div>
                 </div>
+              </div>
 
+              {/* Bottom row with Coming Soon full width */}
+              <div className="max-w-5xl mx-auto">
                 {/* Coming Soon Card */}
                 <div className="relative border-2 border-gray-300 rounded-card bg-gradient-to-br from-gray-100 to-gray-200/40 p-9 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] hover:border-teal-200 hover:bg-gradient-to-br hover:from-white hover:to-teal-50/30">
                   
@@ -560,7 +642,7 @@ export default function LandingPageClient() {
                         <p className="text-gray-600 mt-2">New capabilities to supercharge your operations</p>
                       </div>
                       
-                      <div className="space-y-3">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div className="flex items-start gap-2 min-h-[60px]">
                           <Rocket className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
                           <div>
