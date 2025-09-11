@@ -219,7 +219,7 @@ export default function LandingPageClient() {
       </header>
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative py-20 md:py-28 overflow-hidden">
+        <section className="relative py-14 md:py-20 overflow-hidden">
           {/* Background Image */}
           <div
             className="absolute inset-0 z-0 bg-gray-50"
@@ -296,6 +296,16 @@ export default function LandingPageClient() {
                     <span>30-day free trial</span>
                   </div>
                 </div>
+                <div className="hidden md:flex justify-start mt-6">
+                  <Image
+                    src="/images/logos/nmt.jpeg"
+                    alt="NMT logo"
+                    width={280}
+                    height={200}
+                    className="h-40 w-auto object-contain rounded-lg"
+                    loading="lazy"
+                  />
+                </div>
               </motion.div>
               <motion.div
                 initial={{ y: 0 }}
@@ -313,6 +323,16 @@ export default function LandingPageClient() {
         <section className="py-12 md:py-16 bg-white">
           <Container>
             <div className="text-center mb-8">
+              <div className="flex justify-center mb-6 md:hidden">
+                <Image
+                  src="/images/logos/nmt.jpeg"
+                  alt="NMT logo"
+                  width={280}
+                  height={200}
+                  className="h-32 w-auto object-contain rounded-lg"
+                  loading="lazy"
+                />
+              </div>
               <p className="text-lg text-gray-600">
                 Join a growing community of nurseries and hundreds of staff trusting <span className="font-bitter font-medium tracking-tight" style={{color: '#727272'}}>Hey<span style={{color: '#14B8A6'}}>Ed.</span></span>
               </p>
