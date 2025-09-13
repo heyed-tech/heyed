@@ -487,7 +487,7 @@ export default function LandingPageClient() {
                 <div className="relative border-2 border-gray-300 rounded-card bg-white p-9 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
                   <div className="space-y-6">
                     <div>
-                      <h3 className="text-2xl font-bold">Foundation</h3>
+                      <h3 className="text-2xl font-bold">Lite</h3>
                       <p className="text-gray-600 mt-2">For teams up to <span className="font-bold">10</span> staff per venue</p>
                     </div>
                     
@@ -562,7 +562,7 @@ export default function LandingPageClient() {
                   </div>
                   <div className="space-y-6">
                     <div>
-                      <h3 className="text-2xl font-bold">Development</h3>
+                      <h3 className="text-2xl font-bold">Plus</h3>
                       <p className="text-gray-600 mt-2">For teams up to <span className="font-bold">30</span> staff per venue</p>
                     </div>
                     
