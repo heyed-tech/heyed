@@ -298,7 +298,7 @@ export default function LandingPageClient() {
                 </div>
                 <div className="hidden md:flex justify-start mt-6">
                   <Image
-                    src="/images/logos/nmt.jpeg"
+                    src="/images/logos/nmt awards.png"
                     alt="NMT logo"
                     width={280}
                     height={200}
@@ -325,11 +325,11 @@ export default function LandingPageClient() {
             <div className="text-center mb-8">
               <div className="flex justify-center mb-6 md:hidden">
                 <Image
-                  src="/images/logos/nmt.jpeg"
+                  src="/images/logos/nmt awards.png"
                   alt="NMT logo"
                   width={280}
                   height={200}
-                  className="h-32 w-auto object-contain rounded-lg"
+                  className="h-36 w-auto object-contain rounded-lg"
                   loading="lazy"
                 />
               </div>
