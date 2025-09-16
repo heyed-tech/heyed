@@ -7,7 +7,7 @@ import Image from "next/image";
 import HeroIllustration from "@/components/hero-illustration";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Building, CheckCircle2, Clock, FileCheck, Shield, Star, Users, Rocket } from "lucide-react";
+import { Building, CheckCircle2, Clock, FileCheck, Shield, Star, Users } from "lucide-react";
 import { Logo } from "@/components/logo";
 import Link from "next/link";
 import PricingCalculator from "@/components/pricing-calculator";
@@ -481,16 +481,91 @@ export default function LandingPageClient() {
               </div>
             </div>
             <div className="mt-8">
-              {/* Pricing Cards - Side by side on desktop */}
-              <div className="grid md:grid-cols-2 gap-8">
-                {/* Essentials Pricing Card */}
-                <div className="relative border-2 border-teal-500 rounded-card bg-white p-9 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
+              {/* Top row with Lite and Plus */}
+              <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-8">
+                {/* Lite Pricing Card */}
+                <div className="relative border-2 border-gray-300 rounded-card bg-white p-9 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
                   <div className="space-y-6">
                     <div>
-                      <h3 className="text-2xl font-bold">Essentials</h3>
-                      <p className="text-gray-600 mt-2">Pay per user, scale as you grow</p>
+                      <h3 className="text-2xl font-bold">Lite</h3>
+                      <p className="text-gray-600 mt-2">For teams up to <span className="font-bold">10</span> staff per venue</p>
                     </div>
-                    
+
+                    <div className="space-y-3">
+                      <div className="flex items-start gap-2 min-h-[60px]">
+                        <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="text-gray-900 font-semibold">Digital Single Central Record</span>
+                          <p className="text-base text-gray-600">Live data you can trust, across every venue</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2 min-h-[60px]">
+                        <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="text-gray-900 font-semibold">Automated Reminders</span>
+                          <p className="text-base text-gray-600">Stay ahead of staff renewals and expiry dates</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2 min-h-[60px]">
+                        <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="text-gray-900 font-semibold">Compliance Dashboards</span>
+                          <p className="text-base text-gray-600">Spot risks early and stay inspection-ready with confidence</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2 min-h-[60px] opacity-40">
+                        <CheckCircle2 className="h-5 w-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <span className="text-gray-500 font-semibold line-through">Venue Task Management</span>
+                          <p className="text-base text-gray-400">Assign tasks, collect evidence, and track completion</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="border-t pt-6">
+                      <div className="space-y-3">
+                        <div className="text-left">
+                          <div className="mb-2">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                              <div className="flex items-center gap-2">
+                                {isAnnual ? (
+                                  <>
+                                    <span className="text-4xl font-bold text-teal-500">£29</span>
+                                    <span className="text-lg text-gray-600">/month/venue</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <span className="text-4xl font-bold text-teal-500">£39</span>
+                                    <span className="text-lg text-gray-600">/month/venue</span>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Button size="lg" className="w-full transition-all duration-200 hover:scale-105 hover:shadow-lg" asChild>
+                      <Link href="https://app.heyed.co.uk/signup">
+                        Try 1 Month Free
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Plus Pricing Card */}
+                <div className="relative border-2 border-teal-500 rounded-card bg-white p-9 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
+                  {/* Most Popular Badge */}
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-teal-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                    Most Popular
+                  </div>
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-2xl font-bold">Plus</h3>
+                      <p className="text-gray-600 mt-2">For teams up to <span className="font-bold">30</span> staff per venue</p>
+                    </div>
+
                     <div className="space-y-3">
                       <div className="flex items-start gap-2 min-h-[60px]">
                         <CheckCircle2 className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
@@ -521,7 +596,7 @@ export default function LandingPageClient() {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="border-t pt-6">
                       <div className="space-y-3">
                         <div className="text-left">
@@ -530,13 +605,13 @@ export default function LandingPageClient() {
                               <div className="flex items-center gap-2">
                                 {isAnnual ? (
                                   <>
-                                    <span className="text-4xl font-bold text-teal-500">£2.50</span>
-                                    <span className="text-lg text-gray-600">/user/month</span>
+                                    <span className="text-4xl font-bold text-teal-500">£49</span>
+                                    <span className="text-lg text-gray-600">/month/venue</span>
                                   </>
                                 ) : (
                                   <>
-                                    <span className="text-4xl font-bold text-teal-500">£3.00</span>
-                                    <span className="text-lg text-gray-600">/user/month</span>
+                                    <span className="text-4xl font-bold text-teal-500">£59</span>
+                                    <span className="text-lg text-gray-600">/month/venue</span>
                                   </>
                                 )}
                               </div>
@@ -545,66 +620,12 @@ export default function LandingPageClient() {
                         </div>
                       </div>
                     </div>
-                    
+
                     <Button size="lg" className="w-full transition-all duration-200 hover:scale-105 hover:shadow-lg" asChild>
                       <Link href="https://app.heyed.co.uk/signup">
                         Try 1 Month Free
                       </Link>
                     </Button>
-                  </div>
-                </div>
-
-                {/* Coming Soon Card */}
-                <div className="relative border-2 border-gray-300 rounded-card bg-gradient-to-br from-gray-100 to-gray-200/40 p-9 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] hover:border-teal-200 hover:bg-gradient-to-br hover:from-white hover:to-teal-50/30">
-                  
-                  <div className="flex flex-col h-full">
-                    <div className="space-y-6">
-                      <div>
-                        <h3 className="text-2xl font-bold">Coming Soon</h3>
-                        <p className="text-gray-600 mt-2">New capabilities to supercharge your operations</p>
-                      </div>
-                      
-                      <div className="space-y-3">
-                        <div className="flex items-start gap-2 min-h-[60px]">
-                          <Rocket className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
-                          <div>
-                            <span className="text-gray-900 font-semibold">Recruitment & Referencing</span>
-                            <p className="text-base text-gray-600">From applicants to onboarding, references on auto-pilot</p>
-                          </div>
-                        </div>
-                        <div className="flex items-start gap-2 min-h-[60px]">
-                          <Rocket className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
-                          <div>
-                            <span className="text-gray-900 font-semibold">Policy Management</span>
-                            <p className="text-base text-gray-600">AI audits, version control, EYFS/KCSiE aligned</p>
-                          </div>
-                        </div>
-                        <div className="flex items-start gap-2 min-h-[60px]">
-                          <Rocket className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
-                          <div>
-                            <span className="text-gray-900 font-semibold">E-Learning & Training</span>
-                            <p className="text-base text-gray-600">Assign training, certificates flow into the SCR</p>
-                          </div>
-                        </div>
-                        <div className="flex items-start gap-2 min-h-[60px]">
-                          <Rocket className="h-5 w-5 text-teal-500 mt-0.5 flex-shrink-0" />
-                          <div>
-                            <span className="text-gray-900 font-semibold">Staff Appraisals</span>
-                            <p className="text-base text-gray-600">Structured reviews, goals, and staff development plans</p>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="border-t pt-6">
-                      </div>
-                    </div>
-                    
-                    <div className="flex-1 flex items-center justify-center">
-                      <p className="text-center text-gray-600 text-base">
-                        <span className="hidden sm:inline">✨ All your compliance, once fragmented<br/>now seamlessly connected</span>
-                        <span className="sm:hidden">✨ All your compliance,<br/>once fragmented<br/>now seamlessly connected</span>
-                      </p>
-                    </div>
                   </div>
                 </div>
               </div>
