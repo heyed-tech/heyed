@@ -482,7 +482,7 @@ export default function LandingPageClient() {
             </div>
             <div className="mt-8">
               {/* Top row with Lite and Plus */}
-              <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-8">
+              <div className="grid md:grid-cols-2 gap-8">
                 {/* Lite Pricing Card */}
                 <div className="relative border-2 border-gray-300 rounded-card bg-white p-9 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
                   <div className="space-y-6">
